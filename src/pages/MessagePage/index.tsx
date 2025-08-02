@@ -1,5 +1,5 @@
 import Message from "@components/Message";
-import MessageInput from "@components/MessageInput";
+import MessageComposer from "@components/MessageComposer";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatData } from "@hooks/useChatData/useChatData";
 import { useRef, useEffect, type ReactElement } from "react";
@@ -42,7 +42,7 @@ const MessagePage = (): ReactElement => {
                 <div ref={messagesEndRef} />
             </div>
 
-            <MessageInput onSend={handleSendMessage} />
+            <MessageComposer onSend={handleSendMessage} />
         </div>
     );
 };
