@@ -1,6 +1,7 @@
 import IconButton from "@components/IconButton";
 import sendingButton from "@assets/icons/sending-button-icon.svg";
 import microIconIconSrc from "@assets/icons/micro-icon-disabled.svg";
+import { type KeyboardEvent } from "react";
 import { IconIds } from "@utils/constants";
 import { useState } from "react";
 import "./style.css";
@@ -12,21 +13,27 @@ interface MessageInputProps {
 export default function MessageInput({ onSend }: MessageInputProps) {
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (message.trim()) {
+    const isValidMessage = (msg: string): boolean => {
+        return /\S/.test(msg);
+    };
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        if (isValidMessage(message)) {
             onSend(message);
             setMessage("");
         }
     };
 
+    const handleTextareaKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            handleSubmit(event);
+        }
+    };
+
     return (
         <form onSubmit={handleSubmit} className="message-input-container">
-            <IconButton
-                iconSrc={IconIds.PAPERCLIP_ICON}
-                onClick={() => {}}
-                height="24px"
-            />
+            <IconButton iconSrc={IconIds.PAPERCLIP_ICON} onClick={() => {}} height="24px"/>
             <div className="input-container">
                 <textarea
                     autoFocus
@@ -35,12 +42,7 @@ export default function MessageInput({ onSend }: MessageInputProps) {
                     placeholder="Message"
                     className="message-input secondary-text"
                     rows={1}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
-                            e.preventDefault();
-                            handleSubmit(e);
-                        }
-                    }}
+                    onKeyDown={handleTextareaKeyDown}
                 />
             </div>
             <IconButton
@@ -51,9 +53,9 @@ export default function MessageInput({ onSend }: MessageInputProps) {
             <button
                 type="submit"
                 className="send-button"
-                disabled={!message.trim()}
+                disabled={!isValidMessage(message)}
             >
-                <img src={message.trim() ? sendingButton : microIconIconSrc} />
+                <img src={isValidMessage(message) ? sendingButton : microIconIconSrc} />
             </button>
         </form>
     );

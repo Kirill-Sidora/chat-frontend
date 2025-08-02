@@ -1,17 +1,17 @@
 import { type ReactElement, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, type NavigateFunction } from "react-router-dom";
 import "./style.css";
+
+const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
+    if (nickName.trim()) {
+        localStorage.setItem("nickName", nickName);
+        navigate("/chat");
+    }
+};
 
 const RegistrationPage = (): ReactElement => {
     const [nickName, setNickName] = useState("");
     const navigate = useNavigate();
-
-    const handleSubmit = () => {
-        if (nickName.trim()) {
-            localStorage.setItem("nickName", nickName);
-            navigate("/chat");
-        }
-    };
 
     return (
         <div className="registration-page">
@@ -25,7 +25,7 @@ const RegistrationPage = (): ReactElement => {
                 placeholder="Введите ваш nickName"
                 className="input-field secondary-text"
             />
-            <button onClick={handleSubmit} className="submit-button">
+            <button onClick={() => handleSubmit(nickName, navigate)} className="submit-button">
                 Зарегистрироваться
             </button>
         </div>
