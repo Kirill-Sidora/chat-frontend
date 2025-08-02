@@ -1,7 +1,7 @@
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
-import { IconIds } from "@utils/constants";
 import { useState, type ReactElement } from "react";
+import { IconIds } from "@utils/constants";
 import "./style.css";
 
 interface IMessageComposerProps {

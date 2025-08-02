@@ -22,9 +22,11 @@ const IconButton = ({
     isActive = false,
 }: IIconButtonProps): ReactElement => {
 
+    var className: string = `icon-button ${variant} ${isActive ? "active" : ""} ${disabled ? "disabled" : ""}`;
+
     return (
         <button
-            className={`icon-button ${variant} ${isActive ? "active" : ""} ${disabled ? "disabled" : ""}`}
+            className={className}
             onClick={onClick}
             disabled={disabled}
         >

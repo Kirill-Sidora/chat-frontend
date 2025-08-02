@@ -24,7 +24,7 @@
   background-color: var(--send-button-color, #d500c3);
 }
 
-.icon-button.send.disabled {
+.icon-button.disabled {
   background-color: var(--chat-header-background, #1c1c1d);
   cursor: not-allowed;
 }
