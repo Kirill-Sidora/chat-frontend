@@ -1,47 +1,48 @@
-import { useEffect, useState } from 'react';
-import { type IMessage } from '@app-types/message';
+import type { IMessageHandlerData } from "@app-types/messageHandlers";
+import { useEffect, useState } from "react";
 
 function getRandomId() {
-    return Date.now().toString(36) + Math.random().toString(36).substring(2).toString();
+    return (
+        Date.now().toString(36) +
+        Math.random().toString(36).substring(2).toString()
+    );
 }
 
-export const useWebSocket = (
-    username: string | null,
-    handleNewMessage: (msg: IMessage) => void,
-    setSecondUsername: (username: string) => void
-) => {
-    const url = "ws://localhost:3001";
+const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
+
+export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const [ws, setWs] = useState<WebSocket | null>(null);
+
+    const username = localStorage.getItem("nickName");
 
     useEffect(() => {
         if (!username) return;
 
-        const socket = new WebSocket(url);
+        const socket = new WebSocket(BACKEND_WEB_SOCKET_URL);
 
         socket.onopen = () => {
             console.log("Connected to ws");
-            socket.send(JSON.stringify({ type: "init", username, id: getRandomId() }));
+            
+            socket.send(
+                JSON.stringify({ type: "init", username, id: getRandomId() })
+            );
         };
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
             console.log("MESSAGE FROM SERVER: ", data);
 
-            if (data.type === "msg") {
-                if (!data.isMine && data.username !== username) {
-                    setSecondUsername(data.username);
+            const messageType: string = data.type;
+
+            handlersConfig.map((handlerData: IMessageHandlerData) => {
+                const { type: currentHandlerType, action } = handlerData;
+
+                if (currentHandlerType !== messageType) {
+                    return;
                 }
 
-                const newMessage: IMessage = {
-                    id: Date.now().toString(),
-                    text: data.text,
-                    time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-                    isMine: data.username === username,
-                    sender: data.username,
-                };
-
-                handleNewMessage(newMessage);
-            }
+                action(data);
+            });
         };
 
         setWs(socket);
@@ -49,7 +50,7 @@ export const useWebSocket = (
         return () => {
             socket.close();
         };
-    }, [ username]);
+    }, [username]);
 
     const sendMessage = (text: string) => {
         if (ws && ws.readyState === WebSocket.OPEN) {

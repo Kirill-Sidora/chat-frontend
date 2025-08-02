@@ -3,6 +3,7 @@ import sendingButton from "@assets/icons/sending-button-icon.svg";
 import microIconIconSrc from "@assets/icons/micro-icon-disabled.svg";
 import { IconIds } from "@utils/constants";
 import { useState } from "react";
+import type { KeyboardEvent } from "react"; // Явный импорт типа
 import "./style.css";
 
 interface MessageInputProps {
@@ -25,8 +26,15 @@ const handleSubmit = (
 export default function MessageInput({ onSend }: MessageInputProps) {
     const [message, setMessage] = useState("");
 
+    const handleTextareaKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit(e, message, { onSend }, setMessage);
+        }
+    };
+
     return (
-        <form onSubmit={(e) => handleSubmit(e, message, {onSend}, setMessage)} className="message-input-container">
+        <form onSubmit={(e) => handleSubmit(e, message, { onSend }, setMessage)} className="message-input-container">
             <IconButton iconSrc={IconIds.PAPERCLIP_ICON} onClick={() => {}} height="24px"/>
             <div className="input-container">
                 <textarea
@@ -36,12 +44,7 @@ export default function MessageInput({ onSend }: MessageInputProps) {
                     placeholder="Message"
                     className="message-input"
                     rows={1}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
-                            e.preventDefault();
-                            handleSubmit(e, message, {onSend}, setMessage);
-                        }
-                    }}
+                    onKeyDown={handleTextareaKeyDown}
                 />
             </div>
             <IconButton iconSrc={IconIds.STICKERS_ICON} onClick={() => {}} height="24px"/>
