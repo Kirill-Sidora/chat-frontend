@@ -7,9 +7,8 @@ export interface IIconButtonProps {
     onClick: () => void;
     height?: string;
     disabled?: boolean;
-    className?: string;
-    rawSrc?: boolean;
     variant?: "default" | "send";
+    isActive?: boolean;
 }
 
 const DEFAULT_HEIGHT = "24px";
@@ -19,26 +18,18 @@ const IconButton = ({
     onClick,
     height = DEFAULT_HEIGHT,
     disabled = false,
-    className = "",
-    rawSrc = false,
     variant = "default",
+    isActive = false,
 }: IIconButtonProps): ReactElement => {
-    const isSend = variant === "send";
 
     return (
         <button
-            className={`icon-button ${isSend ? "send" : ""} ${
-                !disabled && isSend ? "active" : ""
-            } ${disabled ? "disabled" : ""} ${className}`}
+            className={`icon-button ${variant} ${isActive ? "active" : ""} ${disabled ? "disabled" : ""}`}
             onClick={onClick}
             disabled={disabled}
         >
             <img
-                src={
-                    rawSrc
-                        ? iconSrc
-                        : ICON_SRC_PREFIX + iconSrc + ICON_SRC_SUFFIX
-                }
+                src={ICON_SRC_PREFIX + iconSrc + ICON_SRC_SUFFIX}
                 height={height}
             />
         </button>

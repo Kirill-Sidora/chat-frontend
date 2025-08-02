@@ -1,16 +1,14 @@
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
-import sendingButton from "@assets/icons/sending-button-icon.svg";
-import microIconIconSrc from "@assets/icons/micro-icon-disabled.svg";
 import { IconIds } from "@utils/constants";
-import { useState } from "react";
+import { useState, type ReactElement } from "react";
 import "./style.css";
 
-interface ChatFooterProps {
+interface IMessageComposerProps {
     onSend: (message: string) => void;
 }
 
-export default function ChatFooter({ onSend }: ChatFooterProps) {
+const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
     const [message, setMessage] = useState("");
 
     const handleSubmit = () => {
@@ -38,13 +36,14 @@ export default function ChatFooter({ onSend }: ChatFooterProps) {
                 height="24px"
             />
             <IconButton
-                iconSrc={!message.trim() ? microIconIconSrc : sendingButton}
-                rawSrc
+                iconSrc={!message.trim() ? IconIds.MICRO_ICON : IconIds.SENDING_BUTTON_ICON}
                 onClick={handleSubmit}
                 disabled={!message.trim()}
-                className="send-icon-button"
                 variant="send"
+                isActive = {!message.trim()}
             />
         </div>
     );
 }
+
+export default MessageComposer;
