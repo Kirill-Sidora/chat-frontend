@@ -1,31 +1,30 @@
-import type { ReactElement } from "react";
+import type { ChangeEvent, ReactElement, KeyboardEvent } from "react";
 import "./style.css";
 
 export interface IMessageInputProps {
     message: string;
     setMessage: (message: string) => void;
-    onSubmit: () => void;
+    onKeyDown: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
 const MessageInput = ({
     message,
     setMessage,
-    onSubmit,
+    onKeyDown,
 }: IMessageInputProps): ReactElement => {
+    const onChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+        setMessage(event.target.value);
+    };
+
     return (
         <textarea
             autoFocus
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={onChange}
             placeholder="Message"
-            className="message-input"
+            className="message-input secondary-text"
             rows={1}
-            onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    onSubmit();
-                }
-            }}
+            onKeyDown={onKeyDown}
         />
     );
 };
