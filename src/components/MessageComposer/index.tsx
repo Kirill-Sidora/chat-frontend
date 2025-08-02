@@ -26,6 +26,8 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
         event: KeyboardEvent<HTMLTextAreaElement>
     ) => {
         if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            
             handleSendMessage();
         }
     };

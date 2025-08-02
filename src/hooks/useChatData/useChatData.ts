@@ -11,14 +11,14 @@ export const useChatData = () => {
     const handleNewMessage = (newMessageData: any): void => {
         console.log("NEW MESSAGE DATA: ", newMessageData);
 
-        const { username: sender, text } = newMessageData;
+        const { username: sender, text, id} = newMessageData;
 
         if (newMessageData.username !== username) {
             setSecondUsername(username);
         }
 
         const newMessage: IMessage = {
-            id: Date.now().toString(),
+            id,
             text,
             time: new Date().toLocaleTimeString([], {
                 hour: "2-digit",
@@ -36,7 +36,7 @@ export const useChatData = () => {
 
         const { messages: historyMessages } = historyData;
 
-        historyMessages.forEach((historyMessage: any) => {
+        historyMessages.reverse().forEach((historyMessage: any) => {
             handleNewMessage(historyMessage);
         });
     };
