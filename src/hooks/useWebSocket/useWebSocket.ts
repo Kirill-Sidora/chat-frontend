@@ -11,7 +11,7 @@ function getRandomId() {
 const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
 
 export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
-    const [ws, setWs] = useState<WebSocket | null>(null);
+    const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
 
     const username = localStorage.getItem("nickName");
 
@@ -45,7 +45,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             });
         };
 
-        setWs(socket);
+        setWebSocket(socket);
 
         return () => {
             socket.close();
@@ -53,8 +53,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     }, [username]);
 
     const sendMessage = (text: string) => {
-        if (ws && ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify({ type: "msg", text, sender: username }));
+        if (webSocket && webSocket.readyState === WebSocket.OPEN) {
+            webSocket.send(JSON.stringify({ type: "msg", text, sender: username }));
         }
     };
 

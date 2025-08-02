@@ -1,5 +1,5 @@
+import { type IMessageHandlerData } from "@app-types/messageHandlers";
 import { type IMessage } from "@app-types/message";
-import type { IMessageHandlerData } from "@app-types/messageHandlers";
 import { useState } from "react";
 
 export const useChatData = () => {

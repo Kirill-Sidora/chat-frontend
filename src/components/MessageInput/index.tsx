@@ -1,40 +1,38 @@
 import IconButton from "@components/IconButton";
 import sendingButton from "@assets/icons/sending-button-icon.svg";
 import microIconIconSrc from "@assets/icons/micro-icon-disabled.svg";
+import { type KeyboardEvent } from "react";
 import { IconIds } from "@utils/constants";
 import { useState } from "react";
-import type { KeyboardEvent } from "react"; // Явный импорт типа
 import "./style.css";
 
 interface MessageInputProps {
     onSend: (message: string) => void;
 }
 
-const handleSubmit = (
-    e: React.FormEvent,
-    message: string,
-    { onSend }: MessageInputProps, 
-    setMessage: React.Dispatch<React.SetStateAction<string>>
-) => {
-    e.preventDefault();
-    if (message.trim()) {
-        onSend(message);
-        setMessage("");
-    }
-};
-
 export default function MessageInput({ onSend }: MessageInputProps) {
     const [message, setMessage] = useState("");
 
-    const handleTextareaKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            handleSubmit(e, message, { onSend }, setMessage);
+    const isValidMessage = (msg: string): boolean => {
+        return /\S/.test(msg);
+    };
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        if (isValidMessage(message)) {
+            onSend(message);
+            setMessage("");
+        }
+    };
+
+    const handleTextareaKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            handleSubmit(event);
         }
     };
 
     return (
-        <form onSubmit={(e) => handleSubmit(e, message, { onSend }, setMessage)} className="message-input-container">
+        <form onSubmit={handleSubmit} className="message-input-container">
             <IconButton iconSrc={IconIds.PAPERCLIP_ICON} onClick={() => {}} height="24px"/>
             <div className="input-container">
                 <textarea
@@ -55,9 +53,9 @@ export default function MessageInput({ onSend }: MessageInputProps) {
             <button
                 type="submit"
                 className="send-button"
-                disabled={!message.trim()}
+                disabled={!isValidMessage(message)}
             >
-                <img src={message.trim() ? sendingButton : microIconIconSrc} />
+                <img src={isValidMessage(message) ? sendingButton : microIconIconSrc} />
             </button>
         </form>
     );
