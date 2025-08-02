@@ -1,6 +1,7 @@
-import SendButton from "@components/SendButton";
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
+import sendingButton from "@assets/icons/sending-button-icon.svg";
+import microIconIconSrc from "@assets/icons/micro-icon-disabled.svg";
 import { IconIds } from "@utils/constants";
 import { useState } from "react";
 import "./style.css";
@@ -36,7 +37,14 @@ export default function ChatFooter({ onSend }: ChatFooterProps) {
                 onClick={() => {}}
                 height="24px"
             />
-            <SendButton disabled={!message.trim()} onClick={handleSubmit} />
+            <IconButton
+                iconSrc={!message.trim() ? microIconIconSrc : sendingButton}
+                rawSrc
+                onClick={handleSubmit}
+                disabled={!message.trim()}
+                className="send-icon-button"
+                variant="send"
+            />
         </div>
     );
 }
