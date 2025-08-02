@@ -1,5 +1,5 @@
 import Message from "@components/Message";
-import ChatFooter from "@components/ChatFooter";
+import ChatFooter from "@components/MessageComposer";
 import { useState, useRef, useEffect } from "react";
 import { type IMessage } from "@app-types/message";
 import { Link } from "react-router-dom";

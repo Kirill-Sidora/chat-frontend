@@ -26,5 +26,16 @@
 }
 
 .message-input::placeholder {
-  color: #636366;
+  color: var(--placeholder-color, #636366);
+}
+
+@media (max-width: 768px) {
+  .input-container {
+    padding: 12px;
+  }
+
+  .message-input {
+    padding: 10px 40px 10px 14px;
+    font-size: 0.95rem;
+  }
 }

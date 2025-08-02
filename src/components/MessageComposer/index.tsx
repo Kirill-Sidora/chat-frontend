@@ -21,7 +21,7 @@ export default function ChatFooter({ onSend }: ChatFooterProps) {
     };
 
     return (
-        <div className="chat-footer-container">
+        <div className="message-composer-container">
             <IconButton
                 iconSrc={IconIds.PAPERCLIP_ICON}
                 onClick={() => {}}
