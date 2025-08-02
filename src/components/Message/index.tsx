@@ -8,10 +8,8 @@ interface MessageProps {
 export default function Message({ message }: MessageProps) {
     return (
         <div className={`message ${message.isMine ? "mine" : "other"}`}>
-            <div className="message-text">{message.text}</div>
-            <div className="message-time">
-                {message.time}
-            </div>
+            <div className="message-text secondary-text">{message.text}</div>
+            <div className="message-time meta-text">{message.time}</div>
         </div>
     );
 }

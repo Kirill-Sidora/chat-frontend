@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #202020;
+  background-color: var(--dark-background, #202020);
   width: 100vw;
   overflow: hidden;
 }
@@ -12,33 +12,30 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
-  background-color: #1c1c1d;
-  color: white;
+  height: var(--navbar-height, 75px);
+  background-color: var(--chat-header-background, #1c1c1d);
+  color: var(--color-text-primary, #ffffff);
   display: flex;
   align-items: center;
-  padding: 0 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 0 var(--content-padding, 16px);
+  box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
   z-index: 100;
 }
 
 .chat-header .user-icon {
   margin-left: auto;
-  height: 45px;
+  height: var(--control-elements-height, 45px);
 }
 
 .chat-header .second-user-name-title {
   position: absolute;
   left: 45%;
-  font-size: 21px;
-  font-weight: bold;
-
+  color: var(--color-text-primary, #ffffff);
 }
 
 .chat-back-button {
-  color: white;
+  color: var(--color-text-primary, #ffffff);
   text-decoration: none;
-  font-size: 18px;
   line-height: 1;
   padding: 10px 0;
   margin-right: 20px;
@@ -46,32 +43,25 @@
   display: inline-flex;
   align-items: center;
   left: 0px;
+  transition: color var(--transition-time, .3s);
 }
 
 .chat-back-button:hover {
-  color: #cccccc;
-}
-
-.chat-title {
-  font-size: 25px;
-  flex: 1;
-  text-align: center;
-  margin-left: -48px;
+  color: var(--text-inactive, #d2d2d2);
 }
 
 .messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: calc(100vh - var(--navbar-height, 75px)*2);
+  margin-bottom: var(--navbar-height, 75px);
+  padding: var(--content-padding, 16px);
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding-right: 15px;
-  display: flex;
-  flex-direction: column;
-  height: 80vh;
   width: 100%;
-  padding: 20px;
-  gap: 15px;
-  margin-top: 60px;
-  margin-bottom: 60px;
 }
 
 .messages-container::-webkit-scrollbar {

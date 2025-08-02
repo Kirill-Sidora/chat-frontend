@@ -1,7 +1,7 @@
 import ApplicationRouter from "@router/index";
 import { BrowserRouter as RouterProvider } from "react-router-dom";
 import { type ReactElement } from "react";
-import "./style.css";
+import "@domains/Theme/style.css";
 
 const Application = (): ReactElement => {
     return (

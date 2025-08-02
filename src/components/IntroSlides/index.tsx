@@ -13,7 +13,7 @@ const IntroSlides = (): ReactElement => {
                 >
                     <img
                         src={image.src}
-                        height={image.heigth}
+                        height={image.height}
                         z-index={image.zIndex}
                     ></img>
                 </div>

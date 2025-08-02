@@ -1,7 +1,7 @@
-import HomePage from "@pages/HomePage"
-import MessagePage from "@pages/MessagePage"
-import RegistrationPage from "@pages/RegistrationPage"
-import { type RouteObject } from "react-router-dom"
+import HomePage from "@pages/HomePage";
+import MessagePage from "@pages/MessagePage";
+import RegistrationPage from "@pages/RegistrationPage";
+import { type RouteObject } from "react-router-dom";
 
 export interface IRouterPAth {
     id: string;
@@ -31,11 +31,11 @@ const routes: RouteObject[] = [
     },
     {
         ...paths.MESSAGE,
-        element: <MessagePage />
+        element: <MessagePage />,
     },
     {
         ...paths.REGISTRATION,
-        element: <RegistrationPage />
+        element: <RegistrationPage />,
     },
 ];
 

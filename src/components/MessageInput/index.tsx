@@ -42,12 +42,16 @@ export default function MessageInput({ onSend }: MessageInputProps) {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Message"
-                    className="message-input"
+                    className="message-input secondary-text"
                     rows={1}
                     onKeyDown={handleTextareaKeyDown}
                 />
             </div>
-            <IconButton iconSrc={IconIds.STICKERS_ICON} onClick={() => {}} height="24px"/>
+            <IconButton
+                iconSrc={IconIds.STICKERS_ICON}
+                onClick={() => {}}
+                height="24px"
+            />
             <button
                 type="submit"
                 className="send-button"

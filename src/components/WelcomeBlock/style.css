@@ -5,24 +5,30 @@
     left: 250px;
     user-select: none;
     animation: welcomeButtonIntroPulse 5s infinite ease-in-out;
-    transition: transform .35s;
+    transition: transform var(--transition-time, .3s);
     transform-origin: center;
     transform: scale(1);
 }
 
 @keyframes welcomeButtonIntroPulse {
-    0%, 40% {
+
+    0%,
+    40% {
         transform: scale(1);
     }
+
     45% {
         transform: scale(1.1);
     }
+
     50% {
         transform: scale(1);
     }
+
     55% {
         transform: scale(1.1);
     }
+
     60% {
         transform: scale(1);
     }
@@ -36,36 +42,38 @@
     0% {
         transform: scale(1);
     }
-    30%, 70% {
+
+    30%,
+    70% {
         transform: scale(1.2);
     }
+
     100% {
         transform: scale(1);
     }
 }
 
 .text-style {
-    position: fixed ;
-    font-size: 56px;
+    position: fixed;
     left: 200px;
     top: 550px
-    
 }
 
 .center-link {
     display: inline-block;
     padding: 10px 10px;
-    font-size: 10px;
-    background-color: white;
-    border-radius: 18px;
+    background-color: var(--primary-fill-color, #FFFFFF);
+    border-radius: var(--content-radius-primary, 18px);
     text-decoration: none;
     cursor: pointer;
     border: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
     overflow: hidden;
+    color: var(--primary-font-color, #111213);
+    transition: all var(--transition-time, .3s);
 }
 
 .center-link:hover {
-    color: rgba(149, 149, 149, 0.8);
-    background-color: gray;
+    color: var(--text-inactive, #d2d2d2);
+    background-color: var(--secondary-components-color, #8E8E93);
 }

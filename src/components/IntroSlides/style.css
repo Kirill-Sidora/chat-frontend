@@ -1,24 +1,24 @@
 .home-page-intro-slide {
   position: fixed;
-  border-radius: 18px;
+  border-radius: var(--content-radius-primary, 18px);
   overflow: hidden;
-  transition: transform .35s;
+  transition: transform var(--transition-time, .3s);
   transform: scale(1);
   user-select: none;
-  box-shadow: 0 2.02px 6.17px rgb(0, 0, 0, 0.04),
-              0 4.85px 14.83px rgb(0, 0, 0, 0.06),
-              0 9.14px 27.92px rgb(0, 0, 0, 0.07),
-              0 16.31px 49.81px rgb(0, 0, 0, 0.08),
-              0 30.5px 93.16px rgb(0, 0, 0, 0.1),
-              0 73px 223px rgb(0, 0, 0, 0.14);
+  box-shadow: var(--home-intro-slide-shadow, 0 2.02px 6.17px rgb(0, 0, 0, 0.04),
+      0 4.85px 14.83px rgb(0, 0, 0, 0.06),
+      0 9.14px 27.92px rgba(13, 11, 11, 0.07),
+      0 16.31px 49.81px rgb(0, 0, 0, 0.08),
+      0 30.5px 93.16px rgb(0, 0, 0, 0.1),
+      0 73px 223px rgb(0, 0, 0, 0.14));
 }
 
 .home-page-intro-slide:hover {
   cursor: pointer;
-  animation: slowePulse 5s infinite;
+  animation: slowerPulse 5s infinite;
 }
 
-@keyframes slowePulse {
+@keyframes slowerPulse {
   0% {
     transform: scale(1);
   }

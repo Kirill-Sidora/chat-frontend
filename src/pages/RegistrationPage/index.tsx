@@ -16,14 +16,14 @@ const RegistrationPage = (): ReactElement => {
     return (
         <div className="registration-page">
             <header className="reg-header">
-                <h1 className="reg-title">Регистрация</h1>
+                <h1 className="reg-title title-text">Регистрация</h1>
             </header>
             <input
                 type="text"
                 value={nickName}
                 onChange={(e) => setNickName(e.target.value)}
                 placeholder="Введите ваш nickName"
-                className="input-field"
+                className="input-field secondary-text"
             />
             <button onClick={() => handleSubmit(nickName, navigate)} className="submit-button">
                 Зарегистрироваться

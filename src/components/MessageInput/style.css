@@ -2,16 +2,14 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px;
-  background-color: #1c1c1d;
+  padding: var(--content-padding, 10px);
+  background-color: var(--chat-header-background, #1c1c1d);
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
   box-sizing: border-box;
-  margin: 0;
-  max-width: 100%;
   z-index: 100;
 }
 
@@ -29,22 +27,21 @@
   align-items: center;
   width: 100%;
   padding: 12px 44px 12px 16px;
-  border: 1px solid #3a3a3c;
-  border-radius: 16.5px;
-  background-color: #060606;
+  border: 1px solid var(--input-border-color, #3a3a3c);
+  border-radius: var(--content-radius-primary, 18px);
+  background-color: var(--inactive-background-color, #060606);
   resize: none;
   max-height: 120px;
   outline: none;
-  font-size: 1rem;
   line-height: 1.4;
-  color: white;
-  transition: border-color 0.3s;
+  color: var(--color-text-primary, #ffffff);
+  transition: border-color var(--transition-time, .3s);
   margin: 0;
   box-sizing: border-box;
 }
 
 .message-input::placeholder {
-  color: #636366;
+  color: var(--placeholder-color, #636366);
 }
 
 .send-button {

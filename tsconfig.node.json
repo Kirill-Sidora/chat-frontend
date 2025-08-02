@@ -29,7 +29,8 @@
             "@app-types/*": ["src/types/*"],
             "@router/*" : ["src/router/*"],
             "@utils/*" : ["src/utils/*"],
-            "@hooks/*": ["src/hooks/*"]
+            "@hooks/*": ["src/hooks/*"],
+            "@domains/*": ["src/domains/*"]
         }
     },
     "include": ["vite.config.ts"]

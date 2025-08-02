@@ -9,9 +9,10 @@ export default defineConfig({
     alias: {
       "@assets": path.resolve(__dirname, "./src/assets"),
       "@components": path.resolve(__dirname, "./src/components"),
-      "@pages": path.resolve(__dirname, "./src/pages"),
-      "@app-types": path.resolve(__dirname, "./src/types"),
-      "@router": path.resolve(__dirname, "./src/router"),
+      "@pages": path.resolve(__dirname,"./src/pages"),
+      "@app-types" : path.resolve(__dirname,"./src/types"),
+      "@router": path.resolve(__dirname,"./src/router"),
+      "@domains": path.resolve(__dirname, "./src/domains"),
       "@utils": path.resolve(__dirname, "./src/utils"),
       "@hooks": path.resolve(__dirname, "./src/hooks"),
     }
