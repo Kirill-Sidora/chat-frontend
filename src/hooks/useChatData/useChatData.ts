@@ -1,4 +1,5 @@
 import { type IMessageHandlerData } from "@app-types/messageHandlers";
+import { getFormattedTime } from "@utils/constants";
 import { type IMessage } from "@app-types/message";
 import { useState } from "react";
 
@@ -11,19 +12,18 @@ export const useChatData = () => {
     const handleNewMessage = (newMessageData: any): void => {
         console.log("NEW MESSAGE DATA: ", newMessageData);
 
-        const { username: sender, text, id} = newMessageData;
+        const { username: sender, text, id, timestamp } = newMessageData;
 
         if (newMessageData.username !== username) {
             setSecondUsername(username);
         }
 
+        const formattedTime: string = getFormattedTime(timestamp);
+
         const newMessage: IMessage = {
             id,
             text,
-            time: new Date().toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-            }),
+            time: formattedTime,
             isMine: sender === username,
             sender,
         };
