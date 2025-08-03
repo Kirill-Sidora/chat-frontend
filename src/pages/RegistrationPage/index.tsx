@@ -1,17 +1,26 @@
-import { type ReactElement, useState } from "react";
+import { type ReactElement, useState, useEffect } from "react";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
+import { paths } from "@router/routes";
 import "./style.css";
 
 const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
     if (nickName.trim()) {
         localStorage.setItem("nickName", nickName);
-        navigate("/chat");
+        navigate(paths.HOME.path); 
     }
+};
+
+const clearUserData = () => {
+    localStorage.removeItem("nickName");
 };
 
 const RegistrationPage = (): ReactElement => {
     const [nickName, setNickName] = useState("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        clearUserData();
+    }, []);
 
     return (
         <div className="registration-page">
