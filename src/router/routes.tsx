@@ -1,8 +1,8 @@
 import HomePage from "@pages/HomePage";
 import MessagePage from "@pages/MessagePage";
 import RegistrationPage from "@pages/RegistrationPage";
-import { Navigate, type RouteObject } from "react-router-dom";
-import { type ReactElement } from "react";
+import ProtectedRoute from "@components/ProtectedRoute/Protected.route";
+import { type RouteObject } from "react-router-dom";
 
 export interface IRouterPAth {
     id: string;
@@ -23,11 +23,6 @@ export const paths = {
         id: "registration",
         path: "/registration",
     },
-};
-
-const ProtectedRoute = ({ children }: { children: ReactElement }): ReactElement => {
-    const nickName = localStorage.getItem("nickName");
-    return nickName ? children : <Navigate to={paths.REGISTRATION.path} replace />;
 };
 
 const routes: RouteObject[] = [
