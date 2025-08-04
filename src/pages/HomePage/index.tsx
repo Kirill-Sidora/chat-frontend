@@ -5,28 +5,28 @@ import { useNavigate, type NavigateFunction } from "react-router-dom";
 import "./style.css";
 
 const nickNameChecker = (navigate: NavigateFunction) => {
-  const nickName = localStorage.getItem("nickName");
+    const nickName = localStorage.getItem("nickName");
 
-  if (!nickName) {
-    navigate("/registration");
-  }
+    if (!nickName) {
+        navigate("/registration");
+    }
 
-  return;
+    return;
 };
 
 const HomePage = (): ReactElement => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    nickNameChecker(navigate);
-  }, [navigate]);
+    useEffect(() => {
+        nickNameChecker(navigate);
+    }, [navigate]);
 
-  return (
-    <div className="home-page">
-      <IntroSlides />
-      <WelcomeBlock />
-    </div>
-  );
+    return (
+        <div className="home-page">
+            <IntroSlides />
+            <WelcomeBlock />
+        </div>
+    );
 };
 
 export default HomePage;
