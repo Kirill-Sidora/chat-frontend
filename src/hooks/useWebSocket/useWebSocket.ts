@@ -10,12 +10,9 @@ function getRandomId() {
 
 const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
 
-export const useWebSocket = (
-    handlersConfig: IMessageHandlerData[],
-    isChatPage: boolean
-) => {
+export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
-
+    const [isConnected, setIsConnected] = useState<boolean>(false);
     const username = localStorage.getItem("nickName");
 
     useEffect(() => {
@@ -25,14 +22,11 @@ export const useWebSocket = (
 
         socket.onopen = () => {
             console.log("Connected to ws");
+            setIsConnected(true);
 
             socket.send(
                 JSON.stringify({ type: "init", username, id: getRandomId() })
             );
-
-            if (isChatPage) {
-                sendSystemMessage("USER_JOINED");
-            }
         };
 
         socket.onmessage = (event) => {
@@ -52,24 +46,23 @@ export const useWebSocket = (
             });
         };
 
+        socket.onclose = () => {
+            setIsConnected(false);
+        };
+
         setWebSocket(socket);
 
         return () => {
-            if (isChatPage && socket.readyState === WebSocket.OPEN) {
-                sendSystemMessage("USER_LEFT");
-            }
             socket.close();
         };
-    }, [username, isChatPage]);
+    }, [username]);
 
-    const sendSystemMessage = (type: string) => {
+    const sendNotification = (type: string) => {
         if (webSocket && webSocket.readyState === WebSocket.OPEN) {
             webSocket.send(
                 JSON.stringify({
                     type,
-                    userId: getRandomId(),
                     username: username,
-                    timestamp: new Date().toISOString(),
                 })
             );
         }
@@ -83,5 +76,5 @@ export const useWebSocket = (
         }
     };
 
-    return { sendMessage };
+    return { sendMessage, sendNotification, isConnected };
 };

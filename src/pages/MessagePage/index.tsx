@@ -8,13 +8,24 @@ import MessageComposer from "@components/MessageComposer";
 
 const MessagePage = (): ReactElement => {
     const { secondUsername, messages, messageHandlersConfig } = useChatData();
+    const { sendMessage, sendNotification, isConnected } = useWebSocket(
+        messageHandlersConfig
+    );
     const location = useLocation();
 
     const isChatPage = location.pathname === "/chat";
-
-    const { sendMessage } = useWebSocket(messageHandlersConfig, isChatPage);
-
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const username = localStorage.getItem("nickName");
+
+    useEffect(() => {
+        if (!isConnected || !isChatPage || !username) return;
+        sendNotification("USER_JOINED");
+        return () => {
+            if (isConnected) {
+                sendNotification("USER_LEFT");
+            }
+        };
+    }, [isConnected, isChatPage, username]);
 
     const handleSendMessage = (text: string) => {
         sendMessage(text);
