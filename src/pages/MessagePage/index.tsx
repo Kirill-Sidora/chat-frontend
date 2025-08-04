@@ -2,13 +2,17 @@ import Message from "@components/Message";
 import { useRef, useEffect, type ReactElement } from "react";
 import { useChatData } from "@hooks/useChatData/useChatData";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./style.css";
 import MessageComposer from "@components/MessageComposer";
 
 const MessagePage = (): ReactElement => {
   const { secondUsername, messages, messageHandlersConfig } = useChatData();
-  const { sendMessage } = useWebSocket(messageHandlersConfig);
+  const location = useLocation();
+
+  const isChatPage = location.pathname === "/chat";
+
+  const { sendMessage } = useWebSocket(messageHandlersConfig, isChatPage);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
