@@ -29,8 +29,10 @@
             "@pages/*": ["src/pages/*"],
             "@app-types/*": ["src/types/*"],
             "@router/*":["src/router/*"],
+            "@utils/*": ["src/utils/*"],
+            "@hooks/*": ["src/hooks/*"],
             "@domains/*": ["src/domains/*"],
-            "@utils/*": ["src/utils/*"]
+
         }
     },
     "include": ["src"]
