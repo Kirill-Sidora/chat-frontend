@@ -8,6 +8,41 @@ export enum IconIds {
 export const ICON_SRC_PREFIX = "src/assets/icons/";
 export const ICON_SRC_SUFFIX = ".svg";
 
+export interface IIntroSlideData {
+    id: number;
+    name: string;
+    src: string;
+    height: number;
+    left: string;
+    top: string;
+    zIndex: number;
+}
+
+export const introSlidesImagesData: IIntroSlideData[] = [
+    {
+        id: 1,
+        name: "Telegram Chat Modal.png",
+        src: "src/assets/images/intro-slide-1.png",
+        height: 900,
+        left: "600px",
+        top: "200px",
+        zIndex: 0,
+    },
+    {
+        id: 2,
+        name: "Telegram Chat.png",
+        src: "src/assets/images/intro-slide-2.png",
+        height: 900,
+        zIndex: 1,
+        left: "900px",
+        top: "150px",
+    },
+];
+
+export const isValidMessage = (message: string): boolean => {
+    return /\S/.test(message);
+};
+
 export function getRandomId() {
     return (
         Date.now().toString(36) +
