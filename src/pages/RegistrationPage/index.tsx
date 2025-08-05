@@ -10,7 +10,7 @@ const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
 };
 
 const RegistrationPage = (): ReactElement => {
-    const [nickName, setNickName] = useState("");
+    const [nickName, setNickName] = useState<string>("");
     const navigate = useNavigate();
 
     return (
@@ -25,7 +25,10 @@ const RegistrationPage = (): ReactElement => {
                 placeholder="Введите ваш nickName"
                 className="input-field secondary-text"
             />
-            <button onClick={() => handleSubmit(nickName, navigate)} className="submit-button">
+            <button
+                onClick={() => handleSubmit(nickName, navigate)}
+                className="submit-button"
+            >
                 Зарегистрироваться
             </button>
         </div>

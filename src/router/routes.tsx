@@ -3,12 +3,6 @@ import MessagePage from "@pages/MessagePage";
 import RegistrationPage from "@pages/RegistrationPage";
 import { type RouteObject } from "react-router-dom";
 
-export interface IRouterPAth {
-    id: string;
-    path: string;
-    label?: string;
-}
-
 export const paths = {
     HOME: {
         id: "home",

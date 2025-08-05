@@ -1,7 +1,8 @@
+import type { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-export default function WelcomeBlock() {
+const WelcomeBlock = (): ReactElement => {
     return (
         <div>
             <div className="welcome-block">
@@ -16,4 +17,6 @@ export default function WelcomeBlock() {
             <span className="text-style headline-text">Telegram 2</span>
         </div>
     );
-}
+};
+
+export default WelcomeBlock;
