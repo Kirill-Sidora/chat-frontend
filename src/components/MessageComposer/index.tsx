@@ -2,7 +2,7 @@ import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
 import FileUploader from "@components/FileUploader";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
-import { IconIds } from "@utils/constants";
+import { IconIds, isValidMessage } from "@utils/constants";
 import "./style.css";
 
 interface IMessageComposerProps {
@@ -10,11 +10,7 @@ interface IMessageComposerProps {
 }
 
 const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
-    const [message, setMessage] = useState("");
-
-    const isValidMessage = (msg: string): boolean => {
-        return /\S/.test(msg);
-    };
+    const [message, setMessage] = useState<string>("");
 
     const handleSendMessage = () => {
         if (isValidMessage(message)) {
@@ -28,7 +24,7 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
     ) => {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
-            
+
             handleSendMessage();
         }
     };

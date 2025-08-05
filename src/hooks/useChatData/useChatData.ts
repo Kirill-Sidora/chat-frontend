@@ -1,7 +1,12 @@
-import { type IMessageHandlerData } from "@app-types/messageHandlers";
 import { getFormattedTime } from "@utils/constants";
 import { type IMessage } from "@app-types/message";
 import { useState } from "react";
+import {
+    MessagesFromServerTypes,
+    type IMessageFromServer,
+    type IMessageHandlerData,
+    type TServerMessages,
+} from "@app-types/serverMessages";
 
 export const useChatData = () => {
     const [secondUsername, setSecondUsername] = useState<string | null>(null);
@@ -9,7 +14,7 @@ export const useChatData = () => {
 
     const username = localStorage.getItem("nickName");
 
-    const handleNewMessage = (newMessageData: any): void => {
+    const handleNewMessage = (newMessageData: IMessageFromServer): void => {
         console.log("NEW MESSAGE DATA: ", newMessageData);
 
         const { username: sender, text, id, timestamp } = newMessageData;
@@ -31,23 +36,30 @@ export const useChatData = () => {
         setMessages((prevMessages) => [...prevMessages, newMessage]);
     };
 
-    const loadMessagesHistory = (historyData: any): void => {
+    const loadMessagesHistory = (
+        historyData: Extract<
+            TServerMessages,
+            { type: MessagesFromServerTypes.HISTORY }
+        >
+    ): void => {
         console.log("HISTORY DATA: ", historyData);
 
         const { messages: historyMessages } = historyData;
 
-        historyMessages.reverse().forEach((historyMessage: any) => {
-            handleNewMessage(historyMessage);
-        });
+        historyMessages
+            .reverse()
+            .forEach((historyMessage: IMessageFromServer) => {
+                handleNewMessage(historyMessage);
+            });
     };
 
     const messageHandlersConfig: IMessageHandlerData[] = [
         {
-            type: "history",
+            type: MessagesFromServerTypes.HISTORY,
             action: loadMessagesHistory,
         },
         {
-            type: "msg",
+            type: MessagesFromServerTypes.MESSAGE,
             action: handleNewMessage,
         },
     ];
