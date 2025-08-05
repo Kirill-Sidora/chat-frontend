@@ -4,12 +4,6 @@ import RegistrationPage from "@pages/RegistrationPage";
 import ProtectedRoute from "@components/ProtectedRoute";
 import { type RouteObject } from "react-router-dom";
 
-export interface IRouterPAth {
-    id: string;
-    path: string;
-    label?: string;
-}
-
 export const paths = {
     HOME: {
         id: "home",

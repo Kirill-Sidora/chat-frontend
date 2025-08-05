@@ -1,5 +1,10 @@
-import type { IMessageHandlerData } from "@app-types/messageHandlers";
 import { useEffect, useState } from "react";
+import {
+    MessagesForServerTypes,
+    MessagesFromServerTypes,
+    type IMessageHandlerData,
+    type TServerMessages,
+} from "@app-types/serverMessages";
 
 function getRandomId() {
     return (
@@ -22,17 +27,21 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
         socket.onopen = () => {
             console.log("Connected to ws");
-            
-            socket.send(
-                JSON.stringify({ type: "init", username, id: getRandomId() })
-            );
+
+            const initialMessageForServer = {
+                type: MessagesForServerTypes.INITIAL,
+                username,
+                id: getRandomId(),
+            };
+
+            socket.send(JSON.stringify(initialMessageForServer));
         };
 
         socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
+            const data: TServerMessages = JSON.parse(event.data);
             console.log("MESSAGE FROM SERVER: ", data);
 
-            const messageType: string = data.type;
+            const messageType: MessagesFromServerTypes = data.type;
 
             handlersConfig.map((handlerData: IMessageHandlerData) => {
                 const { type: currentHandlerType, action } = handlerData;
@@ -54,7 +63,13 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
     const sendMessage = (text: string) => {
         if (webSocket && webSocket.readyState === WebSocket.OPEN) {
-            webSocket.send(JSON.stringify({ type: "msg", text, sender: username }));
+            const messageForServer = {
+                type: MessagesForServerTypes.MESSAGE,
+                text,
+                sender: username,
+            };
+
+            webSocket.send(JSON.stringify(messageForServer));
         }
     };
 
