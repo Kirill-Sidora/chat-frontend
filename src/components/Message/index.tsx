@@ -1,5 +1,5 @@
-import { ClientMessagesTypes, type TClientMessage } from "@app-types/message";
-import { Fragment, type ReactElement } from "react";
+import { type TClientMessage } from "@app-types/message";
+import { type ReactElement } from "react";
 import "./style.css";
 
 interface MessageProps {

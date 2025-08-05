@@ -1,5 +1,5 @@
-import { getFormattedTime } from "@utils/constants";
 import { ClientMessagesTypes, type ITextMessage, type TClientMessage } from "@app-types/message";
+import { getFormattedTime } from "@utils/constants";
 import { useState } from "react";
 import {
     MessagesFromServerTypes,
