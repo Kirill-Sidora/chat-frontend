@@ -21,7 +21,7 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
         if (isValidMessage(message)) {
             onSend(message);
             setMessage("");
-            console.log(message)
+            console.log(message);
         }
     };
 
@@ -52,15 +52,17 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
     return (
         <div className="message-composer-container">
+            {!isAudioMode && (
+                <IconButton
+                    iconSrc={IconIds.PAPERCLIP_ICON}
+                    onClick={() => {}}
+                    height="24px"
+                />
+            )}
             {isAudioMode ? (
                 <AudioRecorder onSend={handleSendAudio} />
             ) : (
                 <>
-                    <IconButton
-                        iconSrc={IconIds.PAPERCLIP_ICON}
-                        onClick={() => {}}
-                        height="24px"
-                    />
                     <MessageInput
                         message={message}
                         setMessage={setMessage}

@@ -12,7 +12,7 @@ const MessagePage = (): ReactElement => {
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    const handleSendMessage = (text: string) => {
+    const handleSendMessage = (text: string | Blob) => {
         sendMessage(text);
     };
 

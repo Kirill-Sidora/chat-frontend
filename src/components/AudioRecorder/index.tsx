@@ -1,6 +1,6 @@
 import IconButton from "@components/IconButton";
-import { IconIds } from "@utils/constants";
 import { Fragment, useEffect, useState, type ReactElement } from "react";
+import { IconIds } from "@utils/constants";
 import "./style.css";
 
 interface IAudioRecorderProps {
@@ -67,6 +67,7 @@ const AudioRecorder = ({ onSend }: IAudioRecorderProps): ReactElement => {
         setDuration(0);
         setIsRecording(false);
         console.log("you discarded your record");
+        sendRecording();
     };
 
     const sendRecording = () => {

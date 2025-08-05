@@ -52,7 +52,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         };
     }, [username]);
 
-    const sendMessage = (text: string) => {
+    const sendMessage = (text: string | Blob) => {
         if (webSocket && webSocket.readyState === WebSocket.OPEN) {
             webSocket.send(JSON.stringify({ type: "msg", text, sender: username }));
         }
