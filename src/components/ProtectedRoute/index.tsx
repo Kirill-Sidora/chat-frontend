@@ -1,15 +1,14 @@
-import { type ReactElement, type PropsWithChildren } from "react";
+import { type PropsWithChildren, type ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { paths } from "../../router/routes";
 
-const ProtectedRoute = ({ children }: PropsWithChildren): ReactElement => {
+const ProtectedRoute = ({ children }: PropsWithChildren): ReactNode => {
     const nickName = localStorage.getItem("nickName");
 
     if (!nickName) {
         return <Navigate to={paths.REGISTRATION.path} replace />;
     }
-
-    return <>{children}</>;
+    return children;
 };
 
 export default ProtectedRoute;
