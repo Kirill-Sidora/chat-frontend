@@ -13,6 +13,8 @@
     --chat-header-background: #1c1c1d;
     --chat-message-me: #313131;
     --chat-message-other: #262628;
+    --chat-preview-modal-main-color: #1c1c1d;
+    --chat-preview-modal-second-color: #202020;
     --image-background-color: #D9D9D9;
     
     --primary-fill-color: #FFFFFF;
@@ -145,4 +147,9 @@ h5 {
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.4px;
+}
+
+.preview-modal-text {
+    font-family: "Inter";
+    font-weight: 600;
 }

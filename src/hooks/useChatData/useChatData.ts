@@ -1,5 +1,5 @@
 import { getFormattedTime } from "@utils/constants";
-import { type IMessage } from "@app-types/message";
+import { ClientMessagesTypes, type ITextMessage, type TClientMessage } from "@app-types/message";
 import { useState } from "react";
 import {
     MessagesFromServerTypes,
@@ -10,7 +10,7 @@ import {
 
 export const useChatData = () => {
     const [secondUsername, setSecondUsername] = useState<string | null>(null);
-    const [messages, setMessages] = useState<IMessage[]>([]);
+    const [messages, setMessages] = useState<TClientMessage[]>([]);
 
     const username = localStorage.getItem("nickName");
 
@@ -25,12 +25,12 @@ export const useChatData = () => {
 
         const formattedTime: string = getFormattedTime(timestamp);
 
-        const newMessage: IMessage = {
+        const newMessage: ITextMessage = {
             id,
+            type: ClientMessagesTypes.TEXT,
             text,
             time: formattedTime,
             isMine: sender === username,
-            sender,
         };
 
         setMessages((prevMessages) => [...prevMessages, newMessage]);

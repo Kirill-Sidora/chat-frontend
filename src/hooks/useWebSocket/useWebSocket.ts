@@ -1,3 +1,4 @@
+import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
 import {
     MessagesForServerTypes,
@@ -5,13 +6,6 @@ import {
     type IMessageHandlerData,
     type TServerMessages,
 } from "@app-types/serverMessages";
-
-function getRandomId() {
-    return (
-        Date.now().toString(36) +
-        Math.random().toString(36).substring(2).toString()
-    );
-}
 
 const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
 
