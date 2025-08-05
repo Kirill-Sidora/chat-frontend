@@ -1,4 +1,5 @@
 import Message from "@components/Message";
+import FileUploader from "@components/FileUploader";
 import MessageComposer from "@components/MessageComposer";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatData } from "@hooks/useChatData/useChatData";
@@ -41,7 +42,6 @@ const MessagePage = (): ReactElement => {
                 ))}
                 <div ref={messagesEndRef} />
             </div>
-
             <MessageComposer onSend={handleSendMessage} />
         </div>
     );

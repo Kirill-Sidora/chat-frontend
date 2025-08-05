@@ -1,5 +1,6 @@
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
+import FileUploader from "@components/FileUploader";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
 import { IconIds } from "@utils/constants";
 import "./style.css";
@@ -38,19 +39,20 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
         <div className="message-composer-container">
             <IconButton
                 iconSrc={IconIds.PAPERCLIP_ICON}
-                onClick={() => {}}
+                onClick={() => document.getElementById('file-upload-button')?.click()}
                 height="24px"
             />
+            <FileUploader />
             <MessageInput
                 message={message}
                 setMessage={setMessage}
                 onKeyDown={handleMessageInputKeyDown}
             />
-            <IconButton
+            {/* <IconButton
                 iconSrc={IconIds.STICKERS_ICON}
                 onClick={() => {}}
                 height="24px"
-            />
+            /> */}
             <IconButton
                 iconSrc={
                     !isValid ? IconIds.MICRO_ICON : IconIds.SENDING_BUTTON_ICON
