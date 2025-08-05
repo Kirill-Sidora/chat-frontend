@@ -1,7 +1,7 @@
 import HomePage from "@pages/HomePage";
 import MessagePage from "@pages/MessagePage";
 import RegistrationPage from "@pages/RegistrationPage";
-import ProtectedRoute from "@components/ProtectedRoute/Protected.route";
+import ProtectedRoute from "@components/ProtectedRoute";
 import { type RouteObject } from "react-router-dom";
 
 export interface IRouterPAth {
