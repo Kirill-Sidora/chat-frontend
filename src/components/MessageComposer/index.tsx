@@ -1,15 +1,17 @@
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
+import AudioRecorder from "@components/AudioRecorder";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
 import { IconIds } from "@utils/constants";
 import "./style.css";
 
 interface IMessageComposerProps {
-    onSend: (message: string) => void;
+    onSend: (messageOrAudio: string | Blob) => void;
 }
 
 const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
     const [message, setMessage] = useState("");
+    const [isAudioMode, setIsAudioMode] = useState(false);
 
     const isValidMessage = (msg: string): boolean => {
         return /\S/.test(msg);
@@ -19,7 +21,21 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
         if (isValidMessage(message)) {
             onSend(message);
             setMessage("");
+            console.log(message)
         }
+    };
+
+    const handleSendOrRecordChecking = () => {
+        if (!isValid) {
+            setIsAudioMode(true);
+        } else {
+            handleSendMessage();
+        }
+    };
+
+    const handleSendAudio = (audio: Blob) => {
+        onSend(audio);
+        setIsAudioMode(false);
     };
 
     const handleMessageInputKeyDown = (
@@ -27,7 +43,7 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
     ) => {
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
-            
+
             handleSendMessage();
         }
     };
@@ -36,30 +52,39 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
     return (
         <div className="message-composer-container">
-            <IconButton
-                iconSrc={IconIds.PAPERCLIP_ICON}
-                onClick={() => {}}
-                height="24px"
-            />
-            <MessageInput
-                message={message}
-                setMessage={setMessage}
-                onKeyDown={handleMessageInputKeyDown}
-            />
-            <IconButton
-                iconSrc={IconIds.STICKERS_ICON}
-                onClick={() => {}}
-                height="24px"
-            />
-            <IconButton
-                iconSrc={
-                    !isValid ? IconIds.MICRO_ICON : IconIds.SENDING_BUTTON_ICON
-                }
-                onClick={handleSendMessage}
-                disabled={!isValid}
-                variant="send"
-                isActive={isValid}
-            />
+            {isAudioMode ? (
+                <AudioRecorder onSend={handleSendAudio} />
+            ) : (
+                <>
+                    <IconButton
+                        iconSrc={IconIds.PAPERCLIP_ICON}
+                        onClick={() => {}}
+                        height="24px"
+                    />
+                    <MessageInput
+                        message={message}
+                        setMessage={setMessage}
+                        onKeyDown={handleMessageInputKeyDown}
+                    />
+                    <IconButton
+                        iconSrc={IconIds.STICKERS_ICON}
+                        onClick={() => {}}
+                        height="24px"
+                    />
+                    <IconButton
+                        iconSrc={
+                            !isValid
+                                ? IconIds.MICRO_ICON
+                                : IconIds.SENDING_BUTTON_ICON
+                        }
+                        onClick={() => {
+                            handleSendOrRecordChecking();
+                        }}
+                        variant="send"
+                        isActive={isValid}
+                    />
+                </>
+            )}
         </div>
     );
 };
