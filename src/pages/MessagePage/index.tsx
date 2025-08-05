@@ -1,10 +1,10 @@
 import Message from "@components/Message";
+import MessageComposer from "@components/MessageComposer";
 import { useRef, useEffect, type ReactElement } from "react";
 import { useChatData } from "@hooks/useChatData/useChatData";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { Link, useLocation } from "react-router-dom";
 import "./style.css";
-import MessageComposer from "@components/MessageComposer";
 
 const MessagePage = (): ReactElement => {
     const { secondUsername, messages, messageHandlersConfig } = useChatData();
@@ -15,17 +15,16 @@ const MessagePage = (): ReactElement => {
 
     const isChatPage = location.pathname === "/chat";
     const messagesEndRef = useRef<HTMLDivElement>(null);
-    const username = localStorage.getItem("nickName");
 
     useEffect(() => {
-        if (!isConnected || !isChatPage || !username) return;
+        if (!isConnected || !isChatPage) return;
         sendNotification("USER_JOINED");
         return () => {
             if (isConnected) {
                 sendNotification("USER_LEFT");
             }
         };
-    }, [isConnected, isChatPage, username]);
+    }, [isConnected, isChatPage]);
 
     const handleSendMessage = (text: string) => {
         sendMessage(text);
