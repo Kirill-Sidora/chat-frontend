@@ -1,6 +1,6 @@
 import { type PropsWithChildren, type ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-import { paths } from "../../router/routes";
+import { paths } from "@router/routes";
 
 const ProtectedRoute = ({ children }: PropsWithChildren): ReactNode => {
     const nickName = localStorage.getItem("nickName");
