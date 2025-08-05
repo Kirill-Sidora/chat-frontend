@@ -1,5 +1,6 @@
 import Message from "@components/Message";
 import MessageComposer from "@components/MessageComposer";
+import ParticipantsList from "@components/ParticipantsList";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatData } from "@hooks/useChatData/useChatData";
 import { useRef, useEffect, type ReactElement } from "react";
@@ -43,6 +44,7 @@ const MessagePage = (): ReactElement => {
             </div>
 
             <MessageComposer onSend={handleSendMessage} />
+            <ParticipantsList />
         </div>
     );
 };

@@ -1,0 +1,73 @@
+.participants-block {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    z-index: 1000;
+    background-color: #353434;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    color: #e0e0e0;
+    max-width: 170px;
+    max-height: 70vh;
+    overflow-y: auto;
+    border-left: 1px solid #444;
+    border-bottom: 1px solid #444;
+}
+
+.participants-header {
+    margin-top: 0;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: var(--color-text-primary, #ffffff);
+}
+
+.participant-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    padding-left: 8px;
+}
+
+.participant-card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #d0d0d0;
+}
+
+.participant-card:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.status-indicator.online {
+    background-color: #3ba55d; /* Discord green */
+    box-shadow: 0 0 0 2px rgba(59, 165, 93, 0.2);
+}
+
+.status-indicator.offline {
+    background-color: #747f8d; /* Discord gray */
+    box-shadow: 0 0 0 2px rgba(116, 127, 141, 0.2);
+}
