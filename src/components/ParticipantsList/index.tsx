@@ -1,42 +1,45 @@
 import CloseListButton from "@components/CloseListButton";
-import { Fragment, useState, type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
+import { type IChatUser } from "@app-types/user";
 import "./style.css";
 
-interface IChatUser {
-    id: string;
-    username: string;
-    isOnline: boolean;
+interface IParticipantsListProps {
+    visibleCount: number;
 }
 
 const fakeUsers: IChatUser[] = Array.from({ length: 80 }, (_, index) => ({
     id: `user-${index + 1}`,
     username: `user${index + 1}`,
-    isOnline: index % 2 === 0,
+    isOnline: Math.random() > 0.5,
 }));
 
-const ParticipantsList = (): ReactElement => {
-    const [isListVisible, setIsListVisible] = useState(true);
-    const [showAll, setShowAll] = useState(false);
+const ParticipantsList = ({
+    visibleCount,
+}: IParticipantsListProps): ReactElement => {
+    const [isOpen, setIsOpen] = useState<boolean>(true);
+    const [showAll, setShowAll] = useState<boolean>(false);
 
-    const visibleCount: number = 8;
     const visibleUsers = showAll ? fakeUsers : fakeUsers.slice(0, visibleCount);
 
-    const handleToggleShowAll = () => setShowAll(!showAll);
-    const handleToggleVisibility = () => setIsListVisible(!isListVisible);
+    const handleToggleShowAll = () => {
+        setShowAll(!showAll);
+    };
+    const handleToggleVisibility = () => {
+        setIsOpen(!isOpen);
+    };
     return (
-        <Fragment>
-            <CloseListButton
-                isListVisible={isListVisible}
-                onClick={handleToggleVisibility}
-            />
-            {isListVisible ? (
-                <div className="participants-block">
+        <div className="participants-container">
+            <CloseListButton isOpen={isOpen} onClick={handleToggleVisibility} />
+            {isOpen ? (
+                <div
+                    className={`participants-block ${!isOpen ? "hidden" : ""}`}
+                >
                     <h3 className="participants-header">
                         Participants Telegram 2
                     </h3>
 
                     <div className="divider"></div>
-                    <div className="participants-container">
+                    <div className="participants-list">
                         {visibleUsers.map((user) => (
                             <div className="participant-card" key={user.id}>
                                 <div
@@ -64,7 +67,7 @@ const ParticipantsList = (): ReactElement => {
             ) : (
                 ""
             )}
-        </Fragment>
+        </div>
     );
 };
 

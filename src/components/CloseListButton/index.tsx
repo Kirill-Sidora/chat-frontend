@@ -2,12 +2,12 @@ import { type ReactElement } from "react";
 import "./styles.css";
 
 interface ICloseButtonProps {
-    isListVisible: boolean;
+    isOpen: boolean;
     onClick: () => void;
 }
 
 const CloseListButton = ({
-    isListVisible,
+    isOpen,
     onClick,
 }: ICloseButtonProps): ReactElement => {
     const handleCLick = (): void => {
@@ -15,10 +15,10 @@ const CloseListButton = ({
     };
     return (
         <div
-            className={`close-list-button ${isListVisible ? "open" : "closed"}`}
+            className={`close-list-button ${isOpen ? "opened" : "closed"}`}
             onClick={handleCLick}
         >
-            <span className="arrow"> {isListVisible ? "→" : "←"}</span>
+            {isOpen ? "→" : "←"}
         </div>
     );
 };

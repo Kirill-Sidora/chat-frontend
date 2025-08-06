@@ -1,32 +1,24 @@
 .close-list-button {
     position: fixed;
     top: 130px;
+    color: var(--color-text-primary, #ffffff);
     transform: translateY(-50%);
     width: 24px;
     height: 60px;
-    background-color: #353434;
+    background-color: var(--chat-message-me, #313131);
     cursor: pointer;
-    z-index: 1000;
-    transition: all 0.3s ease;
+    z-index: 1;
+    transition: all var(--transition-time) ease;
     display: flex;
     align-items: center;
     justify-content: center;
     clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
 }
 
-.close-list-button.open {
+.close-list-button.opened {
     right: 170px;
 }
 
 .close-list-button.closed {
     right: 0;
-}
-
-.arrow {
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
 }
