@@ -1,24 +1,22 @@
-.close-list-button {
+.close-button-wrapper {
     position: fixed;
     top: 130px;
-    color: var(--color-text-primary, #ffffff);
+    color: var(--color-text-primary);
     transform: translateY(-50%);
     width: 24px;
     height: 60px;
     background-color: var(--chat-message-me, #313131);
-    cursor: pointer;
     z-index: 1;
-    transition: all var(--transition-time) ease;
     display: flex;
     align-items: center;
     justify-content: center;
     clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
 }
 
-.close-list-button.opened {
+.close-button-wrapper.opened {
     right: 170px;
 }
 
-.close-list-button.closed {
+.close-button-wrapper.closed {
     right: 0;
 }

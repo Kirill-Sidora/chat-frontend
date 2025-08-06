@@ -1,3 +1,4 @@
+import CustomButton from "@components/CustomButton";
 import { type ReactElement } from "react";
 import "./styles.css";
 
@@ -10,15 +11,9 @@ const CloseListButton = ({
     isOpen,
     onClick,
 }: ICloseButtonProps): ReactElement => {
-    const handleCLick = (): void => {
-        onClick();
-    };
     return (
-        <div
-            className={`close-list-button ${isOpen ? "opened" : "closed"}`}
-            onClick={handleCLick}
-        >
-            {isOpen ? "→" : "←"}
+        <div className={`close-button-wrapper ${isOpen ? "opened" : "closed"}`}>
+            <CustomButton onClick={onClick}>{isOpen ? "→" : "←"}</CustomButton>
         </div>
     );
 };
