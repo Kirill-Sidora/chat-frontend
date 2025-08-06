@@ -1,4 +1,5 @@
-import { useState, type ReactElement } from "react";
+import CloseListButton from "@components/CloseListButton";
+import { Fragment, useState, type ReactElement } from "react";
 import "./style.css";
 
 interface IChatUser {
@@ -14,37 +15,56 @@ const fakeUsers: IChatUser[] = Array.from({ length: 80 }, (_, index) => ({
 }));
 
 const ParticipantsList = (): ReactElement => {
+    const [isListVisible, setIsListVisible] = useState(true);
     const [showAll, setShowAll] = useState(false);
 
     const visibleCount: number = 8;
     const visibleUsers = showAll ? fakeUsers : fakeUsers.slice(0, visibleCount);
 
-    const toggleShowAll = () => setShowAll(!showAll);
+    const handleToggleShowAll = () => setShowAll(!showAll);
+    const handleToggleVisibility = () => setIsListVisible(!isListVisible);
     return (
-        <div className="participants-block">
-            <h3 className="participants-header">Participants Telegram 2</h3>
+        <Fragment>
+            <CloseListButton
+                isListVisible={isListVisible}
+                onClick={handleToggleVisibility}
+            />
+            {isListVisible ? (
+                <div className="participants-block">
+                    <h3 className="participants-header">
+                        Participants Telegram 2
+                    </h3>
 
-            <div className="divider"></div>
-            <div className="participants-container">
-                {visibleUsers.map((user) => (
-                    <div className="participant-card" key={user.id}>
-                        <div
-                            className={`status-indicator ${
-                                !user.isOnline ? "offline" : "online"
-                            }`}
-                            title={!user.isOnline ? "Не в сети" : "В сети"}
-                        />
+                    <div className="divider"></div>
+                    <div className="participants-container">
+                        {visibleUsers.map((user) => (
+                            <div className="participant-card" key={user.id}>
+                                <div
+                                    className={`status-indicator ${
+                                        !user.isOnline ? "offline" : "online"
+                                    }`}
+                                    title={
+                                        !user.isOnline ? "Не в сети" : "В сети"
+                                    }
+                                />
 
-                        <div className="participant-card-text">
-                            {user.username}
-                        </div>
+                                <div className="participant-card-text">
+                                    {user.username}
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
-            <button className="show-all-button" onClick={toggleShowAll}>
-                {!showAll ? "Show more" : "Return"}
-            </button>
-        </div>
+                    <button
+                        className="show-all-button"
+                        onClick={handleToggleShowAll}
+                    >
+                        {!showAll ? "Show more" : "Return"}
+                    </button>
+                </div>
+            ) : (
+                ""
+            )}
+        </Fragment>
     );
 };
 

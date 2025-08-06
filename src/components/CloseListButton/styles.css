@@ -1,0 +1,32 @@
+.close-list-button {
+    position: fixed;
+    top: 130px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 60px;
+    background-color: #353434;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
+}
+
+.close-list-button.open {
+    right: 170px;
+}
+
+.close-list-button.closed {
+    right: 0;
+}
+
+.arrow {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
