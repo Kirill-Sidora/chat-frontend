@@ -1,69 +1,42 @@
+import IconButton from "@components/IconButton";
 import FilePreviewModal from "@components/FilePreviewModal";
-import { useState, type ReactElement } from "react";
-// import { FilePreviewModal } from "@components/FilePreviewModal"
+import { useFileUpload } from "@hooks/useFileUpload";
+import { Fragment, type ReactElement } from "react";
+import { IconIds } from "@utils/constants";
 
 export interface IFileUploaderProps {
   onImageSend: (src: string) => void;
 }
 
 const FileUploader = (): ReactElement => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedFileSrc, setSelectedFileSrc] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const uploadFiles = (): Promise<File | null> => {
-    return new Promise((resolve) => {
-      const fileInput = document.createElement("input");
-      fileInput.type = "file";
-      fileInput.accept = ".jpg, .jpeg, .png";
-      fileInput.multiple = false;
-
-      fileInput.onchange = (event) => {
-        resolve((event.target as HTMLInputElement).files?.[0] || null);
-      };
-
-      fileInput.oncancel = () => resolve(null);
-      fileInput.click();
-    });
-  };
-
-  const handleUploadClick = async () => {
-    const file = await uploadFiles();
-    if (!file) {
-      return;
-    }
-
-    const fileSrc = URL.createObjectURL(file);
-
-    setSelectedFile(file);
-    setSelectedFileSrc(fileSrc);
-    setIsModalOpen(true);
-  };
+  const {file, fileSrc, isModalOpen, setIsModalOpen, handleUploadClick} = useFileUpload({fileInput: document.createElement("input"), type: "file", accept: ".jpg, .jpeg, .png", multiple: false})
 
   const handleSend = () => {
-    if (!selectedFile || !selectedFileSrc) return;
+    if (!file || !fileSrc) return;
 
-    console.log("Отправка файла:", selectedFile.name);
+    console.log("Отправка файла:", file.name);
 
     setIsModalOpen(false);
   };
 
+  const isFileUploadReady = isModalOpen && file && fileSrc;
+
   return (
-    <>
-      <button
-        onClick={handleUploadClick}
-        style={{ display: "none" }}
-        id="file-upload-button"
+    <Fragment>
+      <IconButton
+          iconSrc={IconIds.PAPERCLIP_ICON}
+          onClick={() => handleUploadClick()}
+          height="24px"
       />
 
-      {isModalOpen && selectedFile && selectedFileSrc &&(
+      {isFileUploadReady &&(
         <FilePreviewModal
-          file={selectedFile}
+          file={file}
           onClose={() => setIsModalOpen(false)}
           onSend={handleSend}
         />
       )}
-    </>
+    </Fragment>
   );
 };
 

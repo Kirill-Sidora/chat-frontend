@@ -33,22 +33,12 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
     return (
         <div className="message-composer-container">
-            <IconButton
-                iconSrc={IconIds.PAPERCLIP_ICON}
-                onClick={() => document.getElementById('file-upload-button')?.click()}
-                height="24px"
-            />
             <FileUploader />
             <MessageInput
                 message={message}
                 setMessage={setMessage}
                 onKeyDown={handleMessageInputKeyDown}
             />
-            {/* <IconButton
-                iconSrc={IconIds.STICKERS_ICON}
-                onClick={() => {}}
-                height="24px"
-            /> */}
             <IconButton
                 iconSrc={
                     !isValid ? IconIds.MICRO_ICON : IconIds.SENDING_BUTTON_ICON
