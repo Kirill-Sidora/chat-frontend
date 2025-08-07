@@ -2,20 +2,17 @@ import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
 import AudioRecorder from "@components/AudioRecorder";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
-import { IconIds } from "@utils/constants";
+import { ComposerMode, IconIds } from "@utils/constants";
+import { isValidMessage } from "@utils/constants";
 import "./style.css";
 
 interface IMessageComposerProps {
-    onSend: (messageOrAudio: string | Blob) => void;
+    onSend: (messageOrAudio: string) => void;
 }
 
 const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
     const [message, setMessage] = useState("");
-    const [isAudioMode, setIsAudioMode] = useState(false);
-
-    const isValidMessage = (msg: string): boolean => {
-        return /\S/.test(msg);
-    };
+    const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
 
     const handleSendMessage = () => {
         if (isValidMessage(message)) {
@@ -27,15 +24,15 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
     const handleSendOrRecordChecking = () => {
         if (!isValid) {
-            setIsAudioMode(true);
+            setMode(ComposerMode.AUDIO);
         } else {
             handleSendMessage();
         }
     };
 
     const handleSendAudio = (audio: Blob) => {
-        onSend(audio);
-        setIsAudioMode(false);
+        console.log("audio sended");
+        setMode(ComposerMode.TEXT);
     };
 
     const handleMessageInputKeyDown = (
@@ -52,14 +49,14 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
     return (
         <div className="message-composer-container">
-            {!isAudioMode && (
+            {mode !== ComposerMode.AUDIO && (
                 <IconButton
                     iconSrc={IconIds.PAPERCLIP_ICON}
                     onClick={() => {}}
                     height="24px"
                 />
             )}
-            {isAudioMode ? (
+            {mode === ComposerMode.AUDIO ? (
                 <AudioRecorder onSend={handleSendAudio} />
             ) : (
                 <>
@@ -82,7 +79,6 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
                         onClick={() => {
                             handleSendOrRecordChecking();
                         }}
-                        variant="send"
                         isActive={isValid}
                     />
                 </>

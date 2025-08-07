@@ -3,13 +3,20 @@ export enum IconIds {
     STICKERS_ICON = "stickers-icon",
     SENDING_BUTTON_ICON = "sending-button-icon",
     MICRO_ICON = "micro-icon-disabled",
+    MICRO_ICON_ACTIVE = "micro-icon-active",
     SENDING_AUDIO_BUTTON_ICON = "sending-audio-icon",
     DELETE_BUTTON_ICON = "delete-button-icon",
     STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon"
 }
 
+
 export const ICON_SRC_PREFIX = "src/assets/icons/";
 export const ICON_SRC_SUFFIX = ".svg";
+
+export enum ComposerMode {
+    TEXT = "text",
+    AUDIO = "audio",
+}
 
 export interface IIntroSlideData {
     id: number;

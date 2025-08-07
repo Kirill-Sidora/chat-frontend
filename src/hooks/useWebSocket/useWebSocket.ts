@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import {
     MessagesForServerTypes,
     MessagesFromServerTypes,
     type IMessageHandlerData,
     type TServerMessages,
 } from "@app-types/serverMessages";
+import { useEffect, useState } from "react";
 
 function getRandomId() {
     return (
@@ -61,7 +61,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         };
     }, [username]);
 
-    const sendMessage = (text: string | Blob) => {
+    const sendMessage = (text: string) => {
         if (webSocket && webSocket.readyState === WebSocket.OPEN) {
             const messageForServer = {
                 type: MessagesForServerTypes.MESSAGE,
