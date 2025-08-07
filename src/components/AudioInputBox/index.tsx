@@ -6,20 +6,20 @@ import { IconIds } from "@utils/constants";
 import "./style.css";
 
 interface IAudioInputBoxProps {
-    onSend: (audio: Blob) => void;
+    onFileUpdate: (audio: Blob) => void;
+    onDiscard?: () => void;
 }
 
-const AudioInInputBox = ({ onSend }: IAudioInputBoxProps): ReactElement => {
+const AudioInInputBox = ({ onFileUpdate, onDiscard }: IAudioInputBoxProps): ReactElement => {
     const {
         startRecording,
         stopRecording,
         discardRecording,
-        sendRecording,
         cleanupRecording,
         isRecording,
         blob,
         audioSrc,
-    } = useAudioInputBox({ onSend });
+    } = useAudioInputBox({ onFileUpdate });
 
     useEffect(() => {
         startRecording();
@@ -30,7 +30,7 @@ const AudioInInputBox = ({ onSend }: IAudioInputBoxProps): ReactElement => {
 
     return (
         <div className="audio-recorder">
-            {!isRecording && (
+            {!isRecording && !blob && (
                 <div className="recording-start">
                     <IconButton
                         iconSrc={IconIds.MICRO_ICON}
@@ -60,13 +60,12 @@ const AudioInInputBox = ({ onSend }: IAudioInputBoxProps): ReactElement => {
                     <div className="recorded-last-actions">
                         <div className="controllers">
                             <IconButton
-                                iconSrc={IconIds.SENDING_AUDIO_BUTTON_ICON}
-                                onClick={sendRecording}
-                            />
-
-                            <IconButton
                                 iconSrc={IconIds.DELETE_BUTTON_ICON}
-                                onClick={discardRecording}
+                                onClick={()=>{
+                                    discardRecording();
+                                    onDiscard?.();
+                                }
+                                }
                             />
                         </div>
                     </div>

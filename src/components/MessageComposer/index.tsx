@@ -57,7 +57,10 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
                 />
             )}
             {mode === ComposerMode.AUDIO ? (
-                <AudioInInputBox onSend={handleSendAudio} />
+                <AudioInInputBox 
+                    onFileUpdate={handleSendAudio}
+                    onDiscard={()=>{setMode(ComposerMode.TEXT)}}
+                />
             ) : (
                 <>
                     <MessageInput

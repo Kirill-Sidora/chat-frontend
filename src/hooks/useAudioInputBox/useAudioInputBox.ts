@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 interface IUseAudioInputBoxProps {
-    onSend: (audio: Blob) => void;
+    onFileUpdate: (audio: Blob) => void;
 }
 
-const useAudioInputBox = ({ onSend }: IUseAudioInputBoxProps) => {
+const useAudioInputBox = ({ onFileUpdate }: IUseAudioInputBoxProps) => {
     const [messageRecorder, setMessageRecorder] =
         useState<MediaRecorder | null>(null);
     const [isRecording, setIsRecording] = useState(false);
@@ -69,23 +69,17 @@ const useAudioInputBox = ({ onSend }: IUseAudioInputBoxProps) => {
        
     };
 
-    const sendRecording = () => {
-        if (!isRecording) {
-            onSend(blob!);
-            console.log("Your record sended");
-        }
-    };
-
     useEffect(() => {
-        if (blob) {
-            const url = URL.createObjectURL(blob);
-            setAudioSrc(url);
-
-            return () => {
-                URL.revokeObjectURL(url);
-            };
-        } else {
+        if (!blob) {
             setAudioSrc(null);
+            return; 
+        }    
+        
+        const url = URL.createObjectURL(blob);
+        setAudioSrc(url);
+        
+        return () => {
+            URL.revokeObjectURL(url);
         }
     }, [blob]);
 
@@ -95,7 +89,6 @@ const useAudioInputBox = ({ onSend }: IUseAudioInputBoxProps) => {
         startRecording,
         stopRecording,
         discardRecording,
-        sendRecording,
         isRecording,
         blob,
         duration,
