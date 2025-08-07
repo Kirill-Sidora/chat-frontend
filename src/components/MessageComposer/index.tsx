@@ -1,6 +1,6 @@
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
-import AudioRecorder from "@components/AudioRecorder";
+import AudioInInputBox from "@components/AudioInputBox";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
 import { ComposerMode, IconIds } from "@utils/constants";
 import { isValidMessage } from "@utils/constants";
@@ -57,7 +57,7 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
                 />
             )}
             {mode === ComposerMode.AUDIO ? (
-                <AudioRecorder onSend={handleSendAudio} />
+                <AudioInInputBox onSend={handleSendAudio} />
             ) : (
                 <>
                     <MessageInput

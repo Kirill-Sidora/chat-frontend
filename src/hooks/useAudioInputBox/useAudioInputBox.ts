@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-interface IUseAudioRecordingProps {
+interface IUseAudioInputBoxProps {
     onSend: (audio: Blob) => void;
 }
 
-const useAudioRecording = ({ onSend }: IUseAudioRecordingProps) => {
+const useAudioInputBox = ({ onSend }: IUseAudioInputBoxProps) => {
     const [messageRecorder, setMessageRecorder] =
         useState<MediaRecorder | null>(null);
     const [isRecording, setIsRecording] = useState(false);
@@ -103,4 +103,4 @@ const useAudioRecording = ({ onSend }: IUseAudioRecordingProps) => {
     };
 };
 
-export default useAudioRecording;
+export default useAudioInputBox;

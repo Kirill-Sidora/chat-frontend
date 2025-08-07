@@ -1,16 +1,15 @@
 import Timer from "@components/Timer";
 import IconButton from "@components/IconButton";
-import useAudioRecording from "@hooks/useAudioRecording/useAudioRecording";
+import useAudioInputBox from "@hooks/useAudioInputBox/useAudioInputBox";
 import { Fragment, useEffect, type ReactElement } from "react";
 import { IconIds } from "@utils/constants";
 import "./style.css";
 
-
-interface IAudioRecorderProps {
+interface IAudioInputBoxProps {
     onSend: (audio: Blob) => void;
 }
 
-const AudioRecorder = ({ onSend }: IAudioRecorderProps): ReactElement => {
+const AudioInInputBox = ({ onSend }: IAudioInputBoxProps): ReactElement => {
     const {
         startRecording,
         stopRecording,
@@ -20,7 +19,7 @@ const AudioRecorder = ({ onSend }: IAudioRecorderProps): ReactElement => {
         isRecording,
         blob,
         audioSrc,
-    } = useAudioRecording({ onSend });
+    } = useAudioInputBox({ onSend });
 
     useEffect(() => {
         startRecording();
@@ -31,7 +30,7 @@ const AudioRecorder = ({ onSend }: IAudioRecorderProps): ReactElement => {
 
     return (
         <div className="audio-recorder">
-            {!isRecording && !blob && (
+            {!isRecording && (
                 <div className="recording-start">
                     <IconButton
                         iconSrc={IconIds.MICRO_ICON}
@@ -44,7 +43,7 @@ const AudioRecorder = ({ onSend }: IAudioRecorderProps): ReactElement => {
                 <div className="recording">
                     <div className="indicator">
                         <span className="red-dot"></span>
-                        <Timer isActive = {true} />
+                        <Timer isActive={true} />
                     </div>
 
                     <IconButton
@@ -77,4 +76,4 @@ const AudioRecorder = ({ onSend }: IAudioRecorderProps): ReactElement => {
     );
 };
 
-export default AudioRecorder;
+export default AudioInInputBox;
