@@ -1,5 +1,5 @@
 import Message from "@components/Message";
-import ParticipantsList from "@components/ParticipantsList";
+import ParticipantsPanel from "@components/ParticipantsPanel";
 import MessageComposer from "@components/MessageComposer";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatData } from "@hooks/useChatData/useChatData";
@@ -35,7 +35,7 @@ const MessagePage = (): ReactElement => {
                     className="user-icon"
                 />
             </header>
-            <ParticipantsList visibleCount={8} />
+            <ParticipantsPanel />
             <div className="messages-container secondary-text">
                 {messages.map((msg) => (
                     <Message key={msg.id} message={msg} />

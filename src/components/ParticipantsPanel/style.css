@@ -1,0 +1,86 @@
+.participants-container {
+    right: 0;
+    top: 80px;
+    max-width: 170px;
+    max-height: 60vh;
+}
+
+.participants-block {
+    position: fixed;
+    right: 0;
+    top: 80px;
+    padding: var(--content-padding);
+    max-width: 170px;
+    max-height: 60vh;
+    box-shadow: var(--default-shadow);
+    border-left: 1px solid var(--list-border-color);
+    border-bottom: 1px solid var(--list-border-color);
+    border-radius: var(--content-radius-secondary);
+    overflow-y: auto;
+    background-color: var(--chat-message-me);
+    z-index: 1;
+    animation: slideIn 0.3s ease-out forwards;
+
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbar-track-background-color);
+        border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb-background-color);
+        border-radius: 5px;
+        border: 2px solid #c0baba;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollbar-thumb-background-color);
+    }
+}
+
+.participants-block.hidden {
+    animation: slideOut 0.3s ease-in forwards;
+    pointer-events: none;
+}
+
+.participants-header {
+    margin-top: 0;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: var(--color-text-primary);
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        var(--list-border-color) 10%,
+        var(--list-border-color) 90%,
+        transparent 100%
+    );
+    margin: 0 -16px 12px -16px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
