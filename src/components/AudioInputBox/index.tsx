@@ -26,8 +26,10 @@ const AudioInputBox = ({
 
     const handleDiscard = () => {
         discardRecording();
-        
-        onDiscard?.();
+
+        if (onDiscard) {
+            onDiscard();
+        }
     };
 
     useEffect(() => {

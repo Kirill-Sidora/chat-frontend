@@ -50,8 +50,8 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
     return (
         <div className="message-composer-container">
-            {mode ==ComposerMode.AUDIO && (
-                <AudioMode 
+            {mode == ComposerMode.AUDIO && (
+                <AudioMode
                     onDiscard={() => setMode(ComposerMode.TEXT)}
                     onFileUpdate={handleSendAudio}
                 />
@@ -59,21 +59,19 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
             {mode == ComposerMode.TEXT && (
                 <>
-                    <TextMode 
+                    <TextMode
                         message={message}
                         setMessage={setMessage}
                         onKeyDown={handleMessageInputKeyDown}
                     />
-                
+
                     <IconButton
                         iconSrc={
                             !isValid
                                 ? IconIds.MICRO_ICON
                                 : IconIds.SENDING_BUTTON_ICON
                         }
-                        onClick={() => {
-                            handleSendOrRecordChecking();
-                        }}
+                        onClick={handleSendOrRecordChecking}
                         isActive={isValid}
                     />
                 </>

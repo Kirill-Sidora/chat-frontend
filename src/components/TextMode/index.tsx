@@ -1,12 +1,12 @@
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
+import type { ReactElement, KeyboardEvent } from "react";
 import { IconIds } from "@utils/constants";
-import type { ReactElement } from "react";
 
 interface TextModeProps {
     message: string;
     setMessage: (msg: string) => void;
-    onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+    onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
 const TextMode = ({
