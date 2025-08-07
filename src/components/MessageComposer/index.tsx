@@ -23,11 +23,12 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
     };
 
     const handleSendOrRecordChecking = () => {
-        if (!isValid) {
-            setMode(ComposerMode.AUDIO);
-        } else {
+        if (isValid) {
             handleSendMessage();
+            return;
         }
+
+        setMode(ComposerMode.AUDIO);
     };
 
     const handleSendAudio = (audio: Blob) => {
@@ -57,9 +58,11 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
                 />
             )}
             {mode === ComposerMode.AUDIO ? (
-                <AudioInInputBox 
+                <AudioInInputBox
                     onFileUpdate={handleSendAudio}
-                    onDiscard={()=>{setMode(ComposerMode.TEXT)}}
+                    onDiscard={() => {
+                        setMode(ComposerMode.TEXT);
+                    }}
                 />
             ) : (
                 <>

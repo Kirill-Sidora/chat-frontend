@@ -66,23 +66,21 @@ const useAudioInputBox = ({ onFileUpdate }: IUseAudioInputBoxProps) => {
         setAudioSrc(null);
         setIsRecording(false);
         console.log("you discarded your record");
-       
     };
 
     useEffect(() => {
         if (!blob) {
             setAudioSrc(null);
-            return; 
-        }    
-        
+            return;
+        }
+
         const url = URL.createObjectURL(blob);
         setAudioSrc(url);
-        
+
         return () => {
             URL.revokeObjectURL(url);
-        }
+        };
     }, [blob]);
-
 
     return {
         cleanupRecording,

@@ -1,5 +1,5 @@
-import Timer from "@components/Timer";
 import IconButton from "@components/IconButton";
+import Indication from "@components/Indication";
 import useAudioInputBox from "@hooks/useAudioInputBox/useAudioInputBox";
 import { Fragment, useEffect, type ReactElement } from "react";
 import { IconIds } from "@utils/constants";
@@ -10,7 +10,10 @@ interface IAudioInputBoxProps {
     onDiscard?: () => void;
 }
 
-const AudioInInputBox = ({ onFileUpdate, onDiscard }: IAudioInputBoxProps): ReactElement => {
+const AudioInInputBox = ({
+    onFileUpdate,
+    onDiscard,
+}: IAudioInputBoxProps): ReactElement => {
     const {
         startRecording,
         stopRecording,
@@ -21,6 +24,8 @@ const AudioInInputBox = ({ onFileUpdate, onDiscard }: IAudioInputBoxProps): Reac
         audioSrc,
     } = useAudioInputBox({ onFileUpdate });
 
+    const isUploading = !!blob && !!audioSrc;
+
     useEffect(() => {
         startRecording();
         return () => {
@@ -30,7 +35,7 @@ const AudioInInputBox = ({ onFileUpdate, onDiscard }: IAudioInputBoxProps): Reac
 
     return (
         <div className="audio-recorder">
-            {!isRecording && !blob && (
+            {!isRecording && !isUploading && (
                 <div className="recording-start">
                     <IconButton
                         iconSrc={IconIds.MICRO_ICON}
@@ -41,31 +46,27 @@ const AudioInInputBox = ({ onFileUpdate, onDiscard }: IAudioInputBoxProps): Reac
 
             {isRecording && (
                 <div className="recording">
-                    <div className="indicator">
-                        <span className="red-dot"></span>
-                        <Timer />
-                    </div>
+                    <Indication />
 
                     <IconButton
                         iconSrc={IconIds.MICRO_ICON_ACTIVE}
                         onClick={stopRecording}
-                        isActive = {true}
+                        isActive={true}
                     />
                 </div>
             )}
 
-            {blob && (
+            {isUploading && (
                 <Fragment>
                     <audio controls src={audioSrc || undefined} />
                     <div className="recorded-last-actions">
                         <div className="controllers">
                             <IconButton
                                 iconSrc={IconIds.DELETE_BUTTON_ICON}
-                                onClick={()=>{
+                                onClick={() => {
                                     discardRecording();
                                     onDiscard?.();
-                                }
-                                }
+                                }}
                             />
                         </div>
                     </div>
