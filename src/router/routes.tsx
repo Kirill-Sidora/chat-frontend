@@ -1,13 +1,8 @@
 import HomePage from "@pages/HomePage";
 import MessagePage from "@pages/MessagePage";
 import RegistrationPage from "@pages/RegistrationPage";
+import ProtectedRoute from "@components/ProtectedRoute";
 import { type RouteObject } from "react-router-dom";
-
-export interface IRouterPAth {
-    id: string;
-    path: string;
-    label?: string;
-}
 
 export const paths = {
     HOME: {
@@ -31,7 +26,11 @@ const routes: RouteObject[] = [
     },
     {
         ...paths.MESSAGE,
-        element: <MessagePage />,
+        element: (
+            <ProtectedRoute>
+                <MessagePage />
+            </ProtectedRoute>
+        ),
     },
     {
         ...paths.REGISTRATION,
