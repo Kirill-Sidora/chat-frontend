@@ -8,11 +8,10 @@ interface IUseFileUploadProps {
 
 interface IUseFileUploadReturn {
     file: File | null,
-    setFile: (value: null) => void,
     fileSrc: string | null,
-    setFileSrc: (value: null) => void,
-    fileUpload: boolean,
-    setFileUpload: (value: boolean) => void,
+    clear: () => void,
+    isFileUpload: boolean,
+    setIsFileUpload: (value: boolean) => void,
     handleUploadClick: () => Promise<void>
 }
 
@@ -23,7 +22,7 @@ export const useFileUpload = ({
 }: IUseFileUploadProps): IUseFileUploadReturn => {
     const [file, setFile] = useState<File | null>(null);
     const [fileSrc, setFileSrc] = useState<string | null>(null);
-    const [fileUpload, setFileUpload] = useState(false);
+    const [isFileUpload, setIsFileUpload] = useState(false);
     const fileInput = document.createElement("input");
     const uploadFiles = (): Promise<File | null> => {
         return new Promise((resolve) => {
@@ -50,15 +49,19 @@ export const useFileUpload = ({
 
         setFile(file);
         setFileSrc(fileSrc);
-        setFileUpload(true);
+        setIsFileUpload(true);
     };
+    const clear = () => {
+        setFile(null);
+        setFileSrc(null);
+        setIsFileUpload(false);
+    }
     return {
         file,
-        setFile,
         fileSrc,
-        setFileSrc,
-        fileUpload,
-        setFileUpload,
+        clear,
+        isFileUpload,
+        setIsFileUpload,
         handleUploadClick
     }
 }

@@ -1,17 +1,17 @@
 import ImagePreview from '@components/ImagePreview'
 import './style.css'
 
-interface IModalWindowContentProps {
+interface IImageModalWindowContentProps {
     file: File,
     onClose: () => void,
     onSend: () => void
 }
 
-const ModalWindowContent = ({
+const ImageModalWindowContent = ({
     file,
     onClose,
     onSend
-}: IModalWindowContentProps) => {
+}: IImageModalWindowContentProps) => {
     return(
         <div className="modal-content primary-text">
             <ImagePreview file={file}/>
@@ -23,4 +23,4 @@ const ModalWindowContent = ({
     )
 }
 
-export default ModalWindowContent;
+export default ImageModalWindowContent;
