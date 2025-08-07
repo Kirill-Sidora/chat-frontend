@@ -43,7 +43,7 @@ const AudioInInputBox = ({ onFileUpdate, onDiscard }: IAudioInputBoxProps): Reac
                 <div className="recording">
                     <div className="indicator">
                         <span className="red-dot"></span>
-                        <Timer isActive={true} />
+                        <Timer />
                     </div>
 
                     <IconButton

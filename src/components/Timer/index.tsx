@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState, type ReactElement } from "react";
 
-interface ITimerProps {
-    isActive: boolean;
-}
-
 const formatDuration = (ms: number): string => {
     const minutes = Math.floor(ms / 60000);
     const seconds = Math.floor((ms % 60000) / 1000);
@@ -16,31 +12,24 @@ const formatDuration = (ms: number): string => {
     return `${mm}:${ss}:${msStr}`;
 };
 
-const Timer = ({ isActive }: ITimerProps): ReactElement => {
+const Timer = (): ReactElement => {
     const [duration, setDuration] = useState(0);
     const durationRef = useRef<number | null>(null);
 
     useEffect(() => {
-        if (isActive) {
             const start = Date.now() - duration;
 
             durationRef.current = window.setInterval(() => {
                 const elapsed = Date.now() - start;
                 setDuration(elapsed);
             }, 100);
-        } else {
-            if (durationRef.current !== null) {
-                clearInterval(durationRef.current);
-                durationRef.current = null;
-            }
-        }
-
+            
         return () => {
             if (durationRef.current !== null) {
                 clearInterval(durationRef.current);
             }
         };
-    }, [isActive]);
+    }, []);
 
     return <div>{formatDuration(duration)}</div>;
 };
