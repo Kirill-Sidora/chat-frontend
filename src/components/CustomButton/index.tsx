@@ -13,7 +13,10 @@ const CustomButton = ({
     type,
 }: ICustomButtonProps): ReactElement => {
     return (
-        <button className={`custom-button ${type}`} onClick={onClick}>
+        <button
+            className={`custom-button ${type} secondary-text`}
+            onClick={onClick}
+        >
             {children}
         </button>
     );
