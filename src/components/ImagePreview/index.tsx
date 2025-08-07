@@ -12,7 +12,6 @@ const ImagePreview = ({file}: IImagePreviewProps) => {
                 <img
                     src={URL.createObjectURL(file)}
                     alt="Превью"
-                    className="image"
                 />
             </div>
             <div className="image-info">
