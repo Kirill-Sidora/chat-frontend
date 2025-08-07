@@ -7,6 +7,7 @@ import {
     type TServerMessages,
 } from "@app-types/serverMessages";
 
+
 const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
 
 export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {

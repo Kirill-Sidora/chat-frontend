@@ -7,7 +7,6 @@ export interface IIconButtonProps {
     onClick: () => void | Promise<void>;
     height?: string;
     disabled?: boolean;
-    variant?: "default" | "send";
     isActive?: boolean;
 }
 
@@ -18,11 +17,10 @@ const IconButton = ({
     onClick,
     height = DEFAULT_HEIGHT,
     disabled = false,
-    variant = "default",
     isActive = false,
 }: IIconButtonProps): ReactElement => {
 
-    var className: string = `icon-button ${variant} ${isActive ? "active" : ""} ${disabled ? "disabled" : ""}`;
+    var className: string = `icon-button ${isActive ? "active" : ""} ${disabled ? "disabled" : ""}`;
 
     return (
         <button
