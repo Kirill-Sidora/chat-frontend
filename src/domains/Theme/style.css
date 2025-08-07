@@ -13,8 +13,9 @@
     --chat-header-background: #1c1c1d;
     --chat-message-me: #313131;
     --chat-message-other: #262628;
-    --chat-preview-modal-main-color: #1c1c1d;
-    --chat-preview-modal-second-color: #202020;
+    --modal-main-color: #1c1c1d;
+    --modal-second-color: #202020;
+    --modal-background-color: rgba(0, 0, 0, 0.5);
     --image-background-color: #D9D9D9;
     
     --primary-fill-color: #FFFFFF;
@@ -22,6 +23,7 @@
     --secondary-fill-color: #727173;
     --input-border-color: #3a3a3c;
     --send-button-color: #d500c3;
+    --modal-button-hover: rgb(49, 49, 49);
     --placeholder-color: #636366;
 
     --accent-passive-color: #000e8a;

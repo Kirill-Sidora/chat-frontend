@@ -2,11 +2,11 @@ import { type TClientMessage } from "@app-types/message";
 import { type ReactElement } from "react";
 import "./style.css";
 
-interface MessageProps {
+interface IMessageProps {
   message: TClientMessage;
 }
 
-const Message = ({ message }: MessageProps): ReactElement => {
+const Message = ({ message }: IMessageProps): ReactElement => {
   return (
         <div className={`message ${message.isMine ? "mine" : "other"}`}>
           <div className="message-text secondary-text">{message.text}</div>

@@ -1,30 +1,30 @@
 import { useState } from "react";
 
-interface useFileUploadProps {
-    fileInput: HTMLInputElement,
+interface IUseFileUploadProps {
     type: string,
     accept: string,
     multiple: boolean
 }
 
-interface useFileUploadReturn {
+interface IUseFileUploadReturn {
     file: File | null,
+    setFile: (value: null) => void,
     fileSrc: string | null,
-    isModalOpen: boolean,
-    setIsModalOpen: (value: boolean) => void,
+    setFileSrc: (value: null) => void,
+    fileUpload: boolean,
+    setFileUpload: (value: boolean) => void,
     handleUploadClick: () => Promise<void>
 }
 
 export const useFileUpload = ({
-    fileInput,
     type,
     accept,
     multiple
-}: useFileUploadProps): useFileUploadReturn => {
+}: IUseFileUploadProps): IUseFileUploadReturn => {
     const [file, setFile] = useState<File | null>(null);
     const [fileSrc, setFileSrc] = useState<string | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [fileUpload, setFileUpload] = useState(false);
+    const fileInput = document.createElement("input");
     const uploadFiles = (): Promise<File | null> => {
         return new Promise((resolve) => {
             fileInput.type = type;
@@ -50,13 +50,15 @@ export const useFileUpload = ({
 
         setFile(file);
         setFileSrc(fileSrc);
-        setIsModalOpen(true);
+        setFileUpload(true);
     };
     return {
         file,
+        setFile,
         fileSrc,
-        isModalOpen,
-        setIsModalOpen,
+        setFileSrc,
+        fileUpload,
+        setFileUpload,
         handleUploadClick
     }
 }

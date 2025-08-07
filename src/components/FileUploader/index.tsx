@@ -1,25 +1,24 @@
 import IconButton from "@components/IconButton";
-import FilePreviewModal from "@components/FilePreviewModal";
+import ModalWindow from "@components/ModalWindow";
 import { useFileUpload } from "@hooks/useFileUpload";
 import { Fragment, type ReactElement } from "react";
 import { IconIds } from "@utils/constants";
+import ModalWindowContent from "@components/ModalWindowContent";
 
 export interface IFileUploaderProps {
   onImageSend: (src: string) => void;
 }
 
 const FileUploader = (): ReactElement => {
-  const {file, fileSrc, isModalOpen, setIsModalOpen, handleUploadClick} = useFileUpload({fileInput: document.createElement("input"), type: "file", accept: ".jpg, .jpeg, .png", multiple: false})
+  const {file, setFile, fileSrc, setFileSrc, fileUpload, setFileUpload, handleUploadClick} = useFileUpload({type: "file", accept: ".jpg, .jpeg, .png", multiple: false})
 
   const handleSend = () => {
-    if (!file || !fileSrc) return;
-
-    console.log("Отправка файла:", file.name);
-
-    setIsModalOpen(false);
+    if (!fileUpload) return;
+    
+    setFile(null);
+    setFileSrc(null);
+    setFileUpload(false);
   };
-
-  const isFileUploadReady = isModalOpen && file && fileSrc;
 
   return (
     <Fragment>
@@ -29,12 +28,10 @@ const FileUploader = (): ReactElement => {
           height="24px"
       />
 
-      {isFileUploadReady &&(
-        <FilePreviewModal
-          file={file}
-          onClose={() => setIsModalOpen(false)}
-          onSend={handleSend}
-        />
+      {fileUpload && (
+        <ModalWindow>
+          <ModalWindowContent file={file!} onClose={() => setFileUpload(false)} onSend={handleSend}/>
+        </ModalWindow>
       )}
     </Fragment>
   );
