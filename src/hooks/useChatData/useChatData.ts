@@ -1,12 +1,12 @@
-import { getFormattedTime } from "@utils/constants";
-import { type IMessage } from "@app-types/message";
-import { useState } from "react";
 import {
     MessagesFromServerTypes,
     type IMessageFromServer,
     type IMessageHandlerData,
     type TServerMessages,
 } from "@app-types/serverMessages";
+import { getFormattedTime } from "@utils/constants";
+import { type IMessage } from "@app-types/message";
+import { useState } from "react";
 
 export const useChatData = () => {
     const [secondUsername, setSecondUsername] = useState<string | null>(null);
