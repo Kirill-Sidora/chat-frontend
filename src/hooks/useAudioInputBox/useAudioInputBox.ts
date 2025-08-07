@@ -82,6 +82,8 @@ const useAudioInputBox = ({ onFileUpdate }: IUseAudioInputBoxProps) => {
         };
     }, [blob]);
 
+    const isUploading = !!blob && !!audioSrc;
+
     return {
         cleanupRecording,
         startRecording,
@@ -91,6 +93,7 @@ const useAudioInputBox = ({ onFileUpdate }: IUseAudioInputBoxProps) => {
         blob,
         duration,
         audioSrc,
+        isUploading,
     };
 };
 

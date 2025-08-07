@@ -10,7 +10,7 @@ interface IAudioInputBoxProps {
     onDiscard?: () => void;
 }
 
-const AudioInInputBox = ({
+const AudioInputBox = ({
     onFileUpdate,
     onDiscard,
 }: IAudioInputBoxProps): ReactElement => {
@@ -20,11 +20,15 @@ const AudioInInputBox = ({
         discardRecording,
         cleanupRecording,
         isRecording,
-        blob,
         audioSrc,
+        isUploading,
     } = useAudioInputBox({ onFileUpdate });
 
-    const isUploading = !!blob && !!audioSrc;
+    const handleDiscard = () => {
+        discardRecording();
+        
+        onDiscard?.();
+    };
 
     useEffect(() => {
         startRecording();
@@ -63,10 +67,7 @@ const AudioInInputBox = ({
                         <div className="controllers">
                             <IconButton
                                 iconSrc={IconIds.DELETE_BUTTON_ICON}
-                                onClick={() => {
-                                    discardRecording();
-                                    onDiscard?.();
-                                }}
+                                onClick={handleDiscard}
                             />
                         </div>
                     </div>
@@ -76,4 +77,4 @@ const AudioInInputBox = ({
     );
 };
 
-export default AudioInInputBox;
+export default AudioInputBox;

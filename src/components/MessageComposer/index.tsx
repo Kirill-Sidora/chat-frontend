@@ -1,6 +1,6 @@
+import TextMode from "@components/TextMode";
+import AudioMode from "@components/AudioMode";
 import IconButton from "@components/IconButton";
-import MessageInput from "@components/MessageInput";
-import AudioInInputBox from "@components/AudioInputBox";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
 import { ComposerMode, IconIds } from "@utils/constants";
 import { isValidMessage } from "@utils/constants";
@@ -50,32 +50,21 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
     return (
         <div className="message-composer-container">
-            {mode !== ComposerMode.AUDIO && (
-                <IconButton
-                    iconSrc={IconIds.PAPERCLIP_ICON}
-                    onClick={() => {}}
-                    height="24px"
+            {mode ==ComposerMode.AUDIO && (
+                <AudioMode 
+                    onDiscard={() => setMode(ComposerMode.TEXT)}
+                    onFileUpdate={handleSendAudio}
                 />
             )}
-            {mode === ComposerMode.AUDIO ? (
-                <AudioInInputBox
-                    onFileUpdate={handleSendAudio}
-                    onDiscard={() => {
-                        setMode(ComposerMode.TEXT);
-                    }}
-                />
-            ) : (
+
+            {mode == ComposerMode.TEXT && (
                 <>
-                    <MessageInput
+                    <TextMode 
                         message={message}
                         setMessage={setMessage}
                         onKeyDown={handleMessageInputKeyDown}
                     />
-                    <IconButton
-                        iconSrc={IconIds.STICKERS_ICON}
-                        onClick={() => {}}
-                        height="24px"
-                    />
+                
                     <IconButton
                         iconSrc={
                             !isValid
