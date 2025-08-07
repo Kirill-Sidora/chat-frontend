@@ -63,6 +63,22 @@
     margin: 0 -16px 12px -16px;
 }
 
+.button-container {
+    position: fixed;
+    top: 35px;
+    right: 0px;
+    transition: transform 0.3s ease-in-out;
+    z-index: 2;
+}
+
+.button-container.initial {
+    animation: slideInitial 0.3s ease-in forwards;
+}
+
+.button-container.moved {
+    animation: slideMoved 0.3s ease-in forwards;
+}
+
 @keyframes slideIn {
     from {
         transform: translateX(100%);
@@ -82,5 +98,23 @@
     to {
         transform: translateX(100%);
         opacity: 0;
+    }
+}
+
+@keyframes slideInitial {
+    from {
+        transform: translateX(calc(100% + 170px));
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideMoved {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(100% + 170px));
     }
 }
