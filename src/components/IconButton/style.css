@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 
-.icon-button.send {
+.icon-button.active {
   padding: 12px;
   width: 48px;
   height: 48px;
@@ -27,12 +27,4 @@
 .icon-button.disabled {
   background-color: var(--chat-header-background, #1c1c1d);
   cursor: not-allowed;
-}
-
-@media (max-width : 768px) {
-  .icon-button.send {
-    width: 42px;
-    height: 42px;
-    font-size: 0.9rem;
-  }
 }

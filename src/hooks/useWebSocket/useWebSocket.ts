@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import {
     MessagesForServerTypes,
     MessagesFromServerTypes,
     type IMessageHandlerData,
     type TServerMessages,
 } from "@app-types/serverMessages";
+import { useEffect, useState } from "react";
 
 function getRandomId() {
     return (
