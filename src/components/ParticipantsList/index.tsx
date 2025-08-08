@@ -1,6 +1,6 @@
 import ParticipantCard from "@components/ParticipantCard";
-import { useChatData } from "@hooks/useChatData/useChatData";
-import { useEffect, type ReactElement } from "react";
+import { useChatDataContext } from "@components/context/СhatDataContext";
+import { type ReactElement } from "react";
 import type { IUser } from "@app-types/user";
 
 interface IParticipantsListProps {
@@ -12,10 +12,8 @@ const ParticipantsList = ({
     visibleCount,
     isShowAll,
 }: IParticipantsListProps): ReactElement => {
-    const { users } = useChatData();
+    const { users } = useChatDataContext();
     const visibleUsers = !isShowAll ? users.slice(0, visibleCount) : users;
-
-    console.log("VISIBLE USERS: ", visibleUsers);
     return (
         <div className="participants-list">
             {visibleUsers.map((user: IUser) => (

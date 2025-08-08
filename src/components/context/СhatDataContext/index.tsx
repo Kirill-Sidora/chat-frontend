@@ -1,15 +1,35 @@
+import { getFormattedTime } from "@utils/constants";
+import { useState, useContext, createContext } from "react";
+import { type IMessage } from "@app-types/message";
+import { type IUser } from "@app-types/user";
 import {
     MessagesFromServerTypes,
     type IMessageFromServer,
     type IMessageHandlerData,
     type TServerMessages,
 } from "@app-types/serverMessages";
-import { getFormattedTime } from "@utils/constants";
-import { type IMessage } from "@app-types/message";
-import { useEffect, useState } from "react";
-import { type IUser } from "@app-types/user";
+import React from "react";
 
-export const useChatData = () => {
+interface IChatDataContext {
+    setSecondUsername: (username: string | null) => void;
+    secondUsername: string | null;
+    messages: IMessage[];
+    users: IUser[];
+    loadMessagesHistory: (
+        historyData: Extract<
+            TServerMessages,
+            { type: MessagesFromServerTypes.HISTORY }
+        >
+    ) => void;
+    handleNewMessage: (newMessageData: IMessageFromServer) => void;
+    messageHandlersConfig: IMessageHandlerData[];
+}
+
+const ChatDataContext = createContext<IChatDataContext | null>(null);
+
+export const ChatDataProvider: React.FC<{
+    children: React.ReactNode;
+}> = ({ children }) => {
     const [secondUsername, setSecondUsername] = useState<string | null>(null);
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
@@ -39,16 +59,10 @@ export const useChatData = () => {
     };
 
     const loadAllUsers = (data: { users: IUser[] }): void => {
-        setUsers((prevUsers) => {
-            console.log("Previous users:", prevUsers);
-            console.log("New users:", data.users);
-            return data.users;
+        setUsers(() => {
+            return [...data.users];
         });
     };
-
-    useEffect(() => {
-        console.log("USERS CHANGED: ", users);
-    }, [users]);
 
     const loadMessagesHistory = (
         historyData: Extract<
@@ -82,13 +96,29 @@ export const useChatData = () => {
         },
     ];
 
-    return {
-        secondUsername,
-        setSecondUsername,
-        messages,
-        users,
-        loadMessagesHistory,
-        handleNewMessage,
-        messageHandlersConfig,
-    };
+    return (
+        <ChatDataContext.Provider
+            value={{
+                secondUsername,
+                setSecondUsername,
+                messages,
+                users,
+                loadMessagesHistory,
+                handleNewMessage,
+                messageHandlersConfig,
+            }}
+        >
+            {children}
+        </ChatDataContext.Provider>
+    );
+};
+
+export const useChatDataContext = () => {
+    const context = useContext(ChatDataContext);
+    if (!context) {
+        throw new Error(
+            "useChatDataContext must be used within ChatDataProvider"
+        );
+    }
+    return context;
 };
