@@ -1,7 +1,6 @@
 import TextMode from "@components/TextMode";
 import AudioMode from "@components/AudioMode";
 import IconButton from "@components/IconButton";
-import FileUploader from "@components/FileUploader";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
 import { ComposerMode, IconIds } from "@utils/constants";
 import { isValidMessage } from "@utils/constants";
