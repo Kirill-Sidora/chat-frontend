@@ -17,6 +17,7 @@
     --scrollbar-track-background-color: #6d6c6c;
     --scrollbar-thumb-background-color: #6b6b6b;
     --scrollbar-thumb-background-color: #4a4a4a;
+    --button-hover-background-color: rgba(255, 255, 255, 0.1);
 
     --primary-fill-color: #ffffff;
     --elements-fill-color: #efefef;

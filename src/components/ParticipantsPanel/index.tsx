@@ -12,10 +12,9 @@ const ParticipantsPanel = (): ReactElement => {
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [isShowAll, setIsShowAll] = useState<boolean>(false);
 
-    const isVisibleBlock: string = !isOpen ? "hidden" : "";
     const closeButtonText: string = !isOpen ? " ←" : " →";
     const showButtonText: string = !isShowAll ? "Show more" : "Return";
-    const stateOfButton = isOpen ? "initial" : "moved";
+    const stateOfContainer = isOpen ? "initial" : "moved";
 
     const handleToggleShowAll = () => {
         setIsShowAll(!isShowAll);
@@ -25,8 +24,8 @@ const ParticipantsPanel = (): ReactElement => {
     };
 
     return (
-        <div className="participants-container">
-            <div className={`button-container ${stateOfButton}`}>
+        <div className={`participants-container ${stateOfContainer}`}>
+            <div className="button-container">
                 <CustomButton
                     onClick={handleToggleVisibility}
                     type={typesOfButton.closeButton}
@@ -34,7 +33,7 @@ const ParticipantsPanel = (): ReactElement => {
                     {closeButtonText}
                 </CustomButton>
             </div>
-            <div className={`participants-block ${isVisibleBlock}`}>
+            <div className="participants-block">
                 <h3 className="participants-header">Participants Telegram 2</h3>
 
                 <div className="divider"></div>

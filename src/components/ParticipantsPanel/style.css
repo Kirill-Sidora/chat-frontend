@@ -1,14 +1,33 @@
 .participants-container {
+    position: fixed;
     right: 0;
-    top: 80px;
-    max-width: 170px;
+    top: 70px;
+    width: 175px;
+    max-width: 180px;
     max-height: 60vh;
+    transition: transform 0.3s ease-in-out;
+    z-index: 2;
+}
+
+.participants-container.initial {
+    animation: slideIn 0.3s ease-in-out forwards;
+}
+
+.participants-container.moved {
+    animation: slideOut 0.3s ease-in-out forwards;
+}
+
+.button-container {
+    position: fixed;
+    top: 35px;
+    right: 0;
+    transition: transform 0.3s ease-in-out;
 }
 
 .participants-block {
     position: fixed;
     right: 0;
-    top: 80px;
+    top: 70px;
     padding: var(--content-padding);
     max-width: 170px;
     max-height: 60vh;
@@ -19,7 +38,6 @@
     overflow-y: auto;
     background-color: var(--chat-message-me);
     z-index: 1;
-    animation: slideIn 0.3s ease-out forwards;
 
     &::-webkit-scrollbar {
         width: 12px;
@@ -36,11 +54,6 @@
     &::-webkit-scrollbar-thumb:hover {
         background: var(--scrollbar-thumb-background-color);
     }
-}
-
-.participants-block.hidden {
-    animation: slideOut 0.3s ease-in forwards;
-    pointer-events: none;
 }
 
 .participants-header {
@@ -63,58 +76,20 @@
     margin: 0 -16px 12px -16px;
 }
 
-.button-container {
-    position: fixed;
-    top: 35px;
-    right: 0px;
-    transition: transform 0.3s ease-in-out;
-    z-index: 2;
-}
-
-.button-container.initial {
-    animation: slideInitial 0.3s ease-in forwards;
-}
-
-.button-container.moved {
-    animation: slideMoved 0.3s ease-in forwards;
-}
-
 @keyframes slideIn {
     from {
-        transform: translateX(100%);
-        opacity: 0;
+        transform: translateX(170px);
     }
     to {
         transform: translateX(0);
-        opacity: 1;
     }
 }
 
 @keyframes slideOut {
     from {
         transform: translateX(0);
-        opacity: 1;
     }
     to {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-}
-
-@keyframes slideInitial {
-    from {
-        transform: translateX(calc(100% + 170px));
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideMoved {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(calc(100% + 170px));
+        transform: translateX(calc(170px));
     }
 }

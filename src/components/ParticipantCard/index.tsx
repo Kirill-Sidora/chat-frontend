@@ -1,5 +1,5 @@
-import type { ReactElement } from "react";
 import type { IChatUser } from "@app-types/user";
+import type { ReactElement } from "react";
 import "./style.css";
 
 interface IParticipantCardProps {
