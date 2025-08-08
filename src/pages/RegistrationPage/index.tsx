@@ -6,7 +6,7 @@ import "./style.css";
 const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
     if (nickName.trim()) {
         localStorage.setItem("nickName", nickName);
-        navigate(paths.HOME.path); 
+        navigate(paths.MESSAGE.path); 
     }
 };
 
