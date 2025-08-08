@@ -1,5 +1,5 @@
-import Message from "@components/Message";
 import ParticipantsPanel from "@components/ParticipantsPanel";
+import Message from "@components/Message";
 import MessageComposer from "@components/MessageComposer";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatDataContext } from "@components/context/СhatDataContext";
