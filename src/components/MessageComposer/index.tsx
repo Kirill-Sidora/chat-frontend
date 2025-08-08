@@ -51,7 +51,6 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
 
     return (
         <div className="message-composer-container">
-            <FileUploader />
             {mode == ComposerMode.AUDIO && (
                 <AudioMode
                     onDiscard={() => setMode(ComposerMode.TEXT)}
