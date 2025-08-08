@@ -16,8 +16,8 @@ const RegistrationPage = (): ReactElement => {
 
     return (
         <div className="registration-page">
-            <div className="animated-heading">Welcome!</div>
-            <div className="animated-subtitle">Please enter your name below.</div>
+            <div className="heading">Welcome!</div>
+            <div className="subtitle">Please enter your name below.</div>
 
             <input
                 type="text"
