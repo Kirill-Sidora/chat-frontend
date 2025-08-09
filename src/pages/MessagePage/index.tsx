@@ -1,14 +1,15 @@
 import Message from "@components/Message";
-import ParticipantsPanel from "@components/ParticipantsPanel";
 import MessageComposer from "@components/MessageComposer";
+import ParticipantsPanel from "@components/ParticipantsPanel";
+import { useChatDataContext } from "src/contexts/СhatDataContext";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
-import { useChatData } from "@hooks/useChatData/useChatData";
 import { useRef, useEffect, type ReactElement } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
 const MessagePage = (): ReactElement => {
-    const { secondUsername, messages, messageHandlersConfig } = useChatData();
+    const { secondUsername, messages, messageHandlersConfig } =
+        useChatDataContext();
     const { sendMessage } = useWebSocket(messageHandlersConfig);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);

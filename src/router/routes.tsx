@@ -2,6 +2,7 @@ import HomePage from "@pages/HomePage";
 import MessagePage from "@pages/MessagePage";
 import RegistrationPage from "@pages/RegistrationPage";
 import ProtectedRoute from "@components/ProtectedRoute";
+import { ChatDataProvider } from "src/contexts/СhatDataContext";
 import { type RouteObject } from "react-router-dom";
 
 export const paths = {
@@ -28,7 +29,9 @@ const routes: RouteObject[] = [
         ...paths.MESSAGE,
         element: (
             <ProtectedRoute>
-                <MessagePage />
+                <ChatDataProvider>
+                    <MessagePage />
+                </ChatDataProvider>
             </ProtectedRoute>
         ),
     },
