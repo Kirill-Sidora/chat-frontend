@@ -6,7 +6,7 @@ import {
     type IMessageHandlerData,
     type TServerMessages,
 } from "@app-types/serverMessages";
-
+import type { IEncodedFileData } from "@app-types/file";
 
 const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
 
@@ -56,17 +56,50 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         };
     }, [username]);
 
-    const sendMessage = (text: string) => {
-        if (webSocket && webSocket.readyState === WebSocket.OPEN) {
-            const messageForServer = {
-                type: MessagesForServerTypes.MESSAGE,
-                text,
-                sender: username,
-            };
-
-            webSocket.send(JSON.stringify(messageForServer));
+    const sendTextMessage = (messageData: string) => {
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
+            return;
         }
+
+        const messageForServer = {
+            type: MessagesForServerTypes.TEXT_MESSAGE,
+            text: messageData,
+        };
+
+        console.log("MESSAGE FOR SERVER: ", messageForServer);
+
+        webSocket.send(JSON.stringify(messageForServer));
     };
 
-    return { sendMessage };
+    const sendFileMessage = (messageData: IEncodedFileData) => {
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
+            return;
+        }
+
+        const messageForServer = {
+            type: MessagesForServerTypes.FILE_MESSAGE,
+            file: messageData,
+        };
+
+        console.log("MESSAGE FOR SERVER: ", messageForServer);
+
+        webSocket.send(JSON.stringify(messageForServer));
+    };
+
+    const sendAudioMessage = (messageData: IEncodedFileData) => {
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
+            return;
+        }
+
+        const messageForServer = {
+            type: MessagesForServerTypes.AUDIO_MESSAGE,
+            file: messageData,
+        };
+
+        console.log("MESSAGE FOR SERVER: ", messageForServer);
+
+        webSocket.send(JSON.stringify(messageForServer));
+    };
+
+    return { sendTextMessage, sendFileMessage, sendAudioMessage };
 };

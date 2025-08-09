@@ -1,18 +1,14 @@
-import { getFormattedTime } from "@utils/constants";
-import { useState, useEffect, useContext, createContext } from "react";
-import {
-    ClientMessagesTypes,
-    type ITextMessage,
-    type TClientMessage,
-} from "@app-types/message";
+import React from "react";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
+import { useState, useEffect, useContext, createContext } from "react";
+import { type TClientMessage } from "@app-types/message";
 import {
     MessagesFromServerTypes,
-    type IMessageFromServer,
     type IMessageHandlerData,
     type TServerMessages,
+    type TWebSocketMessage,
 } from "@app-types/serverMessages";
-import React from "react";
+import MessageParser from "@services/MessageParser";
 
 interface IChatDataContext {
     setSecondUsername: (username: string | null) => void;
@@ -25,7 +21,6 @@ interface IChatDataContext {
             { type: MessagesFromServerTypes.HISTORY }
         >
     ) => void;
-    handleNewMessage: (newMessageData: IMessageFromServer) => void;
     messageHandlersConfig: IMessageHandlerData[];
 }
 
@@ -40,26 +35,32 @@ export const ChatDataProvider: React.FC<{
 
     const username = localStorage.getItem("nickName");
 
-    const handleNewMessage = (newMessageData: IMessageFromServer): void => {
+    const handleNewMessage = (
+        newWebSocketMessageData: Extract<
+            TServerMessages,
+            { type: MessagesFromServerTypes.MESSAGE }
+        >
+    ): void => {
+        console.log("NEW WEBSOCKET MESSAGE HANDLE: ", newWebSocketMessageData);
+
+        if (!username) {
+            return;
+        };
+
+        const newMessageData = newWebSocketMessageData.message;
+
         console.log("NEW MESSAGE DATA: ", newMessageData);
 
-        const { username: sender, text, id, timestamp } = newMessageData;
-
-        if (newMessageData.username !== username) {
+        if (newMessageData.sender !== username) {
             setSecondUsername(username);
         }
 
-        const formattedTime: string = getFormattedTime(timestamp);
+        const parsedMessage: TClientMessage = MessageParser.parseServerMessage(
+            newMessageData,
+            username
+        );
 
-        const newMessage: ITextMessage = {
-            id,
-            type: ClientMessagesTypes.TEXT,
-            text,
-            time: formattedTime,
-            isMine: sender === username,
-        };
-
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        setMessages((prevMessages) => [...prevMessages, parsedMessage]);
     };
 
     const loadAllUsers = (data: { users: IUser[] }): void => {
@@ -67,6 +68,8 @@ export const ChatDataProvider: React.FC<{
             return [...data.users];
         });
     };
+
+    const loadMessage = ()
 
     const updateUserStatus = (statusData: IUserStatusChanged): void => {
         setUsers((prevUsers) => {
@@ -95,7 +98,7 @@ export const ChatDataProvider: React.FC<{
 
         historyMessages
             .reverse()
-            .forEach((historyMessage: IMessageFromServer) => {
+            .forEach((historyMessage: any) => {
                 handleNewMessage(historyMessage);
             });
     };
@@ -127,7 +130,6 @@ export const ChatDataProvider: React.FC<{
                 messages,
                 users,
                 loadMessagesHistory,
-                handleNewMessage,
                 messageHandlersConfig,
             }}
         >

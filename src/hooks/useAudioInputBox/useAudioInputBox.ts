@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface IUseAudioInputBoxProps {
-    onFileUpdate: (audio: Blob) => void;
-}
-
-const useAudioInputBox = ({ onFileUpdate }: IUseAudioInputBoxProps) => {
+const useAudioInputBox = () => {
     const [messageRecorder, setMessageRecorder] =
         useState<MediaRecorder | null>(null);
     const [isRecording, setIsRecording] = useState(false);
@@ -36,7 +32,7 @@ const useAudioInputBox = ({ onFileUpdate }: IUseAudioInputBoxProps) => {
         };
 
         recorder.onstop = () => {
-            const fullBlob = new Blob(chunks, { type: "audio" });
+            const fullBlob = new Blob(chunks, { type: "audio/mp4" });
             setBlob(fullBlob);
         };
 

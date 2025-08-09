@@ -6,17 +6,16 @@ import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useRef, useEffect, type ReactElement } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
+import type { TClientMessage } from "@app-types/message";
 
 const MessagePage = (): ReactElement => {
     const { secondUsername, messages, messageHandlersConfig } =
         useChatDataContext();
-    const { sendMessage } = useWebSocket(messageHandlersConfig);
+    const { sendTextMessage, sendAudioMessage, sendFileMessage } = useWebSocket(
+        messageHandlersConfig
+    );
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
-
-    const handleSendMessage = (text: string) => {
-        sendMessage(text);
-    };
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,12 +37,16 @@ const MessagePage = (): ReactElement => {
             </header>
             <ParticipantsPanel />
             <div className="messages-container secondary-text">
-                {messages.map((msg) => (
-                    <Message key={msg.id} message={msg} />
+                {messages.map((clientMessageData: TClientMessage) => (
+                    <Message key={clientMessageData.id} message={clientMessageData} />
                 ))}
                 <div ref={messagesEndRef} />
             </div>
-            <MessageComposer onSend={handleSendMessage} />
+            <MessageComposer
+                onTextSend={sendTextMessage}
+                onFileSend={sendFileMessage}
+                onAudioSend={sendAudioMessage}
+            />
         </div>
     );
 };

@@ -3,21 +3,24 @@ import MessageInput from "@components/MessageInput";
 import FileUploader from "@components/FileUploader";
 import type { ReactElement, KeyboardEvent } from "react";
 import { IconIds } from "@utils/constants";
+import type { IEncodedFileData } from "@app-types/file";
 
 interface TextModeProps {
     message: string;
     setMessage: (msg: string) => void;
     onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
+    onFileSend: (fileData: IEncodedFileData) => void;
 }
 
 const TextMode = ({
     message,
     setMessage,
     onKeyDown,
+    onFileSend,
 }: TextModeProps): ReactElement => {
     return (
         <>
-            <FileUploader />
+            <FileUploader onFileSend={onFileSend}/>
             <MessageInput
                 message={message}
                 setMessage={setMessage}

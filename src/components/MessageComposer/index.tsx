@@ -5,18 +5,21 @@ import { useState, type ReactElement, type KeyboardEvent } from "react";
 import { ComposerMode, IconIds } from "@utils/constants";
 import { isValidMessage } from "@utils/constants";
 import "./style.css";
+import type { IEncodedFileData } from "@app-types/file";
 
 interface IMessageComposerProps {
-    onSend: (messageOrAudio: string) => void;
+    onTextSend: (message: string) => void;
+    onFileSend: (fileData: IEncodedFileData) => void;
+    onAudioSend: (audioData: IEncodedFileData) => void;
 }
 
-const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
+const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageComposerProps): ReactElement => {
     const [message, setMessage] = useState("");
     const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
 
     const handleSendMessage = () => {
         if (isValidMessage(message)) {
-            onSend(message);
+            onTextSend(message);
             setMessage("");
             console.log(message);
         }
@@ -31,8 +34,17 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
         setMode(ComposerMode.AUDIO);
     };
 
-    const handleSendAudio = (audio: Blob) => {
-        console.log("audio sended");
+    const handleSendFile = (fileData: IEncodedFileData) => {
+        console.log("FILE SENDED: ", fileData);
+
+        onFileSend(fileData);
+    };
+
+    const handleSendAudio = (audioData: IEncodedFileData) => {
+        console.log("AUDIO SENDED: ", audioData);
+
+        onAudioSend(audioData);
+
         setMode(ComposerMode.TEXT);
     };
 
@@ -53,7 +65,7 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
             {mode == ComposerMode.AUDIO && (
                 <AudioMode
                     onDiscard={() => setMode(ComposerMode.TEXT)}
-                    onFileUpdate={handleSendAudio}
+                    onAudioSend={handleSendAudio}
                 />
             )}
 
@@ -63,6 +75,7 @@ const MessageComposer = ({ onSend }: IMessageComposerProps): ReactElement => {
                         message={message}
                         setMessage={setMessage}
                         onKeyDown={handleMessageInputKeyDown}
+                        onFileSend={handleSendFile}
                     />
 
                     <IconButton
