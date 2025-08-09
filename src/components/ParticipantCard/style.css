@@ -1,0 +1,40 @@
+.participant-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-radius: 4px;
+    transition: background-color var(--transition-time);
+    padding-left: 8px;
+    padding-right: 10px;
+}
+
+.participant-card-text {
+    font-family: "SF Pro Text";
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text-primary);
+}
+
+.participant-card:hover {
+    background-color: var(--button-hover-background-color);
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.status-indicator.online {
+    background-color: var(--accent-active-background-color);
+    box-shadow: 0 0 0 2px rgba(59, 165, 93, 0.2);
+}
+
+.status-indicator.offline {
+    background-color: var(--accent-passive-background-color);
+    box-shadow: 0 0 0 2px rgba(116, 127, 141, 0.2);
+}
