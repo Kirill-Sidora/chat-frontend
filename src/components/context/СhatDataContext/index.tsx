@@ -1,6 +1,10 @@
 import { getFormattedTime } from "@utils/constants";
 import { useState, useEffect, useContext, createContext } from "react";
-import { type IMessage } from "@app-types/message";
+import {
+    ClientMessagesTypes,
+    type ITextMessage,
+    type TClientMessage,
+} from "@app-types/message";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import {
     MessagesFromServerTypes,
@@ -13,7 +17,7 @@ import React from "react";
 interface IChatDataContext {
     setSecondUsername: (username: string | null) => void;
     secondUsername: string | null;
-    messages: IMessage[];
+    messages: TClientMessage[];
     users: IUser[];
     loadMessagesHistory: (
         historyData: Extract<
@@ -31,7 +35,7 @@ export const ChatDataProvider: React.FC<{
     children: React.ReactNode;
 }> = ({ children }) => {
     const [secondUsername, setSecondUsername] = useState<string | null>(null);
-    const [messages, setMessages] = useState<IMessage[]>([]);
+    const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
 
     const username = localStorage.getItem("nickName");
@@ -47,12 +51,12 @@ export const ChatDataProvider: React.FC<{
 
         const formattedTime: string = getFormattedTime(timestamp);
 
-        const newMessage: IMessage = {
+        const newMessage: ITextMessage = {
             id,
+            type: ClientMessagesTypes.TEXT,
             text,
             time: formattedTime,
             isMine: sender === username,
-            sender,
         };
 
         setMessages((prevMessages) => [...prevMessages, newMessage]);

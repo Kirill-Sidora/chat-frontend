@@ -13,18 +13,22 @@
     --chat-header-background: #1c1c1d;
     --chat-message-me: #313131;
     --chat-message-other: #262628;
-    --image-background-color: #d9d9d9;
+    --modal-main-color: #1c1c1d;
+    --modal-second-color: #202020;
+    --modal-background-color: rgba(0, 0, 0, 0.5);
+    --image-background-color: #D9D9D9;
+    
+    --primary-fill-color: #FFFFFF;
+    --elements-fill-color: #EFEFEF;
     --scrollbar-track-background-color: #6d6c6c;
     --scrollbar-thumb-background-color: #6b6b6b;
     --scrollbar-thumb-background-color: #4a4a4a;
     --button-hover-background-color: rgba(255, 255, 255, 0.1);
-
-    --primary-fill-color: #ffffff;
-    --elements-fill-color: #efefef;
     --secondary-fill-color: #727173;
     --input-border-color: #3a3a3c;
     --list-border-color: #444;
     --send-button-color: #d500c3;
+    --modal-button-hover: rgb(49, 49, 49);
     --placeholder-color: #636366;
 
     --accent-passive-color: #000e8a;
@@ -150,4 +154,9 @@ h5 {
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.4px;
+}
+
+.preview-modal-text {
+    font-family: "Inter";
+    font-weight: 600;
 }

@@ -4,7 +4,7 @@ import "./style.css";
 
 export interface IIconButtonProps {
     iconSrc: string;
-    onClick: () => void;
+    onClick: () => void | Promise<void>;
     height?: string;
     disabled?: boolean;
     isActive?: boolean;
