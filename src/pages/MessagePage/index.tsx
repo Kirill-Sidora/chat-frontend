@@ -42,7 +42,6 @@ const MessagePage = (): ReactElement => {
                 ))}
                 <div ref={messagesEndRef} />
             </div>
-
             <MessageComposer onSend={handleSendMessage} />
         </div>
     );

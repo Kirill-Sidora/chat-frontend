@@ -53,7 +53,7 @@ export const isValidMessage = (message: string): boolean => {
     return /\S/.test(message);
 };
 
-export function getRandomId() {
+export const getRandomId = (): string => {
     return (
         Date.now().toString(36) +
         Math.random().toString(36).substring(2).toString()
