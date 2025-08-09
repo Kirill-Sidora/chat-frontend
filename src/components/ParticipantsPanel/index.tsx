@@ -1,5 +1,6 @@
-import ParticipantsList from "@components/ParticipantsList";
 import CustomButton from "@components/CustomButton";
+import ParticipantsList from "@components/ParticipantsList";
+import { useChatDataContext } from "src/contexts/СhatDataContext";
 import { useState, type ReactElement } from "react";
 import "./style.css";
 
@@ -11,10 +12,14 @@ export const typesOfButton = {
 const ParticipantsPanel = (): ReactElement => {
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [isShowAll, setIsShowAll] = useState<boolean>(false);
+    const { users } = useChatDataContext();
 
     const closeButtonText: string = !isOpen ? " ←" : " →";
     const showButtonText: string = !isShowAll ? "Show more" : "Return";
     const stateOfContainer = isOpen ? "initial" : "moved";
+    const visibleCount: number = 8;
+
+    const isShowButton = users.length > visibleCount;
 
     const handleToggleShowAll = () => {
         setIsShowAll(!isShowAll);
@@ -37,13 +42,18 @@ const ParticipantsPanel = (): ReactElement => {
                 <h3 className="participants-header">Participants Telegram 2</h3>
 
                 <div className="divider"></div>
-                <ParticipantsList visibleCount={8} isShowAll={isShowAll} />
-                <CustomButton
-                    onClick={handleToggleShowAll}
-                    type={typesOfButton.showButton}
-                >
-                    {showButtonText}
-                </CustomButton>
+                <ParticipantsList
+                    visibleCount={visibleCount}
+                    isShowAll={isShowAll}
+                />
+                {isShowButton && (
+                    <CustomButton
+                        onClick={handleToggleShowAll}
+                        type={typesOfButton.showButton}
+                    >
+                        {showButtonText}
+                    </CustomButton>
+                )}
             </div>
         </div>
     );

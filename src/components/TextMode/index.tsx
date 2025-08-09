@@ -1,5 +1,6 @@
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
+import FileUploader from "@components/FileUploader";
 import type { ReactElement, KeyboardEvent } from "react";
 import { IconIds } from "@utils/constants";
 
@@ -16,12 +17,7 @@ const TextMode = ({
 }: TextModeProps): ReactElement => {
     return (
         <>
-            <IconButton
-                iconSrc={IconIds.PAPERCLIP_ICON}
-                onClick={() => {}}
-                height="24px"
-            />
-
+            <FileUploader />
             <MessageInput
                 message={message}
                 setMessage={setMessage}

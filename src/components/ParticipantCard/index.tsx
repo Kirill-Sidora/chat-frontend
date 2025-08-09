@@ -1,9 +1,9 @@
-import type { IChatUser } from "@app-types/user";
+import type { IUser } from "@app-types/user";
 import type { ReactElement } from "react";
 import "./style.css";
 
 interface IParticipantCardProps {
-    user: IChatUser;
+    user: IUser;
 }
 
 const ParticipantCard = ({ user }: IParticipantCardProps): ReactElement => {

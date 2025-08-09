@@ -1,18 +1,18 @@
-import type { IMessage } from "@app-types/message";
-import type { ReactElement } from "react";
+import { type TClientMessage } from "@app-types/message";
+import { type ReactElement } from "react";
 import "./style.css";
 
-interface MessageProps {
-    message: IMessage;
+interface IMessageProps {
+  message: TClientMessage;
 }
 
-const Message = ({ message }: MessageProps): ReactElement => {
-    return (
+const Message = ({ message }: IMessageProps): ReactElement => {
+  return (
         <div className={`message ${message.isMine ? "mine" : "other"}`}>
-            <div className="message-text secondary-text">{message.text}</div>
-            <div className="message-time meta-text">{message.time}</div>
+          <div className="message-text secondary-text">{message.text}</div>
+          <div className="message-time meta-text">{message.time}</div>
         </div>
-    );
+  );
 };
 
 export default Message;

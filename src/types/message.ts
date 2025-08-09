@@ -1,7 +1,23 @@
-export interface IMessage {
+export const enum ClientMessagesTypes {
+    TEXT = "text",
+    IMAGE = "image",
+}
+
+export interface IDefaultMessage {
     id: string;
-    text: string;
+    type: ClientMessagesTypes;
     time: string;
     isMine: boolean;
-    sender?: string;
-}
+};
+
+export interface ITextMessage extends IDefaultMessage {
+    type: ClientMessagesTypes.TEXT;
+    text: string;
+};
+
+export interface IImageMessage extends IDefaultMessage {
+    type: ClientMessagesTypes.IMAGE;
+    src: string;
+};
+
+export type TClientMessage = ITextMessage;
