@@ -164,7 +164,35 @@ h5 {
     font-weight: 600;
 }
 
-.preview-modal-text {
+.title-text {
     font-family: "Inter";
+    font-weight: 700;
+    font-size: var(--font-size-heading, 4rem);
+    line-height: 100%;
+    letter-spacing: -0.33px;
+}
+
+.subtitle-text {
+    font-family: "SF Pro Text";
+    font-weight: 500;
+    font-size: var(--font-size-subtitle, 1.2rem);
+    line-height: 22px;
+    letter-spacing: -0.4px;
+}
+
+.regular-text {
+    font-family: "SF Pro Text";
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.4px;
+    text-align: left;
+}
+
+.button-text {
+    font-family: "SF Pro Text";
     font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.4px;
 }

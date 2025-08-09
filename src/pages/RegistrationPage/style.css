@@ -15,12 +15,6 @@
 }
 
 .heading {
-    /* Используем типографию из общего файла тем, но сохраняем исконный размер */
-    font-family: "Inter";
-    font-weight: 700;
-    font-size: var(--font-size-heading, 4rem);
-    line-height: 100%;
-    letter-spacing: -0.33px;
     color: var(--color-text-primary, #ffffff);
     animation: scaleFadeIn 0.6s ease-out forwards;
     opacity: 0;
@@ -30,12 +24,6 @@
 }
 
 .subtitle {
-    /* Используем типографию из общего файла тем, но сохраняем исконный размер */
-    font-family: "SF Pro Text";
-    font-weight: 500;
-    font-size: var(--font-size-subtitle, 1.2rem);
-    line-height: 22px;
-    letter-spacing: -0.4px;
     color: var(--color-subtitle, rgba(255, 255, 255, 0.7));
     animation: fadeSlideIn 0.8s ease-out forwards;
     opacity: 0;
@@ -48,26 +36,17 @@
     max-width: 400px;
     padding: 18px 20px;
     margin-bottom: 15px;
-    /* Используем типографию из общего файла тем */
-    font-family: "SF Pro Text";
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.4px;
     background: var(--dark-background, #202020);
     border: 1px solid var(--input-border-light, rgba(255, 255, 255, 0.4));
     border-radius: 5px;
     color: var(--input-text-color, #ffffff);
-    text-align: left;
     opacity: 0;
     animation: fadeInDown 0.6s ease-out forwards;
     animation-delay: 0.5s;
 }
 
 .input-field::placeholder {
-    font-size: var(--font-size-input-placeholder, 18px);
     color: var(--input-placeholder-color, rgba(255, 255, 255, 0.4));
-    text-align: left;
 }
 
 .submit-button {
@@ -75,15 +54,8 @@
     width: 100%;
     max-width: 400px;
     padding: 18px 50px;
-    /* Используем типографию из общего файла тем */
-    font-family: "SF Pro Text";
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.4px;
     background-color: var(--secondary-background-color, #3b3a3a);
     border-radius: var(--content-radius-secondary, 8px);
-    text-decoration: none;
     cursor: pointer;
     border: none;
     box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
