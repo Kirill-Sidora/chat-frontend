@@ -1,5 +1,5 @@
-import ParticipantsList from "@components/ParticipantsList";
 import CustomButton from "@components/CustomButton";
+import ParticipantsList from "@components/ParticipantsList";
 import { useChatDataContext } from "@components/context/СhatDataContext";
 import { useState, type ReactElement } from "react";
 import "./style.css";

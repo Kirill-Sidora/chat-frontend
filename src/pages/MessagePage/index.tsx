@@ -1,8 +1,8 @@
-import ParticipantsPanel from "@components/ParticipantsPanel";
 import Message from "@components/Message";
 import MessageComposer from "@components/MessageComposer";
-import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
+import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useChatDataContext } from "@components/context/СhatDataContext";
+import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useRef, useEffect, type ReactElement } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
