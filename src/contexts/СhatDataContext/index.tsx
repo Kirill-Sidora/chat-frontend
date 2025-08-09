@@ -1,5 +1,5 @@
 import { getFormattedTime } from "@utils/constants";
-import { useState, useEffect, createContext } from "react";
+import { useState, useContext, useEffect, createContext } from "react";
 import {
     ClientMessagesTypes,
     type ITextMessage,
@@ -134,4 +134,14 @@ export const ChatDataProvider: React.FC<{
             {children}
         </ChatDataContext.Provider>
     );
+};
+
+export const useChatDataContext = () => {
+    const context = useContext(ChatDataContext);
+    if (!context) {
+        throw new Error(
+            "useChatDataContext must be used within ChatDataProvider"
+        );
+    }
+    return context;
 };

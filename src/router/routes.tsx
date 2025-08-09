@@ -2,7 +2,7 @@ import HomePage from "@pages/HomePage";
 import MessagePage from "@pages/MessagePage";
 import RegistrationPage from "@pages/RegistrationPage";
 import ProtectedRoute from "@components/ProtectedRoute";
-import { ChatDataProvider } from "../contexts/СhatDataContext";
+import { ChatDataProvider } from "@contexts/СhatDataContext";
 import { type RouteObject } from "react-router-dom";
 
 export const paths = {
