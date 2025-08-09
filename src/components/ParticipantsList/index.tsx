@@ -1,13 +1,12 @@
 import ParticipantCard from "@components/ParticipantCard";
-import { useChatDataContext } from "@components/context/СhatDataContext";
-import { type ReactElement } from "react";
 import type { IUser } from "@app-types/user";
+import { type ReactElement } from "react";
+import { useChatDataContext } from "@components/context/СhatDataContext";
 
 interface IParticipantsListProps {
     visibleCount: number;
     isShowAll?: boolean;
 }
-
 const ParticipantsList = ({
     visibleCount,
     isShowAll,

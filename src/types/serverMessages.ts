@@ -10,6 +10,7 @@ export const enum MessagesFromServerTypes {
     ERROR = "error",
     MESSAGE = "msg",
     USERS = "usersData",
+    USER_STATUS_CHANGED = "userStatusChanged",
 }
 
 export interface IMessageFromServer {
@@ -33,4 +34,10 @@ export type TServerMessages =
           text: string;
           timestamp: number;
       }
-    | { type: MessagesFromServerTypes.USERS; users: IUser[] };
+    | { type: MessagesFromServerTypes.USERS; users: IUser[] }
+    | {
+          type: MessagesFromServerTypes.USER_STATUS_CHANGED;
+          username: string;
+          id: string;
+          isOnline: boolean;
+      };

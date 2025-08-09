@@ -1,7 +1,7 @@
 import { getFormattedTime } from "@utils/constants";
-import { useState, useContext, createContext } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import { type IMessage } from "@app-types/message";
-import { type IUser } from "@app-types/user";
+import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import {
     MessagesFromServerTypes,
     type IMessageFromServer,
@@ -64,6 +64,21 @@ export const ChatDataProvider: React.FC<{
         });
     };
 
+    const updateUserStatus = (statusData: IUserStatusChanged): void => {
+        setUsers((prevUsers) => {
+            const updatedUsers = prevUsers.map((user) =>
+                user.id === statusData.id
+                    ? { ...user, isOnline: statusData.isOnline }
+                    : user
+            );
+            return updatedUsers;
+        });
+    };
+
+    useEffect(() => {
+        console.log("USERS CHANGED: ", users);
+    }, [users]);
+
     const loadMessagesHistory = (
         historyData: Extract<
             TServerMessages,
@@ -93,6 +108,10 @@ export const ChatDataProvider: React.FC<{
         {
             type: MessagesFromServerTypes.USERS,
             action: loadAllUsers,
+        },
+        {
+            type: MessagesFromServerTypes.USER_STATUS_CHANGED,
+            action: updateUserStatus,
         },
     ];
 
