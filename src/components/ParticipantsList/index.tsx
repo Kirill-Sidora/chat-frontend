@@ -1,5 +1,5 @@
 import ParticipantCard from "@components/ParticipantCard";
-import { useChatDataContext } from "src/contexts/СhatDataContext";
+import { useChatDataContext } from "@hooks/useChatDataContext/useChatDataContext";
 import type { IUser } from "@app-types/user";
 import { type ReactElement } from "react";
 
