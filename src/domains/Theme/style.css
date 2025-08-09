@@ -2,10 +2,10 @@
     --color-text-primary: #ffffff;
     --primary-font-color: #111213;
     --text-inactive: #d2d2d2;
-    --secondary-components-color: #8E8E93;
+    --secondary-components-color: #8e8e93;
     --additional-text-font-color: #678259;
-    
-    --primary-background-color: #F4F4F4;
+
+    --primary-background-color: #f4f4f4;
     --secondary-background-color: #3b3a3a;
     --dark-background: #202020;
     --inactive-background-color: #060606;
@@ -20,14 +20,21 @@
     
     --primary-fill-color: #FFFFFF;
     --elements-fill-color: #EFEFEF;
+    --scrollbar-track-background-color: #6d6c6c;
+    --scrollbar-thumb-background-color: #6b6b6b;
+    --scrollbar-thumb-background-color: #4a4a4a;
+    --button-hover-background-color: rgba(255, 255, 255, 0.1);
     --secondary-fill-color: #727173;
     --input-border-color: #3a3a3c;
+    --list-border-color: #444;
     --send-button-color: #d500c3;
     --modal-button-hover: rgb(49, 49, 49);
     --placeholder-color: #636366;
 
     --accent-passive-color: #000e8a;
     --accent-active-color: #2c3e50;
+    --accent-passive-background-color: #747f8d;
+    --accent-active-background-color: #3ba55d;
 
     --navbar-height: 75px;
     --product-padding: 10px;
@@ -36,19 +43,18 @@
     --content-radius-secondary: 8px;
     --content-width-desktop: 1100px;
     --control-elements-height: 45px;
-    
+
     --chat-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     --default-shadow-color: rgba(23, 28, 23, 0.58);
     --default-shadow: 0 0 4px 0 var(--default-shadow-color);
     --home-intro-slide-shadow: 0 2.02px 6.17px rgb(0, 0, 0, 0.04),
-    0 4.85px 14.83px rgb(0, 0, 0, 0.06),
-    0 9.14px 27.92px rgba(13, 11, 11, 0.07),
-    0 16.31px 49.81px rgb(0, 0, 0, 0.08),
-    0 30.5px 93.16px rgb(0, 0, 0, 0.1),
-    0 73px 223px rgb(0, 0, 0, 0.14);
-    
-    --transition-time: .3s;
-    --disabled-filter: grayscale(.3);
+        0 4.85px 14.83px rgb(0, 0, 0, 0.06),
+        0 9.14px 27.92px rgba(13, 11, 11, 0.07),
+        0 16.31px 49.81px rgb(0, 0, 0, 0.08), 0 30.5px 93.16px rgb(0, 0, 0, 0.1),
+        0 73px 223px rgb(0, 0, 0, 0.14);
+
+    --transition-time: 0.3s;
+    --disabled-filter: grayscale(0.3);
     --elements-hover-rotation: rotate(4deg);
 }
 
@@ -79,7 +85,7 @@
 @font-face {
     font-family: "Inter";
     font-weight: 700;
-    src: url("/src/assets/fonts/Inter/Inter-Bold.otf")
+    src: url("/src/assets/fonts/Inter/Inter-Bold.otf");
 }
 
 * {
@@ -109,7 +115,6 @@ h4,
 h5 {
     color: var(--primary-font-color);
 }
-
 
 .headline-text {
     font-family: "Inter";
@@ -150,8 +155,11 @@ h5 {
     line-height: 22px;
     letter-spacing: -0.4px;
 }
+<<<<<<< HEAD
 
 .preview-modal-text {
     font-family: "Inter";
     font-weight: 600;
 }
+=======
+>>>>>>> development
