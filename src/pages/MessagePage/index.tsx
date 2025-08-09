@@ -1,7 +1,7 @@
 import Message from "@components/Message";
 import MessageComposer from "@components/MessageComposer";
 import ParticipantsPanel from "@components/ParticipantsPanel";
-import { useChatDataContext } from "src/contexts/СhatDataContext";
+import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useRef, useEffect, type ReactElement } from "react";
 import { Link } from "react-router-dom";
