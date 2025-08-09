@@ -17,7 +17,6 @@
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "erasableSyntaxOnly": true,
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true,
 
@@ -27,10 +26,11 @@
             "@components/*": ["src/components/*"],
             "@pages/*": ["src/pages/*"],
             "@app-types/*": ["src/types/*"],
-            "@router/*" : ["src/router/*"],
-            "@utils/*" : ["src/utils/*"],
+            "@router/*": ["src/router/*"],
+            "@utils/*": ["src/utils/*"],
             "@hooks/*": ["src/hooks/*"],
-            "@domains/*": ["src/domains/*"]
+            "@domains/*": ["src/domains/*"],
+            "@contexts/*": ["src/contexts/*"]
         }
     },
     "include": ["vite.config.ts"]
