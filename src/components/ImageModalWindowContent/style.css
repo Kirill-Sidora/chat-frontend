@@ -1,0 +1,31 @@
+.modal-content {
+    background-color: var(--modal-main-color, #1c1c1d);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    margin: 10px 0;
+}
+
+.preview-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.button-style {
+    color: var(--color-text-primary, #ffffff);
+    background-color: var(--modal-main-color, #1c1c1d);
+    font-size: 16px;
+    border-radius: 5px;
+    height: 30px;
+    width: 70px;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.button-style:hover {
+    background-color: var(--modal-button-hover, rgb(49, 49, 49));
+    cursor: pointer;
+}
