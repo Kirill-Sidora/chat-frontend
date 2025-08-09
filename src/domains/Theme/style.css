@@ -53,6 +53,14 @@
   --transition-time: 0.3s;
   --disabled-filter: grayscale(0.3);
   --elements-hover-rotation: rotate(4deg);
+
+  /* Добавленные переменные */
+  --color-subtitle: rgba(255, 255, 255, 0.7);
+  --input-border-light: rgba(255, 255, 255, 0.4);
+  --input-text-color: #ffffff;
+  --input-placeholder-color: rgba(255, 255, 255, 0.4);
+  --button-hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  --button-active-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @font-face {
@@ -98,11 +106,11 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "SF Pro Text", sans-serif;
-  background: var(--home-page-background);
+  background: var(--home-page-background, linear-gradient(#242424, #3b3a3a));
 }
 
 a:hover {
-  color: var(--accent-passive-color);
+  color: var(--accent-passive-color, #000e8a);
 }
 
 h1,
@@ -110,7 +118,7 @@ h2,
 h3,
 h4,
 h5 {
-  color: var(--primary-font-color);
+  color: var(--primary-font-color, #111213);
 }
 
 .headline-text {

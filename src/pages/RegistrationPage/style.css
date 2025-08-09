@@ -11,13 +11,13 @@
   bottom: 0;
   margin: 0;
   padding: 0;
-  background-color: var(--dark-background);
+  background-color: var(--dark-background, #202020);
 }
 
 .heading {
-  font-size: var(--font-size-heading);
+  font-size: var(--font-size-heading, 4rem);
   font-weight: bold;
-  color: var(--color-text-primary);
+  color: var(--color-text-primary, #ffffff);
   animation: scaleFadeIn 0.6s ease-out forwards;
   opacity: 0;
   animation-delay: 0.2s;
@@ -26,8 +26,8 @@
 }
 
 .subtitle {
-  font-size: var(--font-size-subtitle);
-  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-subtitle, 1.2rem);
+  color: var(--color-subtitle, #7f7f7f);
   animation: fadeSlideIn 0.8s ease-out forwards;
   opacity: 0;
   animation-delay: 0.4s;
@@ -39,11 +39,11 @@
   max-width: 400px;
   padding: 18px 20px;
   margin-bottom: 15px;
-  font-size: var(--font-size-title);
-  background: var(--dark-background);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: var(--font-size-title, 20px);
+  background: var(--dark-background, #202020);
+  border: 1px solid var(--input-border-light, #7f7f7f);
   border-radius: 5px;
-  color: white;
+  color: var(--input-text-color, #ffffff);
   text-align: left;
   opacity: 0;
   animation: fadeInDown 0.6s ease-out forwards;
@@ -51,8 +51,8 @@
 }
 
 .input-field::placeholder {
-  font-size: var(--font-size-input-placeholder);
-  color: rgba(255, 255, 255, 0.4);
+  font-size: var(--font-size-input-placeholder, 18px);
+  color: var(--input-placeholder-color, #7f7f7f);
   text-align: left;
 }
 
@@ -61,15 +61,15 @@
   width: 100%;
   max-width: 400px;
   padding: 18px 50px;
-  font-size: var(--font-size-title);
+  font-size: var(--font-size-title, 20px);
   font-weight: bold;
-  background-color: var(--secondary-background-color);
-  border-radius: var(--content-radius-secondary);
+  background-color: var(--secondary-background-color, #3b3a3a);
+  border-radius: var(--content-radius-secondary, 8px);
   text-decoration: none;
   cursor: pointer;
   border: none;
-  box-shadow: var(--chat-shadow);
-  color: var(--color-text-primary);
+  box-shadow: var(--chat-shadow, 0 2px 5px #1c1c1c);
+  color: var(--color-text-primary, #ffffff);
   transition: all 0.3s ease;
   opacity: 0;
   animation: fadeInDown 0.6s ease-out forwards;
@@ -77,13 +77,13 @@
 }
 
 .submit-button:hover {
-  background-color: var(--inactive-background-color);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  background-color: var(--inactive-background-color, #060606);
+  box-shadow: var(--button-hover-shadow, 0 6px 12px #1c1c1c);
 }
 
 .submit-button:active {
   transform: scale(0.97);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--button-active-shadow, 0 2px 4px #1c1c1c);
 }
 
 @keyframes fadeInDown {
