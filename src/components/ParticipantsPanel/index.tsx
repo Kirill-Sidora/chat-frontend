@@ -19,7 +19,7 @@ const ParticipantsPanel = (): ReactElement => {
     const stateOfContainer = isOpen ? "initial" : "moved";
     const visibleCount: number = 8;
 
-    const isShowButton = users.length >= visibleCount;
+    const isShowButton = users.length > visibleCount;
 
     const handleToggleShowAll = () => {
         setIsShowAll(!isShowAll);
