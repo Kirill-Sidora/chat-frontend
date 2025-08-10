@@ -12,7 +12,9 @@ const ParticipantsList = ({
     isShowAll,
 }: IParticipantsListProps): ReactElement => {
     const { users } = useChatDataContext();
+    
     const visibleUsers = !isShowAll ? users.slice(0, visibleCount) : users;
+
     return (
         <div className="participants-list">
             {visibleUsers.map((user: IUser) => (

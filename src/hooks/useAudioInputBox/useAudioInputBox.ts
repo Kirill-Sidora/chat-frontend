@@ -32,10 +32,12 @@ const useAudioInputBox = () => {
 
         recorder.onstop = () => {
             const fullBlob = new Blob(chunks, { type: "audio/mp4" });
+
             setBlob(fullBlob);
         };
 
         recorder.start();
+
         setMessageRecorder(recorder);
         setIsRecording(true);
         setDuration(0);
@@ -66,15 +68,15 @@ const useAudioInputBox = () => {
     useEffect(() => {
         if (!blob) {
             setAudioSrc(null);
+
             return;
         }
 
         const url = URL.createObjectURL(blob);
+        
         setAudioSrc(url);
 
-        return () => {
-            URL.revokeObjectURL(url);
-        };
+        return () => { URL.revokeObjectURL(url) };
     }, [blob]);
 
     const isUploading = !!blob && !!audioSrc;

@@ -34,6 +34,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
         socket.onmessage = (event) => {
             const data: TServerMessages = JSON.parse(event.data);
+
             console.log("MESSAGE FROM SERVER: ", data);
 
             const messageType: MessagesFromServerTypes = data.type;

@@ -28,9 +28,7 @@ const AudioInputBox = ({
     } = useAudioInputBox();
 
     const handleSend = async () => {
-        if (!blob) {
-            return;
-        };
+        if (!blob) return; 
 
         try {
             const encodingAudio: IEncodedFileData = await FileManager.blobToBase64Data(blob);
@@ -47,16 +45,13 @@ const AudioInputBox = ({
         discardRecording();
 
         if (!onDiscard) return;
-        else {
-            onDiscard();
-        }
+        else onDiscard();
     };
 
     useEffect(() => {
         startRecording();
-        return () => {
-            cleanupRecording();
-        };
+
+        return () => { cleanupRecording() };
     }, []);
 
     return (

@@ -23,7 +23,9 @@ export const useFileUpload = ({
     const [file, setFile] = useState<File | null>(null);
     const [fileSrc, setFileSrc] = useState<string | null>(null);
     const [isFileUpload, setIsFileUpload] = useState<boolean>(false);
+
     const fileInput = document.createElement("input");
+
     const uploadFiles = (): Promise<File | null> => {
         return new Promise((resolve) => {
             fileInput.type = type;
@@ -41,9 +43,8 @@ export const useFileUpload = ({
 
     const handleUploadClick = async () => {
         const file = await uploadFiles();
-        if (!file) {
-            return;
-        }
+
+        if (!file) return;
 
         const fileSrc = URL.createObjectURL(file);
 
@@ -51,11 +52,13 @@ export const useFileUpload = ({
         setFileSrc(fileSrc);
         setIsFileUpload(true);
     };
+
     const clear = () => {
         setFile(null);
         setFileSrc(null);
         setIsFileUpload(false);
     }
+    
     return {
         file,
         fileSrc,

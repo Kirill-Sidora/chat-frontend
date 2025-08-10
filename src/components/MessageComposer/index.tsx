@@ -18,9 +18,8 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
     const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
 
     const handleSendMessage = () => {
-        if (!isValidMessage(message)) {
-            return;
-        }
+        if (!isValidMessage(message)) return;
+
         onTextSend(message);
         setMessage("");
     };
@@ -30,6 +29,7 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
             setMode(ComposerMode.AUDIO);
             return;
         }
+
         handleSendMessage();
     };
 

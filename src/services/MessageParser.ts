@@ -39,11 +39,11 @@ class MessageParser {
 
         const fileSrc: string = FileManager.base64ToObjectUrl(fileData);
 
-        // if (mimeType.includes("audio")) {
-        //     console.log("AUDIO FILE SRC: ", fileSrc);
-        // } else {
+        if (!mimeType.includes("audio")) {
 
-        // }
+        } else {
+            console.log("AUDIO FILE SRC: ", fileSrc);
+        }
 
         return {
             ...basedMessageData,

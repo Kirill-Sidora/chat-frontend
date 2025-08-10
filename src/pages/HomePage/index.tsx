@@ -7,9 +7,7 @@ import "./style.css";
 const nickNameChecker = (navigate: NavigateFunction) => {
   const nickName = localStorage.getItem("nickName");
 
-  if (!nickName) {
-    navigate("/registration");
-  }
+  if (!nickName) navigate("/registration");
 
   return;
 }
@@ -19,12 +17,12 @@ const HomePage = (): ReactElement => {
 
   useEffect(() => {nickNameChecker(navigate)}, [navigate]);
 
-    return (
-        <div className="home-page">
-            <IntroSlides />
-            <WelcomeBlock />
-        </div>
-    );
+  return (
+      <div className="home-page">
+          <IntroSlides />
+          <WelcomeBlock />
+      </div>
+  );
 };
 
 export default HomePage;

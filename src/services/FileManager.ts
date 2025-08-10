@@ -11,6 +11,7 @@ class FileManager {
 
             reader.onloadend = () => {
                 const result = reader.result;
+
                 if (typeof result !== "string") {
                     reject(new Error("Failed to read blob as base64"));
                 } else {
@@ -31,9 +32,11 @@ class FileManager {
 
     public static base64ToObjectUrl(base64: string, mimeType?: string): string {
         const match = base64.match(/^data:(.*?);base64,(.*)$/);
+        
         if (!match) {
 
-        } else {
+        }
+        else {
             mimeType = match[1];
             base64 = match[2];
         }
@@ -42,14 +45,17 @@ class FileManager {
 
         const byteCharacters = atob(base64);
         const byteNumbers = new Array(byteCharacters.length);
+
         for (let i = 0; i < byteCharacters.length; i++) {
             byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
+
         const byteArray = new Uint8Array(byteNumbers);
 
         const blob = new Blob([byteArray], {
             type: mimeType || "application/octet-stream",
         });
+
         return URL.createObjectURL(blob);
     }
 }

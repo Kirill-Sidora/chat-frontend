@@ -38,9 +38,7 @@ export const ChatDataProvider: React.FC<{
             { type: MessagesFromServerTypes.MESSAGE }
         >
     ): void => {
-        if (!username) {
-            return;
-        };
+        if (!username) return;
 
         const newMessageData = newWebSocketMessageData.message;
 
@@ -55,15 +53,11 @@ export const ChatDataProvider: React.FC<{
     };
 
     const loadAllUsers = (data: { users: IUser[] }): void => {
-        setUsers(() => {
-            return [...data.users];
-        });
+        setUsers(() => { return [...data.users] });
     };
 
     const loadMessage = (messageData: TWebSocketMessage): void => {
-         if (!username) {
-            return;
-        };
+        if (!username) return;
 
         console.log("NEW MESSAGE DATA: ", messageData);
 
@@ -82,6 +76,7 @@ export const ChatDataProvider: React.FC<{
                     ? { ...user, isOnline: statusData.isOnline }
                     : user
             );
+
             return updatedUsers;
         });
     };
@@ -138,10 +133,12 @@ export const ChatDataProvider: React.FC<{
 
 export const useChatDataContext = () => {
     const context = useContext(ChatDataContext);
+
     if (!context) {
         throw new Error(
             "useChatDataContext must be used within ChatDataProvider"
         );
     }
+
     return context;
 };

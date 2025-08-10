@@ -8,6 +8,7 @@ const ProtectedRoute = ({ children }: PropsWithChildren): ReactNode => {
     if (!nickName) {
         return <Navigate to={paths.REGISTRATION.path} replace />;
     }
+
     return children;
 };
 

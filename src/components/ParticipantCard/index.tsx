@@ -8,6 +8,7 @@ interface IParticipantCardProps {
 
 const ParticipantCard = ({ user }: IParticipantCardProps): ReactElement => {
     const statusUser: string = !user.isOnline ? "offline" : "online";
+
     return (
         <div className="participant-card" key={user.id}>
             <div className={`status-indicator ${statusUser}`} />

@@ -21,6 +21,7 @@ const Timer = (): ReactElement => {
 
             durationRef.current = window.setInterval(() => {
                 const elapsed = Date.now() - start;
+
                 setDuration(elapsed);
             }, 100);
             

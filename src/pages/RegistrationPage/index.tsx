@@ -7,6 +7,7 @@ const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
     if (!nickName.trim()) return;
     
     localStorage.setItem("nickName", nickName);
+
     navigate(paths.MESSAGE.path);
 };
 

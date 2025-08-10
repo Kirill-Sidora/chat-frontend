@@ -8,8 +8,7 @@ import { type TClientMessage } from "@app-types/message";
 import "./style.css";
 
 const MessagePage = (): ReactElement => {
-    const { messages, messageHandlersConfig } =
-        useChatDataContext();
+    const { messages, messageHandlersConfig } = useChatDataContext();
     const { sendTextMessage, sendAudioMessage, sendFileMessage } = useWebSocket(
         messageHandlersConfig
     );
