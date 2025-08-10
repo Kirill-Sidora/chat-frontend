@@ -10,6 +10,7 @@ const WelcomeBlock = (): ReactElement => {
                     <img height={150} src="src/assets/icons/logo.svg"></img>
                 </Link>
             </div>
+            
             <span className="text-style">Telegram 2</span>
         </div>
     );

@@ -27,13 +27,17 @@ const MessagePage = (): ReactElement => {
                     className="user-icon"
                 />
             </header>
+
             <ParticipantsPanel />
+
             <div className="messages-container secondary-text">
                 {messages.map((clientMessageData: TClientMessage) => (
                     <Message key={clientMessageData.id} message={clientMessageData} />
                 ))}
+
                 <div className="end-pointer" ref={messagesEndRef} />
             </div>
+            
             <MessageComposer
                 onTextSend={sendTextMessage}
                 onFileSend={sendFileMessage}

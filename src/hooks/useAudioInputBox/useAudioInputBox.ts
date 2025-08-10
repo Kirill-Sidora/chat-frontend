@@ -16,6 +16,7 @@ const useAudioInputBox = () => {
         if (!durationID) return;
         
         clearInterval(durationID);
+
         setDurationID(null);
     };
 
@@ -23,7 +24,9 @@ const useAudioInputBox = () => {
         const stream = await navigator.mediaDevices.getUserMedia({
             audio: true,
         });
+        
         const recorder = new MediaRecorder(stream);
+
         const chunks: Blob[] = [];
 
         recorder.ondataavailable = (event) => {

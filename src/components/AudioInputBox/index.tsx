@@ -80,6 +80,7 @@ const AudioInputBox = ({
             {isUploading && (
                 <Fragment>
                     <audio controls src={audioSrc || undefined} />
+                    
                     <div className="recorded-last-actions">
                         <div className="controllers">
                             <IconButton

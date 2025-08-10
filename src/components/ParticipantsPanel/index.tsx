@@ -42,10 +42,12 @@ const ParticipantsPanel = (): ReactElement => {
                 <h3 className="participants-header">Participants Telegram 2</h3>
 
                 <div className="divider"></div>
+
                 <ParticipantsList
                     visibleCount={visibleCount}
                     isShowAll={isShowAll}
                 />
+                
                 {isShowButton && (
                     <CustomButton
                         onClick={handleToggleShowAll}
