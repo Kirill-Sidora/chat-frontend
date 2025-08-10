@@ -1,0 +1,36 @@
+.message-search-form {
+    display: flex;
+    padding: 15px;
+    background-color: #252525;
+    border-bottom: 1px solid #333;
+}
+
+.message-search-form input {
+    flex: 1;
+    padding: 10px 15px;
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #e0e0e0;
+    transition: border-color 0.3s;
+}
+
+.message-search-form input:focus {
+    outline: none;
+    border-color: #4a9cff;
+    box-shadow: 0 0 0 2px rgba(74, 156, 255, 0.2);
+}
+
+.message-search-form input::placeholder {
+    color: #888;
+}
+
+.search-button {
+    background: none;
+    border: none;
+    margin-left: -45px;
+    cursor: pointer;
+    color: var(--primary-fill-color);
+    transition: color 0.2s;
+}

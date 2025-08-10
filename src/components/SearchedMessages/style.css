@@ -1,0 +1,14 @@
+.searched-messages {
+    flex: 1;
+    overflow-y: auto;
+    background-color: #3b3a3a;
+    padding: 10px;
+}
+
+.search-placeholder,
+.no-results {
+    text-align: center;
+    padding: 30px 20px;
+    color: #aaa;
+    font-size: 14px;
+}

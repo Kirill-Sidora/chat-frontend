@@ -4,12 +4,15 @@ import SearchedMessages from "@components/SearchedMessages/indes";
 import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useState, type ReactElement } from "react";
 import { TClientMessage } from "@app-types/message";
+import "./style.css";
 
 const AsideBar = (): ReactElement => {
     const [isAsideOpen, setIsAsideOpen] = useState<boolean>(false);
     const [searchResults, setSearchResults] = useState<TClientMessage[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const { messages } = useChatDataContext();
+
+    const textButton = !isAsideOpen ? "Открыть" : "Закрыть";
 
     const handleSearch = (query: string): void => {
         if (!query.trim()) {
@@ -29,7 +32,9 @@ const AsideBar = (): ReactElement => {
 
     return (
         <div className="aside-bar-container">
-            <CustomButton type="close-aside" onClick={handleCloseAside} />
+            <CustomButton type="close-aside" onClick={handleCloseAside}>
+                {textButton}
+            </CustomButton>
             {isAsideOpen && (
                 <div className="aside-bar">
                     <div className="aside-header-block">

@@ -1,0 +1,32 @@
+.search-message-card {
+    display: block;
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: var(--chat-message-me);
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.search-message-card:hover {
+    background-color: var(--secondary-background-color);
+}
+
+.message-content {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #d0d0d0;
+    padding-left: var(--content-padding);
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #aaa;
+    padding-left: var(--product-padding);
+}
+
+.username {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--primary-fill-color);
+}

@@ -1,4 +1,5 @@
 import { FormEvent, ReactElement } from "react";
+import "./styles.css";
 
 interface IMessageSearchBar {
     onSearch: (query: string) => void;
@@ -16,7 +17,7 @@ const MessageSearchBar = ({
         onSearch(searchQuery);
     };
     return (
-        <form onSubmit={handleSubmit} className="search-form">
+        <form onSubmit={handleSubmit} className="message-search-form">
             <input
                 type="text"
                 value={searchQuery}
@@ -24,7 +25,9 @@ const MessageSearchBar = ({
                 placeholder="Введите текст сообщения..."
                 autoFocus
             />
-            <button type="submit">Найти</button>
+            <button type="submit" className="search-button">
+                Найти
+            </button>
         </form>
     );
 };

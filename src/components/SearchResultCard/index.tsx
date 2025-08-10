@@ -1,5 +1,6 @@
 import { TClientMessage } from "@app-types/message";
 import { ReactElement } from "react";
+import "./style.css";
 
 interface ISearchMessageCard {
     message: TClientMessage;
