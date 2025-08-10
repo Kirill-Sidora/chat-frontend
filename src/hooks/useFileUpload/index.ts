@@ -22,7 +22,7 @@ export const useFileUpload = ({
 }: IUseFileUploadProps): IUseFileUploadReturn => {
     const [file, setFile] = useState<File | null>(null);
     const [fileSrc, setFileSrc] = useState<string | null>(null);
-    const [isFileUpload, setIsFileUpload] = useState(false);
+    const [isFileUpload, setIsFileUpload] = useState<boolean>(false);
     const fileInput = document.createElement("input");
     const uploadFiles = (): Promise<File | null> => {
         return new Promise((resolve) => {

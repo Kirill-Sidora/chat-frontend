@@ -14,7 +14,7 @@ interface IMessageComposerProps {
 }
 
 const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageComposerProps): ReactElement => {
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState<string>("");
     const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
 
     const handleSendMessage = () => {

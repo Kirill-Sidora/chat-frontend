@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
 const useAudioInputBox = () => {
-    const [messageRecorder, setMessageRecorder] =
-        useState<MediaRecorder | null>(null);
-    const [isRecording, setIsRecording] = useState(false);
+    const [messageRecorder, setMessageRecorder] = useState<MediaRecorder | null>(null);
+    const [isRecording, setIsRecording] = useState<boolean>(false);
     const [blob, setBlob] = useState<Blob | null>(null);
-    const [duration, setDuration] = useState(0);
+    const [duration, setDuration] = useState<GLfloat>(0);
     const [audioSrc, setAudioSrc] = useState<string | null>(null);
     const [durationID, setDurationID] = useState<number | null>(null);
 

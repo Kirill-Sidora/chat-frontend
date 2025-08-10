@@ -13,7 +13,7 @@ const formatDuration = (ms: number): string => {
 };
 
 const Timer = (): ReactElement => {
-    const [duration, setDuration] = useState(0);
+    const [duration, setDuration] = useState<GLfloat>(0);
     const durationRef = useRef<number | null>(null);
 
     useEffect(() => {
