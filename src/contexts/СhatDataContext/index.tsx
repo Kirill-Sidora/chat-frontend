@@ -11,8 +11,6 @@ import {
 import MessageParser from "@services/MessageParser";
 
 interface IChatDataContext {
-    setSecondUsername: (username: string | null) => void;
-    secondUsername: string | null;
     messages: TClientMessage[];
     users: IUser[];
     loadMessagesHistory: (
@@ -29,7 +27,6 @@ const ChatDataContext = createContext<IChatDataContext | null>(null);
 export const ChatDataProvider: React.FC<{
     children: React.ReactNode;
 }> = ({ children }) => {
-    const [secondUsername, setSecondUsername] = useState<string | null>(null);
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
 
@@ -41,8 +38,6 @@ export const ChatDataProvider: React.FC<{
             { type: MessagesFromServerTypes.MESSAGE }
         >
     ): void => {
-        console.log("NEW WEBSOCKET MESSAGE HANDLE: ", newWebSocketMessageData);
-
         if (!username) {
             return;
         };
@@ -50,10 +45,6 @@ export const ChatDataProvider: React.FC<{
         const newMessageData = newWebSocketMessageData.message;
 
         console.log("NEW MESSAGE DATA: ", newMessageData);
-
-        if (newMessageData.sender !== username) {
-            setSecondUsername(username);
-        }
 
         const parsedMessage: TClientMessage = MessageParser.parseServerMessage(
             newMessageData,
@@ -69,7 +60,20 @@ export const ChatDataProvider: React.FC<{
         });
     };
 
-    const loadMessage = ()
+    const loadMessage = (messageData: TWebSocketMessage): void => {
+         if (!username) {
+            return;
+        };
+
+        console.log("NEW MESSAGE DATA: ", messageData);
+
+        const parsedMessage: TClientMessage = MessageParser.parseServerMessage(
+            messageData,
+            username
+        );
+
+        setMessages((prevMessages) => [...prevMessages, parsedMessage]);
+    }
 
     const updateUserStatus = (statusData: IUserStatusChanged): void => {
         setUsers((prevUsers) => {
@@ -81,10 +85,6 @@ export const ChatDataProvider: React.FC<{
             return updatedUsers;
         });
     };
-
-    useEffect(() => {
-        console.log("USERS CHANGED: ", users);
-    }, [users]);
 
     const loadMessagesHistory = (
         historyData: Extract<
@@ -99,7 +99,7 @@ export const ChatDataProvider: React.FC<{
         historyMessages
             .reverse()
             .forEach((historyMessage: any) => {
-                handleNewMessage(historyMessage);
+                loadMessage(historyMessage);
             });
     };
 
@@ -125,8 +125,6 @@ export const ChatDataProvider: React.FC<{
     return (
         <ChatDataContext.Provider
             value={{
-                secondUsername,
-                setSecondUsername,
                 messages,
                 users,
                 loadMessagesHistory,

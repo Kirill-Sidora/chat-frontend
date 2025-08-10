@@ -9,7 +9,7 @@ import "./style.css";
 import type { TClientMessage } from "@app-types/message";
 
 const MessagePage = (): ReactElement => {
-    const { secondUsername, messages, messageHandlersConfig } =
+    const { messages, messageHandlersConfig } =
         useChatDataContext();
     const { sendTextMessage, sendAudioMessage, sendFileMessage } = useWebSocket(
         messageHandlersConfig
@@ -24,12 +24,6 @@ const MessagePage = (): ReactElement => {
     return (
         <div className="chat-page">
             <header className="chat-header">
-                <Link to="/" className="chat-back-button secondary-text">
-                    ← Chats
-                </Link>
-                <div className="second-user-name-title primary-text">
-                    {secondUsername ? secondUsername : "now you're alone"}
-                </div>
                 <img
                     src="src/assets/images/user-icon.png"
                     className="user-icon"

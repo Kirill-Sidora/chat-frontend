@@ -30,7 +30,6 @@ class FileManager {
     }
 
     public static base64ToObjectURL(base64: string): string {
-        console.log("BASE 64: ", base64);
 
         try {
             const byteString = atob(base64);
@@ -55,19 +54,6 @@ class FileManager {
             mimeType ? { type: mimeType } : undefined
         );
         return URL.createObjectURL(blob);
-    }
-
-    public static bufferToFile(
-        buffer: Buffer | Uint8Array,
-        fileName: string,
-        mimeType: string
-    ): File {
-        // Convert Buffer (Node.js) to Uint8Array if needed
-        const uint8Array =
-            buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
-
-        // Create File from Uint8Array
-        return new File([uint8Array], fileName, { type: mimeType });
     }
 }
 

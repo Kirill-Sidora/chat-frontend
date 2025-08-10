@@ -8,9 +8,13 @@ class MessageParser {
         serverMessageData: TWebSocketMessage,
         username: string
     ): TClientMessage => {
+        console.log("UNPARSED MESSAGE DATA: ", serverMessageData);
+
         const { sender, timestamp, id, type } = serverMessageData;
 
         const formattedTime: string = getFormattedTime(timestamp);
+
+        console.log("USERNAME AND SENDER: ", username, sender);
 
         const basedMessageData: IDefaultMessage = {
             id,

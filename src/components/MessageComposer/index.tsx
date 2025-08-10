@@ -21,7 +21,6 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
         if (isValidMessage(message)) {
             onTextSend(message);
             setMessage("");
-            console.log(message);
         }
     };
 
@@ -35,14 +34,10 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
     };
 
     const handleSendFile = (fileData: IEncodedFileData) => {
-        console.log("FILE SENDED: ", fileData);
-
         onFileSend(fileData);
     };
 
     const handleSendAudio = (audioData: IEncodedFileData) => {
-        console.log("AUDIO SENDED: ", audioData);
-
         onAudioSend(audioData);
 
         setMode(ComposerMode.TEXT);
