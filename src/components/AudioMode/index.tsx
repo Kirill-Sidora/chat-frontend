@@ -1,16 +1,17 @@
+import type { IEncodedFileData } from "@app-types/file";
 import AudioInputBox from "@components/AudioInputBox";
 import type { ReactElement } from "react";
 
 interface AudioModeProps {
-    onFileUpdate: (blob: Blob) => void;
+    onAudioSend: (fileData: IEncodedFileData) => void;
     onDiscard: () => void;
 }
 
 const AudioMode = ({
-    onFileUpdate,
+    onAudioSend,
     onDiscard,
 }: AudioModeProps): ReactElement => {
-    return <AudioInputBox onFileUpdate={onFileUpdate} onDiscard={onDiscard} />;
+    return <AudioInputBox onAudioSend={onAudioSend} onDiscard={onDiscard} />;
 };
 
 export default AudioMode;

@@ -1,6 +1,9 @@
+import type { IDecodedFileData } from "./file";
+
 export const enum ClientMessagesTypes {
     TEXT = "text",
-    IMAGE = "image",
+    AUDIO = "audio",
+    FILE = "file",
 }
 
 export interface IDefaultMessage {
@@ -15,9 +18,14 @@ export interface ITextMessage extends IDefaultMessage {
     text: string;
 }
 
-export interface IImageMessage extends IDefaultMessage {
-    type: ClientMessagesTypes.IMAGE;
-    src: string;
+export interface IFileMessage extends IDefaultMessage {
+    type: ClientMessagesTypes.FILE;
+    fileData: IDecodedFileData;
 }
 
-export type TClientMessage = ITextMessage;
+export interface IAudioMessage extends IDefaultMessage {
+    type: ClientMessagesTypes.AUDIO;
+    fileData: IDecodedFileData;
+}
+
+export type TClientMessage = ITextMessage | IFileMessage | IAudioMessage;

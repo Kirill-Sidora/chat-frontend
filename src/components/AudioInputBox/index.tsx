@@ -4,14 +4,16 @@ import useAudioInputBox from "@hooks/useAudioInputBox/useAudioInputBox";
 import { Fragment, useEffect, type ReactElement } from "react";
 import { IconIds } from "@utils/constants";
 import "./style.css";
+import FileManager from "@services/FileManager";
+import type { IEncodedFileData } from "@app-types/file";
 
 interface IAudioInputBoxProps {
-    onFileUpdate: (audio: Blob) => void;
+    onAudioSend: (fileData: IEncodedFileData) => void;
     onDiscard?: () => void;
 }
 
 const AudioInputBox = ({
-    onFileUpdate,
+    onAudioSend,
     onDiscard,
 }: IAudioInputBoxProps): ReactElement => {
     const {
@@ -21,8 +23,25 @@ const AudioInputBox = ({
         cleanupRecording,
         isRecording,
         audioSrc,
+        blob,
         isUploading,
-    } = useAudioInputBox({ onFileUpdate });
+    } = useAudioInputBox();
+
+    const handleSend = async () => {
+        if (!blob) {
+            return;
+        };
+
+        try {
+            const encodingAudio: IEncodedFileData = await FileManager.blobToBase64Data(blob);
+
+            onAudioSend(encodingAudio);
+        } catch(error) {
+            const currentError = error as Error;
+
+            console.error("Failed encode audio: ", currentError.message);
+        }
+    };
 
     const handleDiscard = () => {
         discardRecording();
@@ -67,6 +86,10 @@ const AudioInputBox = ({
                     <audio controls src={audioSrc || undefined} />
                     <div className="recorded-last-actions">
                         <div className="controllers">
+                            <IconButton
+                                iconSrc={IconIds.SENDING_AUDIO_BUTTON_ICON}
+                                onClick={handleSend}
+                            />
                             <IconButton
                                 iconSrc={IconIds.DELETE_BUTTON_ICON}
                                 onClick={handleDiscard}

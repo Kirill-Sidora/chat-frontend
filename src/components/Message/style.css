@@ -7,6 +7,16 @@
   color: var(--color-text-primary, #ffffff);
 }
 
+.message.other.file,
+.message.mine.file,
+.message.other.audio,
+.message.mine.audio {
+  padding: 0;
+  background-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
 .sender {
   margin-bottom: 4px;
   color: var(--color-text-primary, #ffffff);
@@ -29,4 +39,12 @@
   align-self: flex-start;
   border-radius: var(--content-radius-primary, 18px) var(--content-radius-primary, 18px) var(--content-radius-primary, 18px) 0;
   box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
+}
+
+.file-message {
+  width: 90%;
+}
+
+.file-message img {
+  width: 100%;
 }

@@ -1,7 +1,7 @@
 import SearchedMessages from "@components/SearchedMessages/indes";
 import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useState, type ReactElement, FormEvent } from "react";
-import { TClientMessage } from "@app-types/message";
+import { TClientMessage, ITextMessage } from "@app-types/message";
 import "./style.css";
 
 const MessageSearchBlock = (): ReactElement => {
@@ -14,8 +14,10 @@ const MessageSearchBlock = (): ReactElement => {
             return;
         }
 
-        const results: TClientMessage[] = messages.filter((message) =>
-            message.text.toLowerCase().includes(query.toLowerCase())
+        const results: TClientMessage[] = messages.filter(
+            (message): message is ITextMessage =>
+                "text" in message &&
+                message.text.toLowerCase().includes(query.toLowerCase())
         );
 
         setSearchResults(results);

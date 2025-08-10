@@ -12,7 +12,9 @@ const SearchMessageCard = ({ message }: ISearchMessageCard): ReactElement => {
             <span className="username">
                 {message.isMine ? "Моё сообщение" : "Чужое сообщение"}
             </span>
-            <div className="message-content">{message.text}</div>
+            {"text" in message && (
+                <div className="message-content">{message.text}</div>
+            )}
             <span className="timestamp">{message.time}</span>
         </div>
     );

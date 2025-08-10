@@ -1,22 +1,16 @@
-import { getFormattedTime } from "@utils/constants";
-import { useState, useContext, useEffect, createContext } from "react";
-import {
-    ClientMessagesTypes,
-    type ITextMessage,
-    type TClientMessage,
-} from "@app-types/message";
+import React from "react";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
+import { useState, useContext, createContext } from "react";
+import { type TClientMessage } from "@app-types/message";
 import {
     MessagesFromServerTypes,
-    type IMessageFromServer,
     type IMessageHandlerData,
     type TServerMessages,
+    type TWebSocketMessage,
 } from "@app-types/serverMessages";
-import React from "react";
+import MessageParser from "@services/MessageParser";
 
 interface IChatDataContext {
-    setSecondUsername: (username: string | null) => void;
-    secondUsername: string | null;
     messages: TClientMessage[];
     users: IUser[];
     loadMessagesHistory: (
@@ -25,7 +19,6 @@ interface IChatDataContext {
             { type: MessagesFromServerTypes.HISTORY }
         >
     ) => void;
-    handleNewMessage: (newMessageData: IMessageFromServer) => void;
     messageHandlersConfig: IMessageHandlerData[];
 }
 
@@ -34,38 +27,52 @@ export const ChatDataContext = createContext<IChatDataContext | null>(null);
 export const ChatDataProvider: React.FC<{
     children: React.ReactNode;
 }> = ({ children }) => {
-    const [secondUsername, setSecondUsername] = useState<string | null>(null);
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
 
     const username = localStorage.getItem("nickName");
 
-    const handleNewMessage = (newMessageData: IMessageFromServer): void => {
-        console.log("NEW MESSAGE DATA: ", newMessageData);
-
-        const { username: sender, text, id, timestamp } = newMessageData;
-
-        if (newMessageData.username !== username) {
-            setSecondUsername(username);
+    const handleNewMessage = (
+        newWebSocketMessageData: Extract<
+            TServerMessages,
+            { type: MessagesFromServerTypes.MESSAGE }
+        >
+    ): void => {
+        if (!username) {
+            return;
         }
 
-        const formattedTime: string = getFormattedTime(timestamp);
+        const newMessageData = newWebSocketMessageData.message;
 
-        const newMessage: ITextMessage = {
-            id,
-            type: ClientMessagesTypes.TEXT,
-            text,
-            time: formattedTime,
-            isMine: sender === username,
-        };
+        console.log("NEW MESSAGE DATA: ", newMessageData);
 
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        const parsedMessage: TClientMessage = MessageParser.parseServerMessage(
+            newMessageData,
+            username
+        );
+
+        setMessages((prevMessages) => [...prevMessages, parsedMessage]);
     };
 
     const loadAllUsers = (data: { users: IUser[] }): void => {
         setUsers(() => {
             return [...data.users];
         });
+    };
+
+    const loadMessage = (messageData: TWebSocketMessage): void => {
+        if (!username) {
+            return;
+        }
+
+        console.log("NEW MESSAGE DATA: ", messageData);
+
+        const parsedMessage: TClientMessage = MessageParser.parseServerMessage(
+            messageData,
+            username
+        );
+
+        setMessages((prevMessages) => [...prevMessages, parsedMessage]);
     };
 
     const updateUserStatus = (statusData: IUserStatusChanged): void => {
@@ -79,10 +86,6 @@ export const ChatDataProvider: React.FC<{
         });
     };
 
-    useEffect(() => {
-        console.log("USERS CHANGED: ", users);
-    }, [users]);
-
     const loadMessagesHistory = (
         historyData: Extract<
             TServerMessages,
@@ -93,11 +96,9 @@ export const ChatDataProvider: React.FC<{
 
         const { messages: historyMessages } = historyData;
 
-        historyMessages
-            .reverse()
-            .forEach((historyMessage: IMessageFromServer) => {
-                handleNewMessage(historyMessage);
-            });
+        historyMessages.reverse().forEach((historyMessage: any) => {
+            loadMessage(historyMessage);
+        });
     };
 
     const messageHandlersConfig: IMessageHandlerData[] = [
@@ -122,12 +123,9 @@ export const ChatDataProvider: React.FC<{
     return (
         <ChatDataContext.Provider
             value={{
-                secondUsername,
-                setSecondUsername,
                 messages,
                 users,
                 loadMessagesHistory,
-                handleNewMessage,
                 messageHandlersConfig,
             }}
         >
