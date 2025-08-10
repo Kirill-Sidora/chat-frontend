@@ -6,7 +6,7 @@ import "./style.css";
 const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
     if (nickName.trim()) {
         localStorage.setItem("nickName", nickName);
-        navigate(paths.HOME.path); 
+        navigate(paths.MESSAGE.path);
     }
 };
 
@@ -16,21 +16,22 @@ const RegistrationPage = (): ReactElement => {
 
     return (
         <div className="registration-page">
-            <header className="reg-header">
-                <h1 className="reg-title title-text">Регистрация</h1>
-            </header>
+            <div className="title-text heading">Welcome!</div>
+            <div className="subtitle-text subtitle">Please enter your name below.</div>
+
             <input
                 type="text"
                 value={nickName}
                 onChange={(e) => setNickName(e.target.value)}
-                placeholder="Введите ваш nickName"
-                className="input-field secondary-text"
+                placeholder="Name"
+                className="secondary-text input-field"
             />
+
             <button
                 onClick={() => handleSubmit(nickName, navigate)}
-                className="submit-button"
+                className="button-text submit-button"
             >
-                Зарегистрироваться
+                Sign up
             </button>
         </div>
     );

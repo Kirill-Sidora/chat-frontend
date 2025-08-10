@@ -13,28 +13,17 @@
     --chat-header-background: #1c1c1d;
     --chat-message-me: #313131;
     --chat-message-other: #262628;
-    --modal-main-color: #1c1c1d;
-    --modal-second-color: #202020;
-    --modal-background-color: rgba(0, 0, 0, 0.5);
-    --image-background-color: #D9D9D9;
-    
-    --primary-fill-color: #FFFFFF;
-    --elements-fill-color: #EFEFEF;
-    --scrollbar-track-background-color: #6d6c6c;
-    --scrollbar-thumb-background-color: #6b6b6b;
-    --scrollbar-thumb-background-color: #4a4a4a;
-    --button-hover-background-color: rgba(255, 255, 255, 0.1);
+    --image-background-color: #d9d9d9;
+
+    --primary-fill-color: #ffffff;
+    --elements-fill-color: #efefef;
     --secondary-fill-color: #727173;
     --input-border-color: #3a3a3c;
-    --list-border-color: #444;
     --send-button-color: #d500c3;
-    --modal-button-hover: rgb(49, 49, 49);
     --placeholder-color: #636366;
 
     --accent-passive-color: #000e8a;
     --accent-active-color: #2c3e50;
-    --accent-passive-background-color: #747f8d;
-    --accent-active-background-color: #3ba55d;
 
     --navbar-height: 75px;
     --product-padding: 10px;
@@ -43,6 +32,13 @@
     --content-radius-secondary: 8px;
     --content-width-desktop: 1100px;
     --control-elements-height: 45px;
+
+    --font-size-body: 17px;
+    --font-size-title: 20px;
+    --font-size-heading: 4rem;
+    --font-size-caption: 11px;
+    --font-size-input-placeholder: 18px;
+    --font-size-subtitle: 1.2rem;
 
     --chat-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     --default-shadow-color: rgba(23, 28, 23, 0.58);
@@ -56,6 +52,13 @@
     --transition-time: 0.3s;
     --disabled-filter: grayscale(0.3);
     --elements-hover-rotation: rotate(4deg);
+
+    --color-subtitle: rgba(255, 255, 255, 0.7);
+    --input-border-light: rgba(255, 255, 255, 0.4);
+    --input-text-color: #ffffff;
+    --input-placeholder-color: rgba(255, 255, 255, 0.4);
+    --button-hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    --button-active-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @font-face {
@@ -101,11 +104,11 @@ body {
     display: flex;
     flex-direction: column;
     font-family: "SF Pro Text", sans-serif;
-    background: var(--home-page-background);
+    background: var(--home-page-background, linear-gradient(#242424, #3b3a3a));
 }
 
 a:hover {
-    color: var(--accent-passive-color);
+    color: var(--accent-passive-color, #000e8a);
 }
 
 h1,
@@ -113,7 +116,7 @@ h2,
 h3,
 h4,
 h5 {
-    color: var(--primary-font-color);
+    color: var(--primary-font-color, #111213);
 }
 
 .headline-text {
@@ -159,4 +162,37 @@ h5 {
 .preview-modal-text {
     font-family: "Inter";
     font-weight: 600;
+}
+
+.title-text {
+    font-family: "Inter";
+    font-weight: 700;
+    font-size: var(--font-size-heading, 4rem);
+    line-height: 100%;
+    letter-spacing: -0.33px;
+}
+
+.subtitle-text {
+    font-family: "SF Pro Text";
+    font-weight: 500;
+    font-size: var(--font-size-subtitle, 1.2rem);
+    line-height: 22px;
+    letter-spacing: -0.4px;
+}
+
+.regular-text {
+    font-family: "SF Pro Text";
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.4px;
+    text-align: left;
+}
+
+.button-text {
+    font-family: "SF Pro Text";
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.4px;
 }
