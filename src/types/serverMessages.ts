@@ -29,7 +29,7 @@ export interface ITextMessage extends IBaseMessage {
 
 export interface IAudioMessage extends IBaseMessage {
     type: ClientMessagesTypes.AUDIO;
-    fileData: Buffer;
+    fileData: string;
     fileName: string;
     fileSize: number;
     mimeType: string;
@@ -37,7 +37,7 @@ export interface IAudioMessage extends IBaseMessage {
 
 export interface IFileMessage extends IBaseMessage {
     type: ClientMessagesTypes.FILE;
-    fileData: Buffer;
+    fileData: string;
     fileName: string;
     fileSize: number;
     mimeType: string;

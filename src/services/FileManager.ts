@@ -29,30 +29,25 @@ class FileManager {
         });
     }
 
-    public static base64ToObjectURL(base64: string): string {
-
-        try {
-            const byteString = atob(base64);
-            const byteArray = new Uint8Array(byteString.length);
-
-            for (let i = 0; i < byteString.length; i++) {
-                byteArray[i] = byteString.charCodeAt(i);
-            }
-
-            const blob = new Blob([byteArray]);
-            return URL.createObjectURL(blob);
-        } catch (err) {
-            console.error("Invalid Base64 string:", err);
-            throw err;
+    public static base64ToObjectUrl(base64: string, mimeType?: string): string {
+        const match = base64.match(/^data:(.*?);base64,(.*)$/);
+        if (match) {
+            mimeType = match[1];
+            base64 = match[2];
         }
-    }
 
-    public static bufferToObjectURL(buffer: Buffer, mimeType?: string): string {
-        const uint8Array = new Uint8Array(buffer);
-        const blob = new Blob(
-            [uint8Array],
-            mimeType ? { type: mimeType } : undefined
-        );
+        base64 = base64.replace(/\s/g, "");
+
+        const byteCharacters = atob(base64);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+
+        const blob = new Blob([byteArray], {
+            type: mimeType || "application/octet-stream",
+        });
         return URL.createObjectURL(blob);
     }
 }

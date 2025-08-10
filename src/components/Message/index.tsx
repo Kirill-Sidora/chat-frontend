@@ -35,7 +35,7 @@ const FileMessage = ({ message }: IFileMessageProps): ReactElement => {
 const AudioMessage = ({ message }: IAudioMessageProps): ReactElement => {
     return (
         <div className="file-message">
-            <audio src={message.fileData.src} />
+            <audio controls src={message.fileData.src} />
         </div>
     );
 };
@@ -59,7 +59,11 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
     const CurrentMessageElement = messageElementByType[message.type];
 
     return (
-        <div className={`message ${message.isMine ? "mine" : "other"}`}>
+        <div
+            className={`message ${message.isMine ? "mine" : "other"} ${
+                message.type
+            }`}
+        >
             <CurrentMessageElement message={message} />
         </div>
     );

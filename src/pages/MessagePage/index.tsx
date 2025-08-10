@@ -4,7 +4,6 @@ import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useRef, useEffect, type ReactElement } from "react";
-import { Link } from "react-router-dom";
 import "./style.css";
 import type { TClientMessage } from "@app-types/message";
 
@@ -34,7 +33,7 @@ const MessagePage = (): ReactElement => {
                 {messages.map((clientMessageData: TClientMessage) => (
                     <Message key={clientMessageData.id} message={clientMessageData} />
                 ))}
-                <div ref={messagesEndRef} />
+                <div className="end-pointer" ref={messagesEndRef} />
             </div>
             <MessageComposer
                 onTextSend={sendTextMessage}

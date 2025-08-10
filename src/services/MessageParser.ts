@@ -35,7 +35,11 @@ class MessageParser {
 
         const { fileData, fileName, fileSize, mimeType } = serverMessageData;
 
-        const fileSrc: string = FileManager.bufferToObjectURL(fileData, mimeType);
+        const fileSrc: string = FileManager.base64ToObjectUrl(fileData);
+
+        if (mimeType.includes("audio")) {
+            console.log("AUDIO FILE SRC: ", fileSrc);
+        }
 
         return {
             ...basedMessageData,

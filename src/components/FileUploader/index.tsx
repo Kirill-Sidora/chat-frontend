@@ -12,17 +12,12 @@ export interface IFileUploaderProps {
 }
 
 const FileUploader = ({ onFileSend }: IFileUploaderProps): ReactElement => {
-    const {
-        file,
-        clear,
-        isFileUpload,
-        setIsFileUpload,
-        handleUploadClick,
-    } = useFileUpload({
-        type: "file",
-        accept: ".jpg, .jpeg, .png",
-        multiple: false,
-    });
+    const { file, clear, isFileUpload, setIsFileUpload, handleUploadClick } =
+        useFileUpload({
+            type: "file",
+            accept: ".jpg, .jpeg, .png",
+            multiple: false,
+        });
 
     const handleSend = async () => {
         if (!isFileUpload || !file) return;
