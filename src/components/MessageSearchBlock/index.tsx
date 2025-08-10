@@ -44,10 +44,16 @@ const MessageSearchBlock = (): ReactElement => {
                     />
                 </form>
             </div>
-            <SearchedMessages
-                searchResults={searchResults}
-                searchQuery={searchQuery}
-            />
+            {!searchQuery.trim() ? (
+                <div className="search-placeholder">
+                    <p>Enter a query to search messages</p>
+                </div>
+            ) : (
+                <SearchedMessages
+                    searchResults={searchResults}
+                    searchQuery={searchQuery}
+                />
+            )}
         </div>
     );
 };
