@@ -1,3 +1,29 @@
+.aside-bar {
+    position: fixed;
+    top: 105px;
+    width: 300px;
+    height: 100vh;
+    background-color: #1e1e1e;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.aside-bar.open {
+    left: 0;
+}
+
+.aside-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: var(--primary-fill-color);
+    border-bottom: 1px solid #333;
+    background-color: #252525;
+}
+
 .message-search-form {
     display: flex;
     padding: 15px;
@@ -24,13 +50,4 @@
 
 .message-search-form input::placeholder {
     color: #888;
-}
-
-.search-button {
-    background: none;
-    border: none;
-    margin-left: -45px;
-    cursor: pointer;
-    color: var(--primary-fill-color);
-    transition: color 0.2s;
 }

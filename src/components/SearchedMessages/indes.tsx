@@ -7,17 +7,10 @@ interface ISearchedMessages {
     searchResults: TClientMessage[];
     searchQuery: string;
 }
+
 const SearchedMessages = ({
     searchResults,
-    searchQuery,
 }: ISearchedMessages): ReactElement => {
-    if (!searchQuery.trim()) {
-        return (
-            <div className="search-placeholder">
-                <p>Enter a query to search messages</p>
-            </div>
-        );
-    }
     if (searchResults.length === 0) {
         return (
             <div className="no-results">
