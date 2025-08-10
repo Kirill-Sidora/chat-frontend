@@ -1,8 +1,11 @@
+import type { ClientMessagesTypes } from "./message";
 import type { IUser } from "./user";
 
 export const enum MessagesForServerTypes {
     INITIAL = "init",
-    MESSAGE = "msg",
+    TEXT_MESSAGE = "textMessage",
+    FILE_MESSAGE = "fileMessage",
+    AUDIO_MESSAGE = "audioMessage",
 }
 
 export const enum MessagesFromServerTypes {
@@ -13,11 +16,31 @@ export const enum MessagesFromServerTypes {
     USER_STATUS_CHANGED = "userStatusChanged",
 }
 
-export interface IMessageFromServer {
+export interface IBaseMessage {
     id: string;
-    username: string;
-    text: string;
+    sender: string;
     timestamp: number;
+}
+
+export interface ITextMessage extends IBaseMessage {
+    type: ClientMessagesTypes.TEXT;
+    text: string;
+}
+
+export interface IAudioMessage extends IBaseMessage {
+    type: ClientMessagesTypes.AUDIO;
+    fileData: string;
+    fileName: string;
+    fileSize: number;
+    mimeType: string;
+}
+
+export interface IFileMessage extends IBaseMessage {
+    type: ClientMessagesTypes.FILE;
+    fileData: string;
+    fileName: string;
+    fileSize: number;
+    mimeType: string;
 }
 
 export interface IMessageHandlerData {
@@ -25,14 +48,14 @@ export interface IMessageHandlerData {
     action: any;
 }
 
+export type TWebSocketMessage = ITextMessage | IFileMessage | IAudioMessage;
+
 export type TServerMessages =
-    | { type: MessagesFromServerTypes.HISTORY; messages: IMessageFromServer[] }
+    | { type: MessagesFromServerTypes.HISTORY; messages: TWebSocketMessage[] }
     | { type: MessagesFromServerTypes.ERROR; message: string }
     | {
           type: MessagesFromServerTypes.MESSAGE;
-          username: string;
-          text: string;
-          timestamp: number;
+          message: TWebSocketMessage;
       }
     | { type: MessagesFromServerTypes.USERS; users: IUser[] }
     | {
