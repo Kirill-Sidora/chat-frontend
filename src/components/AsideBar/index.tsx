@@ -12,7 +12,7 @@ const AsideBar = (): ReactElement => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const { messages } = useChatDataContext();
 
-    const textButton = !isAsideOpen ? "Открыть" : "Закрыть";
+    const textButton = !isAsideOpen ? "Open" : "Close";
 
     const handleSearch = (query: string): void => {
         if (!query.trim()) {
@@ -38,7 +38,7 @@ const AsideBar = (): ReactElement => {
             {isAsideOpen && (
                 <div className="aside-bar">
                     <div className="aside-header-block">
-                        <h3 className="aside-header">Поиск сообщений</h3>
+                        <h3 className="aside-header">Search messages</h3>
                     </div>
                     <div className="search-bar">
                         <MessageSearchBar

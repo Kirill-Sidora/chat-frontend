@@ -8,7 +8,7 @@
 .message-search-form input {
     flex: 1;
     padding: 10px 15px;
-    background-color: #2d2d2d;
+    background-color: var(--inactive-background-color);
     border: 1px solid #444;
     border-radius: 10px;
     font-size: 14px;

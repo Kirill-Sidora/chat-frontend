@@ -1,7 +1,8 @@
 .searched-messages {
     flex: 1;
     overflow-y: auto;
-    background-color: #3b3a3a;
+    color: var(--chat-header-background);
+    background-color: var();
     padding: 10px;
 }
 
@@ -9,6 +10,6 @@
 .no-results {
     text-align: center;
     padding: 30px 20px;
-    color: #aaa;
+    color: var(--chat-header-background);
     font-size: 14px;
 }

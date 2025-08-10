@@ -14,14 +14,14 @@ const SearchedMessages = ({
     if (!searchQuery.trim()) {
         return (
             <div className="search-placeholder">
-                <p>Введите запрос для поиска сообщений</p>
+                <p>Enter a query to search messages</p>
             </div>
         );
     }
     if (searchResults.length === 0) {
         return (
             <div className="no-results">
-                <p>Сообщения не найдены</p>
+                <p>No messages found</p>
             </div>
         );
     }

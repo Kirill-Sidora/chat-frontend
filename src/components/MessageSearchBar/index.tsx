@@ -22,12 +22,12 @@ const MessageSearchBar = ({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Введите текст сообщения..."
+                placeholder="Search..."
                 autoFocus
             />
-            <button type="submit" className="search-button">
+            {/* <button type="submit" className="search-button">
                 Найти
-            </button>
+            </button> */}
         </form>
     );
 };
