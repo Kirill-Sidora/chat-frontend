@@ -1,4 +1,4 @@
-import type { IDecodedFileData } from "./file";
+import { type IDecodedFileData } from "./file";
 
 export const enum ClientMessagesTypes {
     TEXT = "text",

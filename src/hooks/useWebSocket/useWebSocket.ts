@@ -2,9 +2,9 @@ import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
 import {
     MessagesForServerTypes,
-    MessagesFromServerTypes,
+    MessagesFromServerTypes, 
     type IMessageHandlerData,
-    type TServerMessages,
+    type TServerMessages
 } from "@app-types/serverMessages";
 import type { IEncodedFileData } from "@app-types/file";
 

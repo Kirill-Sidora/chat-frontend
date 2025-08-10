@@ -1,11 +1,11 @@
 import IconButton from "@components/IconButton";
 import Indication from "@components/Indication";
+import FileManager from "@services/FileManager";
 import useAudioInputBox from "@hooks/useAudioInputBox/useAudioInputBox";
 import { Fragment, useEffect, type ReactElement } from "react";
+import { type IEncodedFileData } from "@app-types/file";
 import { IconIds } from "@utils/constants";
 import "./style.css";
-import FileManager from "@services/FileManager";
-import type { IEncodedFileData } from "@app-types/file";
 
 interface IAudioInputBoxProps {
     onAudioSend: (fileData: IEncodedFileData) => void;

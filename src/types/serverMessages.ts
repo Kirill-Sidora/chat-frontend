@@ -1,5 +1,5 @@
-import type { ClientMessagesTypes } from "./message";
-import type { IUser } from "./user";
+import { type ClientMessagesTypes } from "./message";
+import { type IUser } from "./user";
 
 export const enum MessagesForServerTypes {
     INITIAL = "init",

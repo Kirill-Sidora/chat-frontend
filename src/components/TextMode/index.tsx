@@ -1,9 +1,9 @@
 import IconButton from "@components/IconButton";
 import MessageInput from "@components/MessageInput";
 import FileUploader from "@components/FileUploader";
-import type { ReactElement, KeyboardEvent } from "react";
+import { type ReactElement, type KeyboardEvent } from "react";
+import { type IEncodedFileData } from "@app-types/file";
 import { IconIds } from "@utils/constants";
-import type { IEncodedFileData } from "@app-types/file";
 
 interface TextModeProps {
     message: string;

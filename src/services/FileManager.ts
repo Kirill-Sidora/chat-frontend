@@ -1,4 +1,4 @@
-import type { IEncodedFileData } from "@app-types/file";
+import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 
 class FileManager {

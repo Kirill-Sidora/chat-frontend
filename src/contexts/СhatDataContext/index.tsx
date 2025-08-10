@@ -1,14 +1,14 @@
 import React from "react";
-import { type IUser, type IUserStatusChanged } from "@app-types/user";
-import { useState, useEffect, useContext, createContext } from "react";
-import { type TClientMessage } from "@app-types/message";
+import MessageParser from "@services/MessageParser";
 import {
     MessagesFromServerTypes,
     type IMessageHandlerData,
     type TServerMessages,
-    type TWebSocketMessage,
+    type TWebSocketMessage
 } from "@app-types/serverMessages";
-import MessageParser from "@services/MessageParser";
+import { type IUser, type IUserStatusChanged } from "@app-types/user";
+import { useState, useContext, createContext } from "react";
+import { type TClientMessage } from "@app-types/message";
 
 interface IChatDataContext {
     messages: TClientMessage[];

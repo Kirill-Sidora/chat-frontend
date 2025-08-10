@@ -1,7 +1,7 @@
-import type { IDefaultMessage, TClientMessage } from "@app-types/message";
-import type { TWebSocketMessage } from "@app-types/serverMessages";
-import { getFormattedTime } from "@utils/constants";
 import FileManager from "./FileManager";
+import { type IDefaultMessage, type TClientMessage } from "@app-types/message";
+import { type TWebSocketMessage } from "@app-types/serverMessages";
+import { getFormattedTime } from "@utils/constants";
 
 class MessageParser {
     public static parseServerMessage = (

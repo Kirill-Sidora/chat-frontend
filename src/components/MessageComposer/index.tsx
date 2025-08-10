@@ -3,9 +3,9 @@ import AudioMode from "@components/AudioMode";
 import IconButton from "@components/IconButton";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
 import { ComposerMode, IconIds } from "@utils/constants";
+import { type IEncodedFileData } from "@app-types/file";
 import { isValidMessage } from "@utils/constants";
 import "./style.css";
-import type { IEncodedFileData } from "@app-types/file";
 
 interface IMessageComposerProps {
     onTextSend: (message: string) => void;
