@@ -8,16 +8,16 @@ export interface IDefaultMessage {
     type: ClientMessagesTypes;
     time: string;
     isMine: boolean;
-};
+}
 
 export interface ITextMessage extends IDefaultMessage {
     type: ClientMessagesTypes.TEXT;
     text: string;
-};
+}
 
 export interface IImageMessage extends IDefaultMessage {
     type: ClientMessagesTypes.IMAGE;
     src: string;
-};
+}
 
 export type TClientMessage = ITextMessage;

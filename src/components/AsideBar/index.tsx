@@ -1,22 +1,55 @@
+import CustomButton from "@components/CustomButton";
+import MessageSearchBar from "@components/MessageSearchBar";
+import SearchedMessages from "@components/SearchedMessages/indes";
+import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useState, type ReactElement } from "react";
+import { TClientMessage } from "@app-types/message";
 
 const AsideBar = (): ReactElement => {
-    const [searchTerm, setSearchTerm] = useState<string | number>("Search");
-    const handleSubmit = (): void => {};
+    const [isAsideOpen, setIsAsideOpen] = useState<boolean>(false);
+    const [searchResults, setSearchResults] = useState<TClientMessage[]>([]);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const { messages } = useChatDataContext();
+
+    const handleSearch = (query: string): void => {
+        if (!query.trim()) {
+            return;
+        }
+
+        const results: TClientMessage[] = messages.filter((message) =>
+            message.text.toLowerCase().includes(query.toLowerCase())
+        );
+
+        setSearchResults(results);
+    };
+
+    const handleCloseAside = (): void => {
+        setIsAsideOpen(!isAsideOpen);
+    };
+
     return (
         <div className="aside-bar-container">
-            <h3>Поиск сообщений</h3>
-            <form onSubmit={handleSubmit} className="search-form">
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Введите текст сообщения..."
-                    autoFocus
-                />
-                <button type="submit">Найти</button>
-            </form>
+            <CustomButton type="close-aside" onClick={handleCloseAside} />
+            {isAsideOpen && (
+                <div className="aside-bar">
+                    <div className="aside-header-block">
+                        <h3 className="aside-header">Поиск сообщений</h3>
+                    </div>
+                    <div className="search-bar">
+                        <MessageSearchBar
+                            onSearch={handleSearch}
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                        />
+                    </div>
+                    <SearchedMessages
+                        searchResults={searchResults}
+                        searchQuery={searchQuery}
+                    />
+                </div>
+            )}
         </div>
     );
 };
+
 export default AsideBar;

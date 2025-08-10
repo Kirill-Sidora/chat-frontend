@@ -1,4 +1,5 @@
 import Message from "@components/Message";
+import AsideBar from "@components/AsideBar";
 import MessageComposer from "@components/MessageComposer";
 import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useChatDataContext } from "@contexts/СhatDataContext";
@@ -36,6 +37,7 @@ const MessagePage = (): ReactElement => {
                     className="user-icon"
                 />
             </header>
+            <AsideBar />
             <ParticipantsPanel />
             <div className="messages-container secondary-text">
                 {messages.map((msg) => (
