@@ -23,13 +23,15 @@ class MessageParser {
             type,
         };
 
-        if (type === "text") {
+        if (type !== "text") {
+
+        } else {
             return {
                 ...basedMessageData,
                 text: serverMessageData.text,
                 type,
             };
-        };
+        }
 
         console.log("SERVER FILE MESSAGE: ", serverMessageData);
 
@@ -37,9 +39,11 @@ class MessageParser {
 
         const fileSrc: string = FileManager.base64ToObjectUrl(fileData);
 
-        if (mimeType.includes("audio")) {
-            console.log("AUDIO FILE SRC: ", fileSrc);
-        }
+        // if (mimeType.includes("audio")) {
+        //     console.log("AUDIO FILE SRC: ", fileSrc);
+        // } else {
+
+        // }
 
         return {
             ...basedMessageData,

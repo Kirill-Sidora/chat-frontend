@@ -13,10 +13,10 @@ const useAudioInputBox = () => {
 
         messageRecorder.stop();
 
-        if (durationID) {
-            clearInterval(durationID);
-            setDurationID(null);
-        }
+        if (!durationID) return;
+        
+        clearInterval(durationID);
+        setDurationID(null);
     };
 
     const startRecording = async () => {

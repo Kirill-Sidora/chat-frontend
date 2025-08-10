@@ -18,19 +18,19 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
     const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
 
     const handleSendMessage = () => {
-        if (isValidMessage(message)) {
-            onTextSend(message);
-            setMessage("");
+        if (!isValidMessage(message)) {
+            return;
         }
+        onTextSend(message);
+        setMessage("");
     };
 
     const handleSendOrRecordChecking = () => {
         if (isValid) {
-            handleSendMessage();
+            setMode(ComposerMode.AUDIO);
             return;
         }
-
-        setMode(ComposerMode.AUDIO);
+        handleSendMessage();
     };
 
     const handleSendFile = (fileData: IEncodedFileData) => {
@@ -46,7 +46,8 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
     const handleMessageInputKeyDown = (
         event: KeyboardEvent<HTMLTextAreaElement>
     ) => {
-        if (event.key === "Enter" && !event.shiftKey) {
+        if (event.key !== "Enter" || event.shiftKey) return;
+        else {
             event.preventDefault();
 
             handleSendMessage();

@@ -41,9 +41,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             handlersConfig.map((handlerData: IMessageHandlerData) => {
                 const { type: currentHandlerType, action } = handlerData;
 
-                if (currentHandlerType !== messageType) {
-                    return;
-                }
+                if (currentHandlerType !== messageType) return;
 
                 action(data);
             });
@@ -57,9 +55,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     }, [username]);
 
     const sendTextMessage = (messageData: string) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
-            return;
-        }
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) return;
 
         const messageForServer = {
             type: MessagesForServerTypes.TEXT_MESSAGE,
@@ -72,9 +68,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     };
 
     const sendFileMessage = (messageData: IEncodedFileData) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
-            return;
-        }
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) return;
 
         const messageForServer = {
             type: MessagesForServerTypes.FILE_MESSAGE,
@@ -87,9 +81,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     };
 
     const sendAudioMessage = (messageData: IEncodedFileData) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
-            return;
-        }
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) return;
 
         const messageForServer = {
             type: MessagesForServerTypes.AUDIO_MESSAGE,
