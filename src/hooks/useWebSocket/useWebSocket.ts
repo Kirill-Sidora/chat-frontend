@@ -36,18 +36,6 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             const data: TServerMessages = JSON.parse(event.data);
             console.log("MESSAGE FROM SERVER: ", data);
 
-            // const messageType: MessagesFromServerTypes = data.type;
-
-            // handlersConfig.map((handlerData: IMessageHandlerData) => {
-            //     const { type: currentHandlerType, action } = handlerData;
-
-            //     if (currentHandlerType !== messageType) {
-            //         return;
-            //     }
-
-            //     action(data);
-            // });
-
             const handlerData = handlersConfig.find(h => h.type === data.type);
 
             if (!handlerData) return;
