@@ -36,17 +36,49 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             const data: TServerMessages = JSON.parse(event.data);
             console.log("MESSAGE FROM SERVER: ", data);
 
-            const messageType: MessagesFromServerTypes = data.type;
+            // const messageType: MessagesFromServerTypes = data.type;
 
-            handlersConfig.map((handlerData: IMessageHandlerData) => {
-                const { type: currentHandlerType, action } = handlerData;
+            // handlersConfig.map((handlerData: IMessageHandlerData) => {
+            //     const { type: currentHandlerType, action } = handlerData;
 
-                if (currentHandlerType !== messageType) {
-                    return;
-                }
+            //     if (currentHandlerType !== messageType) {
+            //         return;
+            //     }
 
-                action(data);
-            });
+            //     action(data);
+            // });
+
+            const handlerData = handlersConfig.find(h => h.type === data.type);
+
+            if (!handlerData) return;
+
+            if (data.type === MessagesFromServerTypes.HISTORY) {
+                handlerData.action(data.messages);
+                return;
+            }
+
+            if (data.type === MessagesFromServerTypes.MESSAGE) {
+                handlerData.action(data.message);
+                return;
+            }
+
+            if (data.type === MessagesFromServerTypes.USERS) {
+                handlerData.action(data.users);
+                return;
+            }
+
+            if (data.type === MessagesFromServerTypes.USER_STATUS_CHANGED) {
+                const statusData = {
+                    id: data.id,
+                    username: data.username,
+                    isOnline: data.isOnline
+                };
+                
+                handlerData.action(statusData);
+                return;
+            }
+
+            handlerData.action(data);
         };
 
         setWebSocket(socket);
