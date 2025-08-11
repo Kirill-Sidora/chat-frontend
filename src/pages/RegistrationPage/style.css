@@ -28,25 +28,14 @@
     animation: fadeSlideIn 0.8s ease-out forwards;
     opacity: 0;
     animation-delay: 0.4s;
-    margin-bottom: 60px;
+    margin-bottom: 70px;
 }
 
 .input-field {
-    width: 100%;
-    max-width: 400px;
-    padding: 18px 20px;
     margin-bottom: 15px;
-    background: var(--dark-background, #202020);
-    border: 1px solid var(--input-border-light, rgba(255, 255, 255, 0.4));
-    border-radius: 5px;
-    color: var(--input-text-color, #ffffff);
-    opacity: 0;
     animation: fadeInDown 0.6s ease-out forwards;
     animation-delay: 0.5s;
-}
-
-.input-field::placeholder {
-    color: var(--input-placeholder-color, rgba(255, 255, 255, 0.4));
+    opacity: 0;
 }
 
 .submit-button {
@@ -75,6 +64,16 @@
     transform: scale(0.97);
     box-shadow: var(--button-active-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
+
+.submit-button:disabled {
+    background-color: var(--secondary-background-color, #3b3a3a);
+    cursor: not-allowed;
+    box-shadow: none;
+    color: var(--secondary-fill-color, #727173);
+    opacity: 0;
+    transition: none;
+}
+
 
 @keyframes fadeInDown {
     0% {

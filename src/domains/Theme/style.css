@@ -15,6 +15,12 @@
     --chat-message-other: #262628;
     --image-background-color: #d9d9d9;
 
+    --input-error-border-color: #ff4444;
+    --input-error-bg-color: #1a0f0f;
+    --input-error-focus-border-color: #ff6666;
+    --input-error-focus-bg-color: #220f0f;
+    --input-error-text-color: #ff4444;
+
     --primary-fill-color: #ffffff;
     --elements-fill-color: #efefef;
     --secondary-fill-color: #727173;
@@ -164,7 +170,7 @@ h5 {
     font-weight: 600;
 }
 
-.title-text {
+.introduce-text {
     font-family: "Inter";
     font-weight: 700;
     font-size: var(--font-size-heading, 4rem);
@@ -195,4 +201,15 @@ h5 {
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.4px;
+}
+
+.input-text {
+    font-family: "SF Pro Text";    
+    font-size: var(--font-size-body, 17px);
+}
+
+.input-error-text {
+    font-family: "SF Pro Text";
+    font-size: 16px;
+    font-weight: 500;
 }

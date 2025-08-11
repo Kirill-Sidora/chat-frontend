@@ -1,0 +1,64 @@
+.custom-input-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 16px 20px;
+    background-color: var(--primary-font-color, #111213);
+    border: 2px solid var(--input-border-color, #3a3a3c);
+    border-radius: 18px;
+    color: var(--color-text-primary, #ffffff);
+    outline: none;
+    transition: all var(--transition-time, 0.3s ease);
+    box-sizing: border-box;
+}
+
+.custom-input::placeholder {
+    color: var(--placeholder-color, #636366);
+    opacity: 1;
+    transition: all var(--transition-time, 0.3s ease);
+}
+
+.custom-input.placeholder-untouched::placeholder {
+    color: var(--secondary-components-color, #8e8e93);
+    opacity: 1;
+}
+
+.custom-input:hover {
+    border-color: var(--secondary-fill-color, #727173);
+}
+
+.custom-input.disabled {
+    background-color: #111213 ;
+    border-color: var(--input-border-color, #3a3a3c);
+    color: var(--secondary-components-color, #8e8e93);
+    cursor: not-allowed;
+}
+
+.custom-input.disabled::placeholder {
+    color: var(--secondary-fill-color, #727173);
+    opacity: 0.3;
+}
+
+.custom-input.invalid {
+    border-color: var(--input-error-border-color, #ff4444);
+    background-color: var(--input-error-bg-color, #1a0f0f);
+}
+
+.custom-input.invalid:focus {
+    border-color: var(--input-error-focus-border-color, #ff6666);
+    background-color: var(--input-error-focus-bg-color, #220f0f);
+}
+
+.error-message {
+    position: absolute;
+    top: -20px;
+    left: 2px;
+    color: var(--input-error-text-color, #ff4444);
+    padding: 2px 8px;
+    border-radius: 4px;
+    transform: translateY(-5px);
+}
