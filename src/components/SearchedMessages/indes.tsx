@@ -13,7 +13,7 @@ const SearchedMessages = ({
 }: ISearchedMessages): ReactElement => {
     if (searchResults.length === 0) {
         return (
-            <div className="no-results">
+            <div className="no-results primary-text">
                 <p>No messages found</p>
             </div>
         );

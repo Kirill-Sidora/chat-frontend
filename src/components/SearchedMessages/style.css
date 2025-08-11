@@ -1,15 +1,11 @@
 .searched-messages {
     flex: 1;
     overflow-y: auto;
-    color: var(--chat-header-background);
-    background-color: var();
-    padding: 10px;
+    background-color: var(--dark-background);
 }
 
-.search-placeholder,
 .no-results {
     text-align: center;
     padding: 30px 20px;
     color: var(--chat-header-background);
-    font-size: 14px;
 }

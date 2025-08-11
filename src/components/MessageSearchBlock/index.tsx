@@ -1,13 +1,19 @@
 import SearchedMessages from "@components/SearchedMessages/indes";
-import { useChatDataContext } from "@contexts/СhatDataContext";
-import { useState, type ReactElement, FormEvent } from "react";
+import { useState, type ReactElement, FormEvent, useEffect } from "react";
 import { TClientMessage, ITextMessage } from "@app-types/message";
+import { useChatDataContext } from "@contexts/СhatDataContext";
 import "./style.css";
 
 const MessageSearchBlock = (): ReactElement => {
     const [searchResults, setSearchResults] = useState<TClientMessage[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
+    const [isSearched, setIsSearched] = useState<boolean>(false);
     const { messages } = useChatDataContext();
+
+    useEffect(() => {
+        setSearchResults([]);
+        setIsSearched(false);
+    }, [searchQuery]);
 
     const handleSearch = (query: string): void => {
         if (!query.trim()) {
@@ -21,6 +27,7 @@ const MessageSearchBlock = (): ReactElement => {
         );
 
         setSearchResults(results);
+        setIsSearched(true);
     };
 
     const handleSubmit = (e: FormEvent): void => {
@@ -30,11 +37,11 @@ const MessageSearchBlock = (): ReactElement => {
 
     return (
         <div className="aside-bar">
-            <div className="aside-header-block">
-                <h3 className="aside-header">Search messages</h3>
-            </div>
             <div className="search-bar">
-                <form onSubmit={handleSubmit} className="message-search-form">
+                <form
+                    onSubmit={handleSubmit}
+                    className="message-search-form primary-text"
+                >
                     <input
                         type="text"
                         value={searchQuery}
@@ -45,8 +52,12 @@ const MessageSearchBlock = (): ReactElement => {
                 </form>
             </div>
             {!searchQuery.trim() ? (
-                <div className="search-placeholder">
+                <div className="search-placeholder primary-text">
                     <p>Enter a query to search messages</p>
+                </div>
+            ) : !isSearched ? (
+                <div className="search-placeholder primary-text">
+                    <p>Press Enter to search messages</p>
                 </div>
             ) : (
                 <SearchedMessages
