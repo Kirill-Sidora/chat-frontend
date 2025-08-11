@@ -16,21 +16,24 @@ interface IMessageComposerProps {
 const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageComposerProps): ReactElement => {
     const [message, setMessage] = useState("");
     const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
+    
+    const canSendTextMessage = isValidMessage(message);
 
-    const handleSendMessage = () => {
-        if (isValidMessage(message)) {
+    const handlePrimaryAction = () => {
+        if(canSendTextMessage){
             onTextSend(message);
             setMessage("");
-        }
-    };
-
-    const handleSendOrRecordChecking = () => {
-        if (isValid) {
-            handleSendMessage();
             return;
         }
 
         setMode(ComposerMode.AUDIO);
+    }
+    
+    const handleSendMessage = () => {
+        if (canSendTextMessage) {
+            onTextSend(message);
+            setMessage("");
+        }
     };
 
     const handleSendFile = (fileData: IEncodedFileData) => {
@@ -53,7 +56,6 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
         }
     };
 
-    const isValid: boolean = isValidMessage(message);
 
     return (
         <div className="message-composer-container">
@@ -75,12 +77,12 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
 
                     <IconButton
                         iconSrc={
-                            !isValid
-                                ? IconIds.MICRO_ICON
-                                : IconIds.SENDING_BUTTON_ICON
+                            canSendTextMessage
+                                ? IconIds.SENDING_BUTTON_ICON
+                                : IconIds.MICRO_ICON
                         }
-                        onClick={handleSendOrRecordChecking}
-                        isActive={isValid}
+                        onClick={handlePrimaryAction}
+                        isActive={canSendTextMessage}
                     />
                 </>
             )}
