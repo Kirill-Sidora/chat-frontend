@@ -1,5 +1,5 @@
 import AsideBar from "@components/AsideBar";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import "./style.css";
 
 interface IMessagePageLayout {

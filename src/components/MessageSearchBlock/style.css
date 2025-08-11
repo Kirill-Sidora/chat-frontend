@@ -1,22 +1,12 @@
-.aside-bar {
-    position: fixed;
-    width: 27vw;
-    height: 100vh;
-    background-color: var(--dark-background);
-    z-index: 1;
-    transition: left 0.3s ease;
+.message-search-block {
     display: flex;
     flex-direction: column;
-    border-right: 1px solid var(--chat-header-background);
-}
-
-.aside-bar.open {
-    left: 0;
 }
 
 .search-bar {
     background-color: var(--chat-header-background);
     color: var(--color-text-primary);
+    box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
     z-index: 100;
 }
 
@@ -34,7 +24,7 @@
 
 .message-search-form input {
     flex: 1;
-    padding: 10px 15px;
+    padding: 9px 15px;
     background-color: var(--inactive-background-color);
     border: 1px solid var(--search-border-color);
     border-radius: var(--content-radius-primary);
@@ -48,5 +38,5 @@
 }
 
 .message-search-form input::placeholder {
-    color: #888;
+    color: var(--message-text-color);
 }

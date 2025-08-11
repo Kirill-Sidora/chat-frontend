@@ -1,12 +1,13 @@
 import Message from "@components/Message";
 import MessageComposer from "@components/MessageComposer";
-import MessagePageLayout from "@Layout/MessagePageLayout";
+import MessagePageLayout from "@layout/MessagePageLayout";
+import MessagePageHeader from "@components/MessagePageHeader";
 import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useRef, useEffect, type ReactElement } from "react";
-import "./style.css";
 import type { TClientMessage } from "@app-types/message";
+import "./style.css";
 
 const MessagePage = (): ReactElement => {
     const { messages, messageHandlersConfig } = useChatDataContext();
@@ -23,12 +24,7 @@ const MessagePage = (): ReactElement => {
     return (
         <MessagePageLayout>
             <div className="chat-page">
-                <header className="chat-header">
-                    <img
-                        src="src/assets/images/user-icon.png"
-                        className="user-icon"
-                    />
-                </header>
+                <MessagePageHeader />
                 <ParticipantsPanel />
                 <div className="messages-container secondary-text">
                     {messages.map((clientMessageData: TClientMessage) => (

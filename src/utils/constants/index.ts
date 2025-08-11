@@ -6,9 +6,14 @@ export enum IconIds {
     MICRO_ICON_ACTIVE = "micro-icon-active",
     SENDING_AUDIO_BUTTON_ICON = "sending-audio-icon",
     DELETE_BUTTON_ICON = "delete-button-icon",
-    STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon"
+    STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon",
 }
 
+export const typesOfButton = {
+    showButton: "show-all-button",
+    closePanelButton: "close-panel",
+    closeAsideButton: "close-aside",
+};
 
 export const ICON_SRC_PREFIX = "src/assets/icons/";
 export const ICON_SRC_SUFFIX = ".svg";
@@ -58,7 +63,7 @@ export const getRandomId = (): string => {
         Date.now().toString(36) +
         Math.random().toString(36).substring(2).toString()
     );
-}
+};
 
 export const getFormattedTime = (timestamp: number): string => {
     const date = new Date(timestamp);

@@ -2,7 +2,6 @@
     display: block;
     position: relative;
     padding: var(--message-card-padding);
-    margin-bottom: 10px;
     background-color: var(--searched-message-background-color);
     transition: background-color 0.2s;
     cursor: pointer;
@@ -30,14 +29,4 @@
     top: 8px;
     padding-left: var(--product-padding);
     color: var(--primary-fill-color);
-}
-
-.avatar-image {
-    position: relative;
-    top: 40px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid var(--elements-fill-color);
 }

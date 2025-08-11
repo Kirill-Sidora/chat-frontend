@@ -1,10 +1,10 @@
 import SearchMessageCard from "@components/SearchResultCard";
-import { TClientMessage } from "@app-types/message";
+import { ITextMessage } from "@app-types/message";
 import { ReactElement } from "react";
 import "./style.css";
 
 interface ISearchedMessages {
-    searchResults: TClientMessage[];
+    searchResults: ITextMessage[];
     searchQuery: string;
 }
 
@@ -18,6 +18,7 @@ const SearchedMessages = ({
             </div>
         );
     }
+
     return (
         <div className="searched-messages">
             {searchResults.map((message) => (

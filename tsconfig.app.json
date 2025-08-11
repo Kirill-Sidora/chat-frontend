@@ -34,7 +34,7 @@
             "@domains/*": ["src/domains/*"],
             "@contexts/*": ["src/contexts/*"],
             "@services/*": ["src/services/*"],
-            "@Layout/*": ["src/Layout/*"]
+            "@layout/*": ["src/layout/*"]
         }
     },
     "include": ["src"]

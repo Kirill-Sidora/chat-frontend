@@ -1,11 +1,12 @@
 import SearchedMessages from "@components/SearchedMessages/indes";
 import { useState, type ReactElement, FormEvent, useEffect } from "react";
-import { TClientMessage, ITextMessage } from "@app-types/message";
 import { useChatDataContext } from "@contexts/СhatDataContext";
+import { isValidMessage } from "@utils/constants";
+import { ITextMessage } from "@app-types/message";
 import "./style.css";
 
 const MessageSearchBlock = (): ReactElement => {
-    const [searchResults, setSearchResults] = useState<TClientMessage[]>([]);
+    const [searchResults, setSearchResults] = useState<ITextMessage[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [isSearched, setIsSearched] = useState<boolean>(false);
     const { messages } = useChatDataContext();
@@ -16,11 +17,11 @@ const MessageSearchBlock = (): ReactElement => {
     }, [searchQuery]);
 
     const handleSearch = (query: string): void => {
-        if (!query.trim()) {
+        if (!isValidMessage(query)) {
             return;
         }
 
-        const results: TClientMessage[] = messages.filter(
+        const results: ITextMessage[] = messages.filter(
             (message): message is ITextMessage =>
                 "text" in message &&
                 message.text.toLowerCase().includes(query.toLowerCase())
@@ -30,13 +31,13 @@ const MessageSearchBlock = (): ReactElement => {
         setIsSearched(true);
     };
 
-    const handleSubmit = (e: FormEvent): void => {
-        e.preventDefault();
+    const handleSubmit = (event: FormEvent): void => {
+        event.preventDefault();
         handleSearch(searchQuery);
     };
 
     return (
-        <div className="aside-bar">
+        <div className="message-search-block">
             <div className="search-bar">
                 <form
                     onSubmit={handleSubmit}
@@ -51,15 +52,18 @@ const MessageSearchBlock = (): ReactElement => {
                     />
                 </form>
             </div>
-            {!searchQuery.trim() ? (
+
+            {!searchQuery.trim() && (
                 <div className="search-placeholder primary-text">
                     <p>Enter a query to search messages</p>
                 </div>
-            ) : !isSearched ? (
+            )}
+            {searchQuery.trim() && !isSearched && (
                 <div className="search-placeholder primary-text">
                     <p>Press Enter to search messages</p>
                 </div>
-            ) : (
+            )}
+            {searchQuery.trim() && isSearched && (
                 <SearchedMessages
                     searchResults={searchResults}
                     searchQuery={searchQuery}
