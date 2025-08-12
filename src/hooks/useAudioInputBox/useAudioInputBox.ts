@@ -14,10 +14,10 @@ const useAudioInputBox = () => {
 
         messageRecorder.stop();
 
-        if (durationID) {
-            clearInterval(durationID);
-            setDurationID(null);
-        }
+        if (!durationID) return;
+
+        clearInterval(durationID);
+        setDurationID(null);
     };
 
     const startRecording = async () => {
@@ -37,6 +37,7 @@ const useAudioInputBox = () => {
         };
 
         recorder.start();
+
         setMessageRecorder(recorder);
         setIsRecording(true);
         setDuration(0);
@@ -53,6 +54,7 @@ const useAudioInputBox = () => {
     const stopRecording = () => {
         cleanupRecording();
         setIsRecording(false);
+
         console.log("Stoooop, wait a minute");
     };
 
@@ -61,6 +63,7 @@ const useAudioInputBox = () => {
         setDuration(0);
         setAudioSrc(null);
         setIsRecording(false);
+
         console.log("you discarded your record");
     };
 
@@ -71,6 +74,7 @@ const useAudioInputBox = () => {
         }
 
         const url = URL.createObjectURL(blob);
+        
         setAudioSrc(url);
 
         return () => {

@@ -60,7 +60,7 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
 
     return (
         <div
-            className={`message ${message.isMine ? "mine" : "other"} ${
+            className={`message ${!message.isMine ? "other" : "mine"} ${
                 message.type
             }`}
         >

@@ -78,9 +78,9 @@ export const ChatDataProvider: React.FC<{
     const updateUserStatus = (statusData: IUserStatusChanged): void => {
         setUsers((prevUsers) => {
             const updatedUsers = prevUsers.map((user) =>
-                user.id === statusData.id
-                    ? { ...user, isOnline: statusData.isOnline }
-                    : user
+                user.id !== statusData.id
+                    ? user
+                    : { ...user, isOnline: statusData.isOnline }
             );
             return updatedUsers;
         });

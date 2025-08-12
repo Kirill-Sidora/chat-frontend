@@ -20,7 +20,7 @@ const IconButton = ({
     isActive = false,
 }: IIconButtonProps): ReactElement => {
 
-    var className: string = `icon-button ${isActive ? "active" : ""} ${disabled ? "disabled" : ""}`;
+    var className: string = `icon-button ${!isActive ? "" : "active"} ${!disabled ? "" : "disabled"}`;
 
     return (
         <button

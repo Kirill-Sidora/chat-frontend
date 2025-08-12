@@ -22,6 +22,7 @@ const HomePage = (): ReactElement => {
     return (
         <div className="home-page">
             <IntroSlides />
+            
             <WelcomeBlock />
         </div>
     );

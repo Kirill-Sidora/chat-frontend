@@ -60,16 +60,7 @@ const AudioInputBox = ({
 
     return (
         <div className="audio-recorder">
-            {!isRecording && !isUploading && (
-                <div className="recording-start">
-                    <IconButton
-                        iconSrc={IconIds.MICRO_ICON}
-                        onClick={startRecording}
-                    />
-                </div>
-            )}
-
-            {isRecording && (
+            {isRecording ? (
                 <div className="recording">
                     <Indication />
 
@@ -79,9 +70,7 @@ const AudioInputBox = ({
                         isActive={true}
                     />
                 </div>
-            )}
-
-            {isUploading && (
+            ) : isUploading ? (
                 <Fragment>
                     <audio controls src={audioSrc || undefined} />
                     <div className="recorded-last-actions">
@@ -97,6 +86,13 @@ const AudioInputBox = ({
                         </div>
                     </div>
                 </Fragment>
+            ) : (
+                <div className="recording-start">
+                    <IconButton
+                        iconSrc={IconIds.MICRO_ICON}
+                        onClick={startRecording}
+                    />
+                </div>
             )}
         </div>
     );
