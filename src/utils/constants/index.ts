@@ -9,7 +9,6 @@ export enum IconIds {
     STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon"
 }
 
-
 export const ICON_SRC_PREFIX = "src/assets/icons/";
 export const ICON_SRC_SUFFIX = ".svg";
 

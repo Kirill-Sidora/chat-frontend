@@ -1,0 +1,169 @@
+[33m5836455[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfix/consistency-of-the-code-style[m[33m)[m fix: Added default value to useState
+[33m7534cef[m fix: Did import priority to all files and remove unused imports
+[33m2beedad[m[33m ([m[1;31morigin/development[m[33m, [m[1;32mdevelopment[m[33m)[m Merge pull request #27 from Kirill-cyber736/feat/sync-backend-files-sending
+[33mfee89af[m Merge pull request #24 from Kirill-cyber736/fix/redesign-registrationpage
+[33m69f3e6d[m fix: Resolved problems with files parsing from server
+[33m56b340d[m fix: Separated handle new message from history and new single message servering, removed second username
+[33m3f211f6[m Sync files uploading through backend
+[33m5ded557[m fix: transferred all text parameters to theme
+[33m846832a[m Merge remote-tracking branch 'origin/development' into fix/redesign-registrationpage
+[33me9e48e6[m Merge pull request #26 from Kirill-cyber736/fix/fix-problem-with-context
+[33m0c189e4[m fix: Fixed all problems
+[33m1b0f28f[m fix: Merged development into fix/redesign-registrationpage
+[33me7d17a3[m Merge branch 'fix/redesign-registrationpage' of github.com:Kirill-cyber736/chat-frontend into fix/redesign-registrationpage
+[33m63f1de8[m Merge branch 'development' into fix/redesign-registrationpage
+[33mdf23708[m Merge branch 'fix/redesign-registrationpage' of github.com:Kirill-cyber736/chat-frontend into fix/redesign-registrationpage
+[33m01a976e[m fix: Fixed mistakes using theme in css and prettier
+[33m2a44b35[m Merge pull request #25 from Kirill-cyber736/refactor/refactor-useChatData-with-context
+[33m6ea6b62[m fix: Moved context
+[33m8bf3da2[m fix: Merged with dev
+[33m79203ab[m fix: Changed import priority
+[33m0ef0ece[m fix: Changed routes.tsx
+[33m17424ad[m Merge pull request #22 from Kirill-cyber736/feat/add-fileuploader-component-for-chat-messages
+[33m2485639[m[33m ([m[1;31morigin/feat/add-fileuploader-component-for-chat-messages[m[33m)[m fix: Theme topografic className changed after merging
+[33md4eeac1[m Merge branch 'development' into feat/add-fileuploader-component-for-chat-messages
+[33m1098af5[m[33m ([m[1;31morigin/refactor/refactor-useChatData-with-context[m[33m)[m fix: Fixed imports priority
+[33ma3831a4[m feat: Added user state change in frontend
+[33m977e153[m fix: Changed ApplicationRouter
+[33m7f38e8a[m feat: Deleted hook useChatData, added ChatDataContext
+[33m61628b9[m fix: Changed hook useChatData
+[33m74b1da4[m[33m ([m[1;31morigin/fix/redesign-registrationpage[m[33m)[m Merge branch 'development' into fix/redesign-registrationpage
+[33m0fedca7[m fix: Redirected to MessagePage after registration
+[33mfc7c4a0[m fix: Added some styles to theme, fixed the structure of RegistrationPage style.css
+[33m8336e18[m Merge pull request #23 from Kirill-cyber736/feat/add-all-users-panel
+[33m7a836ee[m fix: Removed import FileUploader in MessageComposer
+[33m5f967ee[m fix: Moved FileUploader from MessageComposer into TextMode
+[33m3614c62[m fix: Changed animation sliding panel
+[33m3a04dff[m fix: Merged with dev
+[33md14607d[m fix: Merged actual version of development branch and solved all conflicts
+[33mde802b8[m fix: Added clear function, renamed component ModalWindowComponent, renamed fileUpload and setFileUpload to start with 'is'
+[33mfd5a0c3[m Merge pull request #21 from Kirill-cyber736/feat/audio-recorder-component
+[33mc775859[m fixed: Fixed all disadvantages
+[33m7a1ea52[m fix: In ImagePreview <img> now have tag name in style.css
+[33m9f094b2[m fix: Renamed FilePreviewModal to ModalWindow and FilePreviewModalContent to ModalWindowContent, added component ImagePreview, updated FileUploader, updated useFileUpload
+[33ma1ef1c0[m fix: Fixed button sliding
+[33m81a5851[m fixed: Split Audio and Text modes into separate components and moved isUploaded logic into hook
+[33m7bb7abe[m fix: Merged development into fix/redesign-registrationpage
+[33md7055b6[m fix: Topographic class name used
+[33mc84d4ed[m fix: Created a new design for the RegistrationPage, without CustomInput for now
+[33m2f08a01[m refactor: Removed isActive, added isUploading, extracted Indicator, updated send logic
+[33m59fbc92[m refactor: The structure of the panel completely changed
+[33m7da6e67[m fix: Fixed Timer component
+[33m6fbb780[m refactor: Clean up blob effect and change onSend to onFileUpdate
+[33m1d7b8e4[m fixed: Renamed an AudioRecorder component and useAudioRecorder hook to AudioInputBox and useAudioInputBox
+[33md5d2ab8[m fixed: Сreate useAudioRecorder hook, extract Timer, update UI during recording, clean types, sort imports
+[33ma942559[m feat: Created reused component FilePreviewModalContent, custom hook useFileUpload
+[33m31381f0[m fix: Added button CustomButton, fixed all shortcomings
+[33m1c89d9b[m fix: Fixed styles, changed Theme
+[33m8abcd12[m feat: Added CloseListButton
+[33m5aace08[m fix: Merged with development
+[33mf34dd27[m fix: changed ParticipantsList
+[33mcd69b14[m feat: Added component ParticipantsList
+[33m17633a2[m Merge pull request #16 from Kirill-cyber736/feat/create-protectedroute
+[33m20ec540[m fix: Changed '../../router' to '@router'
+[33md4f3a08[m fix: Removed coments and did import priority
+[33m07ce4a9[m[33m ([m[1;31morigin/feat/audio-recorder-component[m[33m)[m Merge branch 'development' into feat/audio-recorder-component
+[33mc353387[m fix: Fixed all conflicts with types and arranged all imports by importance
+[33m47a4155[m fix: Added style to preview modal
+[33m5e50f3a[m feat: Added a special Audio Recorder component
+[33mf02dd01[m[33m ([m[1;31morigin/feat/create-protectedroute[m[33m)[m Merge branch 'feat/create-protectedroute' of github.com:Kirill-cyber736/chat-frontend into feat/create-protectedroute
+[33mb97f972[m fix: Removed <><> from return
+[33m5b285a1[m Merge branch 'development' into feat/create-protectedroute
+[33m52a899c[m fix: Renamed the ProtectedRoute.tsx to index.tsx and corrected the code
+[33m477a73a[m Merge branch 'development' into feat/add-fileuploader-component-for-chat-messages
+[33mc909236[m feat: Created reused component FileUploader
+[33m6211a12[m Merge pull request #20 from Kirill-cyber736/fix/types-readability
+[33m11e896a[m fix: Added types, increased types readable
+[33m624cdad[m feat: Created a separate ProtectedRouted file
+[33m765f1b9[m feat: Created unregistered users security
+[33m588e1e6[m[33m ([m[1;31morigin/feat/Add-Audio-Recorder-component[m[33m)[m Merge pull request #15 from Kirill-cyber736/fix/timestamps
+[33m50bb7be[m fix: Showed actual messaga data creating timestamp
+[33m32b2a6a[m[33m ([m[1;31morigin/fix/preverse-original-messages-timestamp[m[33m)[m Merge pull request #14 from Kirill-cyber736/fix/history-reversing-bug
+[33m6f850bc[m fix: Fixed reversing bug
+[33mbefedb6[m Merge pull request #13 from Kirill-cyber736/refactor/messageinput-component
+[33mba4055a[m fix: Solved all conflicts and fixed a view of sended messages
+[33m8e5f7c6[m fix: Moved the classname to other var, changed the order of imports, and fixed IconButton.css
+[33m7286230[m Merge pull request #11 from Kirill-cyber736/fix/logic-and-maintainability-improvements
+[33m077a44a[m refactor: Update IconButton to use enum iconSrc
+[33m11650f2[m fix: Removed all message.trim(), added isValidMessage function, did import prioritet
+[33mea0dcf1[m fix: Removed div and left only textarea
+[33m6e7873c[m fix: Removed media css in current components and renamed ChatFooter to MessageComposer
+[33m26aff26[m fix: Merged actual branch 'development' into 'fix/logic-and-maintainability-improvements'
+[33m09253f6[m fix: Move handlers in function in MessageInput
+[33m539dea5[m fix: Created SendButton as IconButton
+[33mfb6cee3[m fix: Try to create customs hooks 'useWebSocket' and 'usechatData'
+[33m1404971[m chore: Merged latest development into refactor/messageinput-component, resolved conflicts and fixed color usage from Theme.css
+[33m8eb9777[m fix: Corrected ChatFooter usage in MessagePage
+[33mc6032a7[m refactor: Added ChatFooter, SendButton components and split responsobilities
+[33m39ddde1[m Merge pull request #9 from Kirill-cyber736/refactor/styling-and-layout
+[33m1226146[m fix: Changed names of topographic classnames to more abstract
+[33m54725b8[m refactor: Removed form in MessageInput and rename to ChatFooter
+[33md3029da[m fix: Added -text suffix to all topographic classnames
+[33mc2d8afb[m fix: Removed a margin-top in messages-container
+[33m0fb98a4[m fix: Merged development in refactor/styling-and-layout and solved all conflicts
+[33mb32ea93[m refactor: Moved typography styles to theme.css for consistency
+[33m264eaf9[m fix: Move event handlers into named functions, create custom hook 'useWebSocket' for WebSocket logic
+[33mcbc1ef8[m refactor: Update domain alias and rename NavigationButton to WelcomeBlock
+[33m7379b02[m feat: Implement shared SF Pro Text font class in theme.css
+[33m70af3cf[m feat: Add fallback values to theme.css variable imports
+[33mae3f568[m Merge pull request #10 from Kirill-cyber736/important-fix/remove-dublicate-messages-to-other-users
+[33m3dfddb7[m fix: Renamed main.tsx to index.tsx and main.css to style.css, removed React.StrictMode in index.tsx
+[33m4620a80[m nothing changes
+[33me5fca02[m refactor: Extracted theme colors, improved layout spacing, added alias @domain
+[33m9c5be25[m Merge pull request #8 from Kirill-cyber736/fix/shared-components-cleanup
+[33mee0ad23[m fix: Added alias '@utils' in tsconfig
+[33m3574f99[m fix: Merge actual dev branch, added alias @utils
+[33m88eb5df[m Merge branch 'development' into fix/shared-components-cleanup
+[33mddb3f2f[m fix: Renamed enum iconIds to IconIds
+[33m10fa116[m fix: Removed unused import
+[33m7a9f0b8[m fix: Remove erasableSyntaxOnly: true, refactor util/components/index.ts, in MessageInput/index.ts import iconIds change img src
+[33m96979b5[m feat: Created utils/constants/index.ts, fix: Import SRCs and used him for iconSrc
+[33m3c9c9b7[m fix: In src/components/IconButton/index.tsx src changed to iconSrc, in src/components/IconButton/style.css moved cursor:pointer to hover styles, in src/components/MessageInput/index.tsx removed unused spaces, in src/components/MessageInput/style.css removed unused styles in media queries
+[33m5b0efa3[m fix: Refactoring buttons in InputMessage/index.tsx
+[33meb78e02[m feat: Created IconButton
+[33m33ae810[m Merge pull request #7 from Kirill-cyber736/fix/rename-folders-in-project
+[33m42163cf[m fix: Renamed frontend folder
+[33mf01f0a9[m Merge pull request #5 from Kirill-cyber736/feat/add-path-aliases
+[33m308876e[m fixed: Removed coments and all imports are arranged according to import priority
+[33m3abb71f[m fix: Added router alias
+[33m3174028[m Merge branch 'development' into feat/add-path-aliases
+[33m3e70dbf[m fix: Remove unused icon
+[33m7578fa1[m Merge pull request #6 from Kirill-cyber736/fix/asset-and-icon-management
+[33mac17ad9[m fir: Changed the user-icon resolution from svg to png, added height: 45px to user-icon.png( added in .chat-header .user-icon)
+[33m4a0e03b[m fix: Correct path aliases configuration and fix import issues
+[33m4536273[m fix: Renamed image files using consistent kebab-case convention (intro-slide-1 and intro-slide-2), changed src's in types/images.ts
+[33mdd12e3b[m feat: Add path aliases and update all imports
+[33m979a593[m Merge pull request #4 from Kirill-cyber736/fix/structural-and-architectural-improvements
+[33mf1bdeac[m fix: Rename className application to application-container
+[33m592889d[m fix: Added import priority to main.tsx, rename container className from app-style to application, renamed component App to Application
+[33me12d941[m fix: Create folder router with files index.tsx and router.tsx for rooting. Changed rooting in App/index.tsx. Modified main.tsx (added component React.StrictMode)
+[33mb3ffa6b[m Merge pull request #3 from Kirill-cyber736/fix/message-page
+[33md2fc9fb[m Deleted extra spaces
+[33m242d5e9[m fix: Resolved problem with second user nickname
+[33m38bb7fa[m Merge branch 'development' into fix/message-page
+[33m347555f[m Fixed: limited message line length
+[33m0f43b42[m Feat: Display second user name in chat header
+[33mbc6157e[m Merge pull request #2 from Kirill-cyber736/fix/home-page-ui
+[33mb64d1cd[m fix: Remove unused files, logs, replaced extentions in types scripts
+[33mfdefcdd[m fix: write correct keyframes for welcomeBlock and introSlides
+[33m51dc29f[m Fixed: limit message line length to 70 characters per line
+[33ma7a2eb1[m Feat: Update send button active icon
+[33md3c2a15[m Do import prioritet, changed the resolution from tsx to ts for messages and images
+[33m029673b[m Feat: add read status icon, fix button event bubbling, update send button icon based on input state, and restyle messages
+[33m8690a61[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Merge pull request #1 from Kirill-cyber736/development
+[33mdce2268[m Fix: Prevent form submission when clicking on the stickers button
+[33m7831c8e[m Add box-shadow to IntroSlides
+[33m5f5a291[m Fix: Updated input message block ui in message page
+[33m0ac7146[m Fixed styles of message page and modified adaptivity
+[33m170cc2e[m[33m ([m[1;33mtag: [m[1;33mv1.0.0[m[33m)[m Logging changes
+[33m430b655[m Fixed messages sending logic
+[33m8c06876[m Try to fix problem with timestamp
+[33m34c5d72[m Resolving problems after pulling
+[33m13ed096[m Removed package-lock.json
+[33m9ebd442[m Merge branch 'development' of https://github.com/Kirill-cyber736/react-chat into development
+[33me5cf7ac[m add registration page
+[33m15a4e3f[m update WebSocket connection handling and dependencies
+[33m66245e0[m Reloaded package.json and package-lock.json
+[33m4d35930[m Sorted the components and styles into folders
+[33m81d42c3[m Added input to MessagePage, and fixed folders in projects
+[33md7e0489[m Initial commit: React chat app

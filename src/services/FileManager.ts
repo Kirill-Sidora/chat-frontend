@@ -55,7 +55,7 @@ class FileManager {
         const blob = new Blob([byteArray], {
             type: mimeType || "application/octet-stream",
         });
-
+        
         return URL.createObjectURL(blob);
     }
 }

@@ -25,7 +25,7 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
     };
 
     const handleSendOrRecordChecking = () => {
-        if (isValid) {
+        if (!isValid) {
             setMode(ComposerMode.AUDIO);
             return;
         }

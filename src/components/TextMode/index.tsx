@@ -21,6 +21,7 @@ const TextMode = ({
     return (
         <>
             <FileUploader onFileSend={onFileSend}/>
+
             <MessageInput
                 message={message}
                 setMessage={setMessage}

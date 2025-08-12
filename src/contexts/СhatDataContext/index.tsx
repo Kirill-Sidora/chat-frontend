@@ -133,12 +133,12 @@ export const ChatDataProvider: React.FC<{
 
 export const useChatDataContext = () => {
     const context = useContext(ChatDataContext);
-
+    
     if (!context) {
         throw new Error(
             "useChatDataContext must be used within ChatDataProvider"
         );
     }
-
+    
     return context;
 };
