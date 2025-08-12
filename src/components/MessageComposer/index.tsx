@@ -3,45 +3,46 @@ import AudioMode from "@components/AudioMode";
 import IconButton from "@components/IconButton";
 import { useState, type ReactElement, type KeyboardEvent } from "react";
 import { ComposerMode, IconIds } from "@utils/constants";
+import type { IEncodedFileData } from "@app-types/file";
 import { isValidMessage } from "@utils/constants";
 import "./style.css";
-import type { IEncodedFileData } from "@app-types/file";
+import { MessagesForServerTypes } from "@app-types/serverMessages";
 
 interface IMessageComposerProps {
-    onTextSend: (message: string) => void;
-    onFileSend: (fileData: IEncodedFileData) => void;
-    onAudioSend: (audioData: IEncodedFileData) => void;
+    onSendMessage: (type: MessagesForServerTypes, data: string | IEncodedFileData) => void;
 }
 
-const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageComposerProps): ReactElement => {
+const MessageComposer = ({
+    onSendMessage,
+}: IMessageComposerProps): ReactElement => {
     const [message, setMessage] = useState("");
     const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
-    
+
     const canSendTextMessage = isValidMessage(message);
 
     const handlePrimaryAction = () => {
-        if(canSendTextMessage){
-            onTextSend(message);
+        if (canSendTextMessage) {
+            onSendMessage(MessagesForServerTypes.TEXT_MESSAGE, message);
             setMessage("");
             return;
         }
 
         setMode(ComposerMode.AUDIO);
-    }
-    
+    };
+
     const handleSendMessage = () => {
         if (canSendTextMessage) {
-            onTextSend(message);
+            onSendMessage(MessagesForServerTypes.TEXT_MESSAGE, message);
             setMessage("");
         }
     };
 
     const handleSendFile = (fileData: IEncodedFileData) => {
-        onFileSend(fileData);
+        onSendMessage(MessagesForServerTypes.FILE_MESSAGE, fileData);
     };
 
     const handleSendAudio = (audioData: IEncodedFileData) => {
-        onAudioSend(audioData);
+        onSendMessage(MessagesForServerTypes.AUDIO_MESSAGE, audioData);
 
         setMode(ComposerMode.TEXT);
     };
@@ -55,7 +56,6 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
             handleSendMessage();
         }
     };
-
 
     return (
         <div className="message-composer-container">

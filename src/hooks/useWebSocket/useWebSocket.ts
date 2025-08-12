@@ -36,7 +36,9 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             const data: TServerMessages = JSON.parse(event.data);
             console.log("MESSAGE FROM SERVER: ", data);
 
-            const handlerData = handlersConfig.find(h => h.type === data.type);
+            const handlerData = handlersConfig.find(
+                (h) => h.type === data.type
+            );
 
             if (!handlerData) return;
 
@@ -59,9 +61,9 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
                 const statusData = {
                     id: data.id,
                     username: data.username,
-                    isOnline: data.isOnline
+                    isOnline: data.isOnline,
                 };
-                
+
                 handlerData.action(statusData);
                 return;
             }
@@ -76,50 +78,30 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         };
     }, [username]);
 
-    const sendTextMessage = (messageData: string) => {
+    const sendMessage = (
+        type: MessagesForServerTypes,
+        data: string | IEncodedFileData
+    ) => {
         if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
             return;
         }
 
-        const messageForServer = {
-            type: MessagesForServerTypes.TEXT_MESSAGE,
-            text: messageData,
-        };
+        const messageForServer: Record<string, any> = { type };
 
-        console.log("MESSAGE FOR SERVER: ", messageForServer);
-
-        webSocket.send(JSON.stringify(messageForServer));
-    };
-
-    const sendFileMessage = (messageData: IEncodedFileData) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
-            return;
+        if ((type = MessagesForServerTypes.TEXT_MESSAGE)) {
+            messageForServer.text = data;
         }
 
-        const messageForServer = {
-            type: MessagesForServerTypes.FILE_MESSAGE,
-            file: messageData,
-        };
-
-        console.log("MESSAGE FOR SERVER: ", messageForServer);
-
-        webSocket.send(JSON.stringify(messageForServer));
-    };
-
-    const sendAudioMessage = (messageData: IEncodedFileData) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
-            return;
+        if ((type = MessagesForServerTypes.AUDIO_MESSAGE)) {
+            messageForServer.file = data;
         }
 
-        const messageForServer = {
-            type: MessagesForServerTypes.AUDIO_MESSAGE,
-            file: messageData,
-        };
-
-        console.log("MESSAGE FOR SERVER: ", messageForServer);
+        if ((type = MessagesForServerTypes.FILE_MESSAGE)) {
+            messageForServer.file = data;
+        }
 
         webSocket.send(JSON.stringify(messageForServer));
     };
 
-    return { sendTextMessage, sendFileMessage, sendAudioMessage };
+    return { sendMessage };
 };

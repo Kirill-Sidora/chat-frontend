@@ -9,7 +9,7 @@ import type { TClientMessage } from "@app-types/message";
 
 const MessagePage = (): ReactElement => {
     const { messages, messageHandlersConfig } = useChatDataContext();
-    const { sendTextMessage, sendAudioMessage, sendFileMessage } = useWebSocket(
+    const { sendMessage } = useWebSocket(
         messageHandlersConfig
     );
 
@@ -58,11 +58,7 @@ const MessagePage = (): ReactElement => {
                 ))}
                 <div className="end-pointer" ref={messagesEndRef} />
             </div>
-            <MessageComposer
-                onTextSend={sendTextMessage}
-                onFileSend={sendFileMessage}
-                onAudioSend={sendAudioMessage}
-            />
+            <MessageComposer onSendMessage={sendMessage} />
         </div>
     );
 };
