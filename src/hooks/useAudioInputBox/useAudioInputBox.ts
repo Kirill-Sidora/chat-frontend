@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const useAudioInputBox = () => {
     const [messageRecorder, setMessageRecorder] = useState<MediaRecorder | null>(null);
@@ -11,47 +11,52 @@ const useAudioInputBox = () => {
     const cleanupRecording = () => {
         if (!messageRecorder) return;
 
+        messageRecorder.stream.getTracks().forEach(track => track.stop());
         messageRecorder.stop();
 
-        if (!durationID) return;
-        
-        clearInterval(durationID);
-
-        setDurationID(null);
+        if (durationID) {
+            clearInterval(durationID);
+            setDurationID(null);
+        }
     };
 
     const startRecording = async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-        });
-        
-        const recorder = new MediaRecorder(stream);
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                audio: true,
+            });
+            
+            const recorder = new MediaRecorder(stream);
 
-        const chunks: Blob[] = [];
+            const chunks: Blob[] = [];
 
-        recorder.ondataavailable = (event) => {
-            chunks.push(event.data);
-        };
+            recorder.ondataavailable = (event) => {
+                chunks.push(event.data);
+            };
 
-        recorder.onstop = () => {
-            const fullBlob = new Blob(chunks, { type: "audio/mp4" });
+            recorder.onstop = () => {
+                const fullBlob = new Blob(chunks, { type: "audio/mp4" });
+                setBlob(fullBlob);
+                const url = URL.createObjectURL(fullBlob);
+                setAudioSrc(url);
+            };
 
-            setBlob(fullBlob);
-        };
+            recorder.start();
 
-        recorder.start();
+            setMessageRecorder(recorder);
+            setIsRecording(true);
+            setDuration(0);
 
-        setMessageRecorder(recorder);
-        setIsRecording(true);
-        setDuration(0);
+            const id = window.setInterval(() => {
+                setDuration((d) => d + 0.1);
+            }, 100);
 
-        const id = window.setInterval(() => {
-            setDuration((d) => d + 0.1);
-        }, 100);
+            setDurationID(id);
 
-        setDurationID(id);
-
-        console.log("Start Recording");
+            console.log("Start Recording");
+        } catch (error) {
+            console.error("Error starting recording:", error);
+        }
     };
 
     const stopRecording = () => {
@@ -61,26 +66,15 @@ const useAudioInputBox = () => {
     };
 
     const discardRecording = () => {
+        if (audioSrc) {
+            URL.revokeObjectURL(audioSrc);
+        }
         setBlob(null);
         setDuration(0);
         setAudioSrc(null);
         setIsRecording(false);
         console.log("you discarded your record");
     };
-
-    useEffect(() => {
-        if (!blob) {
-            setAudioSrc(null);
-
-            return;
-        }
-
-        const url = URL.createObjectURL(blob);
-        
-        setAudioSrc(url);
-
-        return () => { URL.revokeObjectURL(url) };
-    }, [blob]);
 
     const isUploading = !!blob && !!audioSrc;
 
