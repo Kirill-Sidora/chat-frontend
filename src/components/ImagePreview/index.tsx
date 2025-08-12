@@ -7,14 +7,14 @@ interface IImagePreviewProps {
 const ImagePreview = ({file}: IImagePreviewProps) => {
     return(
         <div>
-            <div>Send image</div>
+            <div className='title-text'>Send image</div>
             <div className="preview-modal-image">
                 <img
                     src={URL.createObjectURL(file)}
                     alt="Превью"
                 />
             </div>
-            <div className="image-info">
+            <div className="image-info secondary-text">
                 <div>Name: {file.name}</div>
                 <div>Size: {(file.size)} KB</div>
             </div>
