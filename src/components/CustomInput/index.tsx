@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import "./style.css";
 
 interface CustomInputProps {
@@ -20,43 +20,39 @@ const CustomInput: React.FC<CustomInputProps> = ({
     name,
     className = "",
 }) => {
-    const [isFocused, setIsFocused] = React.useState(false);
-    const [hasBeenTouched, setHasBeenTouched] = React.useState(false);
+    const [hasBeenTouched, setHasBeenTouched] = useState(false);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(e.target.value, name);
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(event.target.value, name);
     };
 
     const handleFocus = () => {
-        setIsFocused(true);
         if (!hasBeenTouched) {
             setHasBeenTouched(true);
         }
     };
 
-    const handleBlur = () => {
-        setIsFocused(false);
-    };
+    const placeholderClass = hasBeenTouched ? "touched" : "untouched";
 
-    const getPlaceholderClass = () => {
-        if (value) return "has-value";
-        if (isFocused) return "focused";
-        if (hasBeenTouched) return "touched";
-        return "untouched";
-    };
+    const inputClassName = [
+        "custom-input",
+        className,
+        invalid ? "invalid" : "",
+        disabled ? "disabled" : "",
+        `placeholder-${placeholderClass}`,
+    ]
+        .filter(Boolean)
+        .join(" ");
 
     return (
         <div className="custom-input-container">
             <input
                 type="text"
-                className={`custom-input ${className} ${invalid ? "invalid" : ""} ${
-                    disabled ? "disabled" : ""
-                } placeholder-${getPlaceholderClass()}`}
+                className={inputClassName}
                 placeholder={placeholder}
                 value={value}
                 onChange={handleInputChange}
                 onFocus={handleFocus}
-                onBlur={handleBlur}
                 disabled={disabled}
                 name={name}
             />

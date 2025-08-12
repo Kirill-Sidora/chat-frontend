@@ -1,13 +1,10 @@
 import CustomInput from "@components/CustomInput";
+import CustomButton from "@components/CustomButton";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { type ReactElement, useState } from "react";
+import { isValidMessage } from "@utils/constants";
 import { paths } from "@router/routes";
 import "./style.css";
-
-const isUsernameValid = (username: string): boolean => {
-    const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
-    return usernameRegex.test(username.trim());
-};
 
 const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
     if (nickName.trim()) {
@@ -20,32 +17,35 @@ const RegistrationPage = (): ReactElement => {
     const [nickName, setNickName] = useState<string>("");
     const navigate = useNavigate();
 
-    const valid = isUsernameValid(nickName);
-    const isInvalid = nickName !== "" && !valid;
+    const isValid = isValidMessage(nickName);
+    const isValidationError = nickName !== "" && !isValid;
+    const isBlocked = nickName.trim() === "" || !isValid;
 
     return (
         <div className="registration-page">
-        <div className="introduce-text heading">Welcome!</div>
-        <div className="subtitle-text subtitle">Please enter your name below.</div>
+            <div className="introduce-text heading">Welcome!</div>
+            <div className="subtitle-text subtitle">
+                Please enter your name below.
+            </div>
 
-        <CustomInput
-            value={nickName}
-            onChange={(value) => setNickName(value)}
-            placeholder="Name"
-            name="nickname"
-            className="input-text input-field"
-            invalid={isInvalid}
-        />
+            <CustomInput
+                value={nickName}
+                onChange={(value) => setNickName(value)}
+                placeholder="Name"
+                name="nickname"
+                className="input-text input-field"
+                invalid={isValidationError}
+            />
 
-        <button
-            onClick={() => handleSubmit(nickName, navigate)}
-            className="button-text submit-button"
-            disabled={!valid}
-        >
-        Sign up
-        </button>
-    </div>
-);
+            <CustomButton
+                onClick={() => handleSubmit(nickName, navigate)}
+                type="submit-button"
+                disabled={isBlocked}
+            >
+                Sign up
+            </CustomButton>
+        </div>
+    );
 };
 
 export default RegistrationPage;
