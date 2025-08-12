@@ -23,16 +23,13 @@ const MessageSearchBlock = (): ReactElement => {
             return;
         }
 
-        const results: ITextMessage[] = messages.filter(
-            (message) =>
-                "text" in message &&
-                (message as ITextMessage).text
-                    .toLowerCase()
-                    .includes(query.toLowerCase())
-        ) as ITextMessage[];
+        const results = messages.filter((message) => {
+            if (message.type === "text") {
+                return message.text.toLowerCase().includes(query.toLowerCase());
+            }
+        }) as ITextMessage[];
 
         setSearchResults(results);
-
         setIsSearched(true);
     };
 
