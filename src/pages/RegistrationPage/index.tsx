@@ -2,6 +2,7 @@ import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { type ReactElement, useState } from "react";
 import { paths } from "@router/routes";
 import "./style.css";
+import CustomButton from "@components/CustomButton";
 
 const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
     if (nickName.trim()) {
@@ -27,12 +28,12 @@ const RegistrationPage = (): ReactElement => {
                 className="secondary-text input-field"
             />
 
-            <button
+            <CustomButton
                 onClick={() => handleSubmit(nickName, navigate)}
-                className="button-text submit-button"
+                type="button-text submit-button"
             >
                 Sign up
-            </button>
+            </CustomButton>
         </div>
     );
 };

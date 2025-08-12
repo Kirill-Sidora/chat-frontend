@@ -1,4 +1,5 @@
-import ImagePreview from '@components/ImagePreview'
+import ImagePreview from '@components/ImagePreview';
+import CustomButton from '@components/CustomButton';
 import './style.css'
 
 interface IImageModalWindowContentProps {
@@ -16,8 +17,8 @@ const ImageModalWindowContent = ({
         <div className="modal-content primary-text">
             <ImagePreview file={file}/>
             <div className="preview-modal-buttons">
-                <button className="button-style primary-text" onClick={onClose}>Cancel</button>
-                <button className="button-style primary-text" onClick={onSend}>Send</button>
+                <CustomButton type="button-style primary-text" onClick={onClose}>Cancel</CustomButton>
+                <CustomButton type="button-style primary-text" onClick={onSend}>Send</CustomButton>
             </div>
         </div>
     )
