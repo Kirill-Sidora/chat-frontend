@@ -45,7 +45,8 @@ const AudioInputBox = ({
         discardRecording();
 
         if (!onDiscard) return;
-        else onDiscard();
+        
+        onDiscard();
     };
 
     useEffect(() => {

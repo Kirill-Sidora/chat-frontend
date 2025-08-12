@@ -66,13 +66,13 @@ const useAudioInputBox = () => {
     };
 
     const discardRecording = () => {
-        if (audioSrc) {
-            URL.revokeObjectURL(audioSrc);
-        }
+        if (audioSrc) { URL.revokeObjectURL(audioSrc); }
+
         setBlob(null);
         setDuration(0);
         setAudioSrc(null);
         setIsRecording(false);
+        
         console.log("you discarded your record");
     };
 
