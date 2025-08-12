@@ -11,6 +11,7 @@ export interface IDefaultMessage {
     type: ClientMessagesTypes;
     time: string;
     isMine: boolean;
+    sender: string;
 };
 
 export interface ITextMessage extends IDefaultMessage {

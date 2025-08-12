@@ -21,6 +21,7 @@ class MessageParser {
             time: formattedTime,
             isMine: sender === username,
             type,
+            sender: sender,
         };
 
         if (type === "text") {

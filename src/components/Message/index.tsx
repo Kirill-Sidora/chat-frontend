@@ -64,6 +64,10 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
                 message.type
             }`}
         >
+            {!message.isMine && (
+                <div className="sender">{message.sender}</div>
+            )}
+            
             <CurrentMessageElement message={message} />
         </div>
     );
