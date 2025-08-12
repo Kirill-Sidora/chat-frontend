@@ -16,7 +16,7 @@ const ParticipantsPanel = (): ReactElement => {
 
     const closeButtonText: string = !isOpen ? " ←" : " →";
     const showButtonText: string = !isShowAll ? "Show more" : "Return";
-    const stateOfContainer = isOpen ? "initial" : "moved";
+    const stateOfContainer = !isOpen ? "moved" : "initial";
     const visibleCount: number = 8;
 
     const isShowButton = users.length > visibleCount;

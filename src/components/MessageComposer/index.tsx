@@ -48,25 +48,24 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
         event: KeyboardEvent<HTMLTextAreaElement>
     ) => {
         if (event.key !== "Enter" || event.shiftKey) return;
-        else {
-            event.preventDefault();
 
-            handleSendMessage();
-        }
+        event.preventDefault();
+
+        handleSendMessage();
     };
 
     const isValid: boolean = isValidMessage(message);
 
     return (
         <div className="message-composer-container">
-            {mode == ComposerMode.AUDIO && (
+            {mode !== ComposerMode.AUDIO ? null : (
                 <AudioMode
                     onDiscard={() => setMode(ComposerMode.TEXT)}
                     onAudioSend={handleSendAudio}
                 />
             )}
 
-            {mode == ComposerMode.TEXT && (
+            {mode !== ComposerMode.TEXT ? null : (
                 <>
                     <TextMode
                         message={message}

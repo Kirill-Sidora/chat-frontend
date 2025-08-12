@@ -14,10 +14,10 @@ const useAudioInputBox = () => {
         messageRecorder.stream.getTracks().forEach(track => track.stop());
         messageRecorder.stop();
 
-        if (durationID) {
-            clearInterval(durationID);
-            setDurationID(null);
-        }
+        if (!durationID) return;
+
+        clearInterval(durationID);
+        setDurationID(null);
     };
 
     const startRecording = async () => {
@@ -62,6 +62,7 @@ const useAudioInputBox = () => {
     const stopRecording = () => {
         cleanupRecording();
         setIsRecording(false);
+
         console.log("Stoooop, wait a minute");
     };
 
