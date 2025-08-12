@@ -1,6 +1,5 @@
 import Message from "@components/Message";
 import MessageComposer from "@components/MessageComposer";
-import MessagePageLayout from "@layout/MessagePageLayout";
 import MessagePageHeader from "@components/MessagePageHeader";
 import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
@@ -22,26 +21,24 @@ const MessagePage = (): ReactElement => {
     }, [messages]);
 
     return (
-        <MessagePageLayout>
-            <div className="chat-page">
-                <MessagePageHeader />
-                <ParticipantsPanel />
-                <div className="messages-container secondary-text">
-                    {messages.map((clientMessageData: TClientMessage) => (
-                        <Message
-                            key={clientMessageData.id}
-                            message={clientMessageData}
-                        />
-                    ))}
-                    <div className="end-pointer" ref={messagesEndRef} />
-                </div>
-                <MessageComposer
-                    onTextSend={sendTextMessage}
-                    onFileSend={sendFileMessage}
-                    onAudioSend={sendAudioMessage}
-                />
+        <div className="chat-page">
+            <MessagePageHeader />
+            <ParticipantsPanel />
+            <div className="messages-container secondary-text">
+                {messages.map((clientMessageData: TClientMessage) => (
+                    <Message
+                        key={clientMessageData.id}
+                        message={clientMessageData}
+                    />
+                ))}
+                <div className="end-pointer" ref={messagesEndRef} />
             </div>
-        </MessagePageLayout>
+            <MessageComposer
+                onTextSend={sendTextMessage}
+                onFileSend={sendFileMessage}
+                onAudioSend={sendAudioMessage}
+            />
+        </div>
     );
 };
 

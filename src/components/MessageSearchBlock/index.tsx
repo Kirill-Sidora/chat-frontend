@@ -11,6 +11,8 @@ const MessageSearchBlock = (): ReactElement => {
     const [isSearched, setIsSearched] = useState<boolean>(false);
     const { messages } = useChatDataContext();
 
+    const isQueryValid: boolean = isValidMessage(searchQuery);
+
     useEffect(() => {
         setSearchResults([]);
         setIsSearched(false);
@@ -22,17 +24,21 @@ const MessageSearchBlock = (): ReactElement => {
         }
 
         const results: ITextMessage[] = messages.filter(
-            (message): message is ITextMessage =>
+            (message) =>
                 "text" in message &&
-                message.text.toLowerCase().includes(query.toLowerCase())
-        );
+                (message as ITextMessage).text
+                    .toLowerCase()
+                    .includes(query.toLowerCase())
+        ) as ITextMessage[];
 
         setSearchResults(results);
+
         setIsSearched(true);
     };
 
     const handleSubmit = (event: FormEvent): void => {
         event.preventDefault();
+
         handleSearch(searchQuery);
     };
 
@@ -53,17 +59,17 @@ const MessageSearchBlock = (): ReactElement => {
                 </form>
             </div>
 
-            {!searchQuery.trim() && (
+            {!isQueryValid && (
                 <div className="search-placeholder primary-text">
                     <p>Enter a query to search messages</p>
                 </div>
             )}
-            {searchQuery.trim() && !isSearched && (
+            {isQueryValid && !isSearched && (
                 <div className="search-placeholder primary-text">
                     <p>Press Enter to search messages</p>
                 </div>
             )}
-            {searchQuery.trim() && isSearched && (
+            {isQueryValid && isSearched && (
                 <SearchedMessages
                     searchResults={searchResults}
                     searchQuery={searchQuery}

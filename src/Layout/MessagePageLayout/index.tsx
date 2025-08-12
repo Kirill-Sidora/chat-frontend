@@ -1,9 +1,9 @@
 import AsideBar from "@components/AsideBar";
-import React, { ReactElement } from "react";
+import { ReactNode, ReactElement } from "react";
 import "./style.css";
 
 interface IMessagePageLayout {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 const MessagePageLayout = ({ children }: IMessagePageLayout): ReactElement => {
