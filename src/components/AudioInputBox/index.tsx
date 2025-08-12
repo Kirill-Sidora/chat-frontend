@@ -60,15 +60,6 @@ const AudioInputBox = ({
 
     return (
         <div className="audio-recorder">
-            {!isRecording && !isUploading && (
-                <div className="recording-start">
-                    <IconButton
-                        iconSrc={IconIds.MICRO_ICON}
-                        onClick={startRecording}
-                    />
-                </div>
-            )}
-
             {isRecording && (
                 <div className="recording">
                     <Indication />
