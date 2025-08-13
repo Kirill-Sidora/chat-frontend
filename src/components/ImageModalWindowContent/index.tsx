@@ -15,6 +15,7 @@ const ImageModalWindowContent = ({
     return(
         <div className="modal-content primary-text">
             <ImagePreview file={file}/>
+            
             <div className="preview-modal-buttons">
                 <button className="button-style primary-text" onClick={onClose}>Cancel</button>
                 <button className="button-style primary-text" onClick={onSend}>Send</button>

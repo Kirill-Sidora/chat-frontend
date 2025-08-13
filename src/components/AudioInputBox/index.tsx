@@ -1,11 +1,11 @@
 import IconButton from "@components/IconButton";
 import Indication from "@components/Indication";
+import FileManager from "@services/FileManager";
 import useAudioInputBox from "@hooks/useAudioInputBox/useAudioInputBox";
 import { Fragment, useEffect, type ReactElement } from "react";
+import { type IEncodedFileData } from "@app-types/file";
 import { IconIds } from "@utils/constants";
 import "./style.css";
-import FileManager from "@services/FileManager";
-import type { IEncodedFileData } from "@app-types/file";
 
 interface IAudioInputBoxProps {
     onAudioSend: (fileData: IEncodedFileData) => void;
@@ -28,9 +28,7 @@ const AudioInputBox = ({
     } = useAudioInputBox();
 
     const handleSend = async () => {
-        if (!blob) {
-            return;
-        };
+        if (!blob) { return; }
 
         try {
             const encodingAudio: IEncodedFileData = await FileManager.blobToBase64Data(blob);
@@ -46,23 +44,31 @@ const AudioInputBox = ({
     const handleDiscard = () => {
         discardRecording();
 
-        if (onDiscard) {
-            onDiscard();
-        }
+        if (!onDiscard) { return; }
+        
+        onDiscard();
     };
 
     useEffect(() => {
         startRecording();
-        return () => {
-            cleanupRecording();
-        };
+
+        return () => { cleanupRecording() };
     }, []);
 
     return (
         <div className="audio-recorder">
-            {isRecording ? (
+            {!isRecording && !isUploading && (
+                <div className="recording-start">
+                    <IconButton
+                        iconSrc={IconIds.MICRO_ICON}
+                        onClick={startRecording}
+                    />
+                </div>
+            )}
+            
+            {isRecording && (
                 <div className="recording">
-                    <Indication />
+                    <Indication/>
 
                     <IconButton
                         iconSrc={IconIds.MICRO_ICON_ACTIVE}
@@ -70,9 +76,12 @@ const AudioInputBox = ({
                         isActive={true}
                     />
                 </div>
-            ) : isUploading ? (
+            )}
+
+            {isUploading && (
                 <Fragment>
                     <audio controls src={audioSrc || undefined} />
+                    
                     <div className="recorded-last-actions">
                         <div className="controllers">
                             <IconButton
@@ -86,13 +95,6 @@ const AudioInputBox = ({
                         </div>
                     </div>
                 </Fragment>
-            ) : (
-                <div className="recording-start">
-                    <IconButton
-                        iconSrc={IconIds.MICRO_ICON}
-                        onClick={startRecording}
-                    />
-                </div>
             )}
         </div>
     );

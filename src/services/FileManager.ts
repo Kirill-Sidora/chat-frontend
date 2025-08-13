@@ -1,4 +1,4 @@
-import type { IEncodedFileData } from "@app-types/file";
+import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 
 class FileManager {
@@ -11,15 +11,16 @@ class FileManager {
 
             reader.onloadend = () => {
                 const result = reader.result;
-                if (typeof result === "string") {
+
+                if (typeof result !== "string") {
+                    reject(new Error("Failed to read blob as base64"));
+                } else {
                     resolve({
                         data: result.split(",")[1],
                         name: name ?? getRandomId(),
                         type: blob.type,
                         size: blob.size,
                     });
-                } else {
-                    reject(new Error("Failed to read blob as base64"));
                 }
             };
 
@@ -31,7 +32,11 @@ class FileManager {
 
     public static base64ToObjectUrl(base64: string, mimeType?: string): string {
         const match = base64.match(/^data:(.*?);base64,(.*)$/);
-        if (match) {
+        
+        if (!match) {
+
+        }
+        else {
             mimeType = match[1];
             base64 = match[2];
         }
@@ -40,14 +45,17 @@ class FileManager {
 
         const byteCharacters = atob(base64);
         const byteNumbers = new Array(byteCharacters.length);
+
         for (let i = 0; i < byteCharacters.length; i++) {
             byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
+
         const byteArray = new Uint8Array(byteNumbers);
 
         const blob = new Blob([byteArray], {
             type: mimeType || "application/octet-stream",
         });
+        
         return URL.createObjectURL(blob);
     }
 }

@@ -4,10 +4,11 @@ import { paths } from "@router/routes";
 import "./style.css";
 
 const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
-    if (nickName.trim()) {
-        localStorage.setItem("nickName", nickName);
-        navigate(paths.MESSAGE.path);
-    }
+    if (!nickName.trim()) { return; }
+    
+    localStorage.setItem("nickName", nickName);
+
+    navigate(paths.MESSAGE.path);
 };
 
 const RegistrationPage = (): ReactElement => {

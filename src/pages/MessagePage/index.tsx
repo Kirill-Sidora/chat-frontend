@@ -5,7 +5,7 @@ import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useRef, useEffect, type ReactElement } from "react";
-import type { TClientMessage } from "@app-types/message";
+import { type TClientMessage } from "@app-types/message";
 import "./style.css";
 
 const MessagePage = (): ReactElement => {
@@ -22,8 +22,17 @@ const MessagePage = (): ReactElement => {
 
     return (
         <div className="chat-page">
+            <header className="chat-header">
+                <img
+                    src="src/assets/images/user-icon.png"
+                    className="user-icon"
+                />
+            </header>
+
             <MessagePageHeader />
+
             <ParticipantsPanel />
+            
             <div className="messages-container secondary-text">
                 {messages.map((clientMessageData: TClientMessage) => (
                     <Message
@@ -31,8 +40,10 @@ const MessagePage = (): ReactElement => {
                         message={clientMessageData}
                     />
                 ))}
+
                 <div className="end-pointer" ref={messagesEndRef} />
             </div>
+            
             <MessageComposer
                 onTextSend={sendTextMessage}
                 onFileSend={sendFileMessage}

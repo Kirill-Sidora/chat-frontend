@@ -7,7 +7,7 @@ const Application = (): ReactElement => {
     return (
         <div className="application-container">
             <RouterProvider>
-                <ApplicationRouter />
+                <ApplicationRouter/>
             </RouterProvider>
         </div>
     );

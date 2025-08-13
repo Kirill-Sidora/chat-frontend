@@ -1,14 +1,9 @@
 import React from "react";
+import MessageParser from "@services/MessageParser";
+import { MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages, type TWebSocketMessage } from "@app-types/serverMessages";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import { useState, useContext, createContext } from "react";
 import { type TClientMessage } from "@app-types/message";
-import {
-    MessagesFromServerTypes,
-    type IMessageHandlerData,
-    type TServerMessages,
-    type TWebSocketMessage,
-} from "@app-types/serverMessages";
-import MessageParser from "@services/MessageParser";
 
 interface IChatDataContext {
     messages: TClientMessage[];
@@ -38,9 +33,7 @@ export const ChatDataProvider: React.FC<{
             { type: MessagesFromServerTypes.MESSAGE }
         >
     ): void => {
-        if (!username) {
-            return;
-        }
+        if (!username) { return; }
 
         const newMessageData = newWebSocketMessageData.message;
 
@@ -55,15 +48,11 @@ export const ChatDataProvider: React.FC<{
     };
 
     const loadAllUsers = (data: { users: IUser[] }): void => {
-        setUsers(() => {
-            return [...data.users];
-        });
+        setUsers(() => { return [...data.users] });
     };
 
     const loadMessage = (messageData: TWebSocketMessage): void => {
-        if (!username) {
-            return;
-        }
+        if (!username) { return; }
 
         console.log("NEW MESSAGE DATA: ", messageData);
 
@@ -82,6 +71,7 @@ export const ChatDataProvider: React.FC<{
                     ? user
                     : { ...user, isOnline: statusData.isOnline }
             );
+
             return updatedUsers;
         });
     };
@@ -136,10 +126,12 @@ export const ChatDataProvider: React.FC<{
 
 export const useChatDataContext = () => {
     const context = useContext(ChatDataContext);
+    
     if (!context) {
         throw new Error(
             "useChatDataContext must be used within ChatDataProvider"
         );
     }
+    
     return context;
 };

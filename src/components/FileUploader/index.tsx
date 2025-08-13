@@ -1,11 +1,11 @@
 import IconButton from "@components/IconButton";
+import FileManager from "@services/FileManager";
 import ModalWindow from "@components/ModalWindow";
+import ModalWindowContent from "@components/ImageModalWindowContent";
+import { type IEncodedFileData } from "@app-types/file";
 import { useFileUpload } from "@hooks/useFileUpload";
 import { Fragment, type ReactElement } from "react";
 import { IconIds } from "@utils/constants";
-import ModalWindowContent from "@components/ImageModalWindowContent";
-import type { IEncodedFileData } from "@app-types/file";
-import FileManager from "@services/FileManager";
 
 export interface IFileUploaderProps {
     onFileSend: (fileData: IEncodedFileData) => void;
@@ -20,7 +20,7 @@ const FileUploader = ({ onFileSend }: IFileUploaderProps): ReactElement => {
         });
 
     const handleSend = async () => {
-        if (!isFileUpload || !file) return;
+        if (!isFileUpload || !file) { return; }
 
         try {
             const blob = new Blob([file], { type: file.type });

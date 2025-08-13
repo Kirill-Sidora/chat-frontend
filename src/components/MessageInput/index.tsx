@@ -1,4 +1,4 @@
-import type { ChangeEvent, ReactElement, KeyboardEvent } from "react";
+import { type ChangeEvent, type ReactElement, type KeyboardEvent } from "react";
 import "./style.css";
 
 export interface IMessageInputProps {
