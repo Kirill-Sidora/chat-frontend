@@ -32,6 +32,7 @@
             "@domains/*": ["src/domains/*"],
             "@contexts/*": ["src/contexts/*"],
             "@services/*": ["src/services/*"],
+            "@layout/*": ["src/layout/*"]
         }
     },
     "include": ["vite.config.ts"]

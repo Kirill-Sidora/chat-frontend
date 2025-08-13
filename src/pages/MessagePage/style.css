@@ -1,69 +1,42 @@
 .chat-page {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: var(--dark-background, #202020);
-  width: 100vw;
-  overflow: hidden;
-}
-
-.chat-header {
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--navbar-height, 75px);
-  background-color: var(--chat-header-background, #1c1c1d);
-  color: var(--color-text-primary, #ffffff);
-  display: flex;
-  align-items: center;
-  padding: 0 var(--content-padding, 16px);
-  box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
-  z-index: 100;
-}
-
-.chat-header .user-icon {
-  margin-left: auto;
-  height: var(--control-elements-height, 45px);
-}
-
-.chat-header .second-user-name-title {
-  position: absolute;
-  left: 45%;
-  color: var(--color-text-primary, #ffffff);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--dark-background, #202020);
+    overflow: hidden;
 }
 
 .chat-back-button {
-  color: var(--color-text-primary, #ffffff);
-  text-decoration: none;
-  line-height: 1;
-  padding: 10px 0;
-  margin-right: 20px;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  left: 0px;
-  transition: color var(--transition-time, .3s);
+    color: var(--color-text-primary, #ffffff);
+    text-decoration: none;
+    line-height: 1;
+    padding: 10px 0;
+    margin-right: 20px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    left: 0px;
+    transition: color var(--transition-time, 0.3s);
 }
 
 .chat-back-button:hover {
-  color: var(--text-inactive, #d2d2d2);
+    color: var(--text-inactive, #d2d2d2);
 }
 
 .messages-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  height: calc(100vh - var(--navbar-height, 75px)*2);
-  margin-bottom: var(--navbar-height, 75px);
-  padding: var(--content-padding, 16px);
-  overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding-right: 15px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: calc(100vh - var(--navbar-height, 75px) * 2);
+    margin-bottom: var(--navbar-height, 75px);
+    padding: var(--content-padding, 16px);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-right: 15px;
+    width: 100%;
 }
 
 .messages-container::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
