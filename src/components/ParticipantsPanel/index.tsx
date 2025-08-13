@@ -12,11 +12,13 @@ export const typesOfButton = {
 const ParticipantsPanel = (): ReactElement => {
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [isShowAll, setIsShowAll] = useState<boolean>(false);
+    
     const { users } = useChatDataContext();
 
     const closeButtonText: string = !isOpen ? " ←" : " →";
     const showButtonText: string = !isShowAll ? "Show more" : "Return";
     const stateOfContainer = !isOpen ? "moved" : "initial";
+    
     const visibleCount: number = 8;
 
     const isShowButton = users.length > visibleCount;
@@ -24,6 +26,7 @@ const ParticipantsPanel = (): ReactElement => {
     const handleToggleShowAll = () => {
         setIsShowAll(!isShowAll);
     };
+    
     const handleToggleVisibility = () => {
         setIsOpen(!isOpen);
     };

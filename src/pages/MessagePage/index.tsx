@@ -9,6 +9,7 @@ import "./style.css";
 
 const MessagePage = (): ReactElement => {
     const { messages, messageHandlersConfig } = useChatDataContext();
+
     const { sendTextMessage, sendAudioMessage, sendFileMessage } = useWebSocket(
         messageHandlersConfig
     );
@@ -28,7 +29,7 @@ const MessagePage = (): ReactElement => {
                 />
             </header>
 
-            <ParticipantsPanel />
+            <ParticipantsPanel/>
 
             <div className="messages-container secondary-text">
                 {messages.map((clientMessageData: TClientMessage) => (

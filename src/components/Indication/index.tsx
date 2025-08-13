@@ -7,7 +7,7 @@ const Indication = (): ReactElement => {
         <div className="indicator">
             <span className="red-dot"></span>
             
-            <Timer />
+            <Timer/>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import { ICON_SRC_PREFIX, ICON_SRC_SUFFIX } from "../../utils/constants";
+import { ICON_SRC_PREFIX, ICON_SRC_SUFFIX } from "@utils/constants";
 import { type ReactElement } from "react";
 import "./style.css";
 

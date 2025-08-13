@@ -14,6 +14,7 @@ const formatDuration = (ms: number): string => {
 
 const Timer = (): ReactElement => {
     const [duration, setDuration] = useState<number>(0);
+    
     const durationRef = useRef<number | null>(null);
 
     useEffect(() => {

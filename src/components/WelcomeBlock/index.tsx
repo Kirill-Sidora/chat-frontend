@@ -11,7 +11,7 @@ const WelcomeBlock = (): ReactElement => {
                         height={150}
                         style={{}}
                         src="src/assets/icons/logo.svg"
-                    ></img>
+                    />
                 </Link>
             </div>
             

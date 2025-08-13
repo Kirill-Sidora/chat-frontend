@@ -1,7 +1,7 @@
 import TextMode from "@components/TextMode";
 import AudioMode from "@components/AudioMode";
 import IconButton from "@components/IconButton";
-import { useState, type ReactElement, type KeyboardEvent } from "react";
+import { useState, type ReactElement, type KeyboardEvent, Fragment } from "react";
 import { ComposerMode, IconIds } from "@utils/constants";
 import { type IEncodedFileData } from "@app-types/file";
 import { isValidMessage } from "@utils/constants";
@@ -23,6 +23,7 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
         if (!isValidMessage(message)) { return; }
 
         onTextSend(message);
+
         setMessage("");
     };
 
@@ -66,7 +67,7 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
             )}
 
             {mode === ComposerMode.TEXT && (
-                <>
+                <Fragment>
                     <TextMode
                         message={message}
                         setMessage={setMessage}
@@ -83,7 +84,7 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
                         onClick={handleSendOrRecordChecking}
                         isActive={isValid}
                     />
-                </>
+                </Fragment>
             )}
         </div>
     );
