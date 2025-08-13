@@ -44,7 +44,7 @@ export const useFileUpload = ({
     const handleUploadClick = async () => {
         const file = await uploadFiles();
 
-        if (!file) return;
+        if (!file) { return; }
 
         const fileSrc = URL.createObjectURL(file);
 

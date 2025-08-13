@@ -1,10 +1,4 @@
-import {
-    ClientMessagesTypes,
-    type IAudioMessage,
-    type IFileMessage,
-    type ITextMessage,
-    type TClientMessage,
-} from "@app-types/message";
+import { ClientMessagesTypes, type IAudioMessage, type IFileMessage, type ITextMessage, type TClientMessage } from "@app-types/message";
 import { Fragment, type ReactElement } from "react";
 import "./style.css";
 

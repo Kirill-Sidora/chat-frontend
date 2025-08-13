@@ -20,7 +20,7 @@ const FileUploader = ({ onFileSend }: IFileUploaderProps): ReactElement => {
         });
 
     const handleSend = async () => {
-        if (!isFileUpload || !file) return;
+        if (!isFileUpload || !file) { return; }
 
         try {
             const blob = new Blob([file], { type: file.type });

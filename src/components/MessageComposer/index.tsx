@@ -17,8 +17,10 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
     const [message, setMessage] = useState<string>("");
     const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
 
+    const isValid: boolean = isValidMessage(message);
+
     const handleSendMessage = () => {
-        if (!isValidMessage(message)) return;
+        if (!isValidMessage(message)) { return; }
 
         onTextSend(message);
         setMessage("");
@@ -47,25 +49,23 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
     const handleMessageInputKeyDown = (
         event: KeyboardEvent<HTMLTextAreaElement>
     ) => {
-        if (event.key !== "Enter" || event.shiftKey) return;
+        if (event.key !== "Enter" || event.shiftKey) { return; }
 
         event.preventDefault();
 
         handleSendMessage();
     };
 
-    const isValid: boolean = isValidMessage(message);
-
     return (
         <div className="message-composer-container">
-            {mode !== ComposerMode.AUDIO ? null : (
+            {mode === ComposerMode.AUDIO && (
                 <AudioMode
                     onDiscard={() => setMode(ComposerMode.TEXT)}
                     onAudioSend={handleSendAudio}
                 />
             )}
 
-            {mode !== ComposerMode.TEXT ? null : (
+            {mode === ComposerMode.TEXT && (
                 <>
                     <TextMode
                         message={message}

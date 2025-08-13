@@ -9,14 +9,16 @@ const useAudioInputBox = () => {
     const [durationID, setDurationID] = useState<number | null>(null);
 
     const cleanupRecording = () => {
-        if (!messageRecorder) return;
+        if (!messageRecorder) { return; }
 
         messageRecorder.stream.getTracks().forEach(track => track.stop());
+
         messageRecorder.stop();
 
-        if (!durationID) return;
+        if (!durationID) { return; }
 
         clearInterval(durationID);
+
         setDurationID(null);
     };
 
@@ -36,8 +38,11 @@ const useAudioInputBox = () => {
 
             recorder.onstop = () => {
                 const fullBlob = new Blob(chunks, { type: "audio/mp4" });
+
                 setBlob(fullBlob);
+
                 const url = URL.createObjectURL(fullBlob);
+
                 setAudioSrc(url);
             };
 
@@ -61,6 +66,7 @@ const useAudioInputBox = () => {
 
     const stopRecording = () => {
         cleanupRecording();
+
         setIsRecording(false);
 
         console.log("Stoooop, wait a minute");

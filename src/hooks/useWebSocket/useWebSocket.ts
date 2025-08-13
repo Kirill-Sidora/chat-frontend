@@ -1,12 +1,7 @@
+import { MessagesForServerTypes, MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages } from "@app-types/serverMessages";
+import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
-import {
-    MessagesForServerTypes,
-    MessagesFromServerTypes, 
-    type IMessageHandlerData,
-    type TServerMessages
-} from "@app-types/serverMessages";
-import type { IEncodedFileData } from "@app-types/file";
 
 const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
 
@@ -16,7 +11,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const username = localStorage.getItem("nickName");
 
     useEffect(() => {
-        if (!username) return;
+        if (!username) { return; }
 
         const socket = new WebSocket(BACKEND_WEB_SOCKET_URL);
 
@@ -42,7 +37,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             handlersConfig.map((handlerData: IMessageHandlerData) => {
                 const { type: currentHandlerType, action } = handlerData;
 
-                if (currentHandlerType !== messageType) return;
+                if (currentHandlerType !== messageType) { return; }
 
                 action(data);
             });
@@ -56,7 +51,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     }, [username]);
 
     const sendTextMessage = (messageData: string) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) return;
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) { return; }
 
         const messageForServer = {
             type: MessagesForServerTypes.TEXT_MESSAGE,
@@ -69,7 +64,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     };
 
     const sendFileMessage = (messageData: IEncodedFileData) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) return;
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) { return; }
 
         const messageForServer = {
             type: MessagesForServerTypes.FILE_MESSAGE,
@@ -82,7 +77,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     };
 
     const sendAudioMessage = (messageData: IEncodedFileData) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) return;
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) { return; }
 
         const messageForServer = {
             type: MessagesForServerTypes.AUDIO_MESSAGE,

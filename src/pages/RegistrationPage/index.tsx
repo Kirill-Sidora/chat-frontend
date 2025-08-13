@@ -4,7 +4,7 @@ import { paths } from "@router/routes";
 import "./style.css";
 
 const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
-    if (!nickName.trim()) return;
+    if (!nickName.trim()) { return; }
     
     localStorage.setItem("nickName", nickName);
 

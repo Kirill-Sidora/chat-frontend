@@ -4,6 +4,7 @@ import FileUploader from "@components/FileUploader";
 import { type ReactElement, type KeyboardEvent } from "react";
 import { type IEncodedFileData } from "@app-types/file";
 import { IconIds } from "@utils/constants";
+import { Fragment } from "react";
 
 interface TextModeProps {
     message: string;
@@ -19,7 +20,7 @@ const TextMode = ({
     onFileSend,
 }: TextModeProps): ReactElement => {
     return (
-        <>
+        <Fragment>
             <FileUploader onFileSend={onFileSend}/>
 
             <MessageInput
@@ -33,7 +34,7 @@ const TextMode = ({
                 onClick={() => {}}
                 height="24px"
             />
-        </>
+        </Fragment>
     );
 };
 

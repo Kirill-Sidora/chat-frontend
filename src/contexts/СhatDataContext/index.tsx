@@ -1,11 +1,6 @@
 import React from "react";
 import MessageParser from "@services/MessageParser";
-import {
-    MessagesFromServerTypes,
-    type IMessageHandlerData,
-    type TServerMessages,
-    type TWebSocketMessage
-} from "@app-types/serverMessages";
+import { MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages, type TWebSocketMessage } from "@app-types/serverMessages";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import { useState, useContext, createContext } from "react";
 import { type TClientMessage } from "@app-types/message";
@@ -38,7 +33,7 @@ export const ChatDataProvider: React.FC<{
             { type: MessagesFromServerTypes.MESSAGE }
         >
     ): void => {
-        if (!username) return;
+        if (!username) { return; }
 
         const newMessageData = newWebSocketMessageData.message;
 
@@ -57,7 +52,7 @@ export const ChatDataProvider: React.FC<{
     };
 
     const loadMessage = (messageData: TWebSocketMessage): void => {
-        if (!username) return;
+        if (!username) { return; }
 
         console.log("NEW MESSAGE DATA: ", messageData);
 
