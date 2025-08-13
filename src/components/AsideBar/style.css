@@ -1,0 +1,11 @@
+.aside-bar-container {
+    position: fixed;
+    width: 27vw;
+    height: 100vh;
+    background-color: var(--dark-background);
+    z-index: 1;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--chat-header-background);
+}

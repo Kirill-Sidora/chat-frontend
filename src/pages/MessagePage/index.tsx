@@ -1,5 +1,6 @@
 import Message from "@components/Message";
 import MessageComposer from "@components/MessageComposer";
+import MessagePageHeader from "@components/MessagePageHeader";
 import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatDataContext } from "@contexts/СhatDataContext";
@@ -9,7 +10,6 @@ import "./style.css";
 
 const MessagePage = (): ReactElement => {
     const { messages, messageHandlersConfig } = useChatDataContext();
-
     const { sendTextMessage, sendAudioMessage, sendFileMessage } = useWebSocket(
         messageHandlersConfig
     );
@@ -29,11 +29,16 @@ const MessagePage = (): ReactElement => {
                 />
             </header>
 
-            <ParticipantsPanel/>
+            <MessagePageHeader />
 
+            <ParticipantsPanel />
+            
             <div className="messages-container secondary-text">
                 {messages.map((clientMessageData: TClientMessage) => (
-                    <Message key={clientMessageData.id} message={clientMessageData} />
+                    <Message
+                        key={clientMessageData.id}
+                        message={clientMessageData}
+                    />
                 ))}
 
                 <div className="end-pointer" ref={messagesEndRef} />

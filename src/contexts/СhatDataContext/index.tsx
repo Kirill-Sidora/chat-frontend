@@ -17,7 +17,7 @@ interface IChatDataContext {
     messageHandlersConfig: IMessageHandlerData[];
 }
 
-const ChatDataContext = createContext<IChatDataContext | null>(null);
+export const ChatDataContext = createContext<IChatDataContext | null>(null);
 
 export const ChatDataProvider: React.FC<{
     children: React.ReactNode;
@@ -62,7 +62,7 @@ export const ChatDataProvider: React.FC<{
         );
 
         setMessages((prevMessages) => [...prevMessages, parsedMessage]);
-    }
+    };
 
     const updateUserStatus = (statusData: IUserStatusChanged): void => {
         setUsers((prevUsers) => {
@@ -86,11 +86,9 @@ export const ChatDataProvider: React.FC<{
 
         const { messages: historyMessages } = historyData;
 
-        historyMessages
-            .reverse()
-            .forEach((historyMessage: any) => {
-                loadMessage(historyMessage);
-            });
+        historyMessages.reverse().forEach((historyMessage: any) => {
+            loadMessage(historyMessage);
+        });
     };
 
     const messageHandlersConfig: IMessageHandlerData[] = [
