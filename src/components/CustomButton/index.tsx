@@ -1,9 +1,9 @@
-import type { ReactElement } from "react";
+import type { ReactElement, ReactNode } from "react";
 import "./styles.css";
 
 interface ICustomButtonProps {
     onClick: () => void;
-    children?: string;
+    children?: string | ReactNode;
     type: string;
 }
 

@@ -2,12 +2,8 @@ import CustomButton from "@components/CustomButton";
 import ParticipantsList from "@components/ParticipantsList";
 import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useState, type ReactElement } from "react";
+import { typesOfButton } from "@utils/constants";
 import "./style.css";
-
-export const typesOfButton = {
-    showButton: "show-all-button",
-    closeButton: "close-panel",
-};
 
 const ParticipantsPanel = (): ReactElement => {
     const [isOpen, setIsOpen] = useState<boolean>(true);
