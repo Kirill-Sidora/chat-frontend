@@ -30,11 +30,11 @@
 }
 
 .status-indicator.online {
-    background-color: var(--accent-active-background-color);
+    background-color: var(--active-status-indicator);
     box-shadow: 0 0 0 2px rgba(59, 165, 93, 0.2);
 }
 
 .status-indicator.offline {
-    background-color: var(--accent-passive-background-color);
+    background-color: var(--passive-status-indicator);
     box-shadow: 0 0 0 2px rgba(116, 127, 141, 0.2);
 }

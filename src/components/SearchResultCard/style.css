@@ -1,0 +1,32 @@
+.search-message-card {
+    display: block;
+    position: relative;
+    padding: var(--message-card-padding);
+    background-color: var(--searched-message-background-color);
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.search-message-card:hover {
+    background-color: var(--secondary-background-color);
+}
+
+.message-content {
+    color: var(--message-text-color);
+    padding-left: var(--content-padding);
+    padding-top: var(--text-padding);
+}
+
+.timestamp {
+    position: relative;
+    color: var(--message-text-color);
+    left: 350px;
+    bottom: 43px;
+}
+
+.username {
+    position: relative;
+    top: 8px;
+    padding-left: var(--product-padding);
+    color: var(--primary-fill-color);
+}

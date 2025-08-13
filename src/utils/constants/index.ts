@@ -1,3 +1,5 @@
+import { TClientMessage, ITextMessage } from "@app-types/message";
+
 export enum IconIds {
     PAPERCLIP_ICON = "paperclip-icon",
     STICKERS_ICON = "stickers-icon",
@@ -6,9 +8,14 @@ export enum IconIds {
     MICRO_ICON_ACTIVE = "micro-icon-active",
     SENDING_AUDIO_BUTTON_ICON = "sending-audio-icon",
     DELETE_BUTTON_ICON = "delete-button-icon",
-    STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon"
+    STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon",
 }
 
+export const typesOfButton = {
+    showButton: "show-all-button",
+    closePanelButton: "close-panel",
+    closeAsideButton: "close-aside",
+};
 
 export const ICON_SRC_PREFIX = "src/assets/icons/";
 export const ICON_SRC_SUFFIX = ".svg";
@@ -53,12 +60,18 @@ export const isValidMessage = (message: string): boolean => {
     return /\S/.test(message);
 };
 
+export const isTextMessage = (
+    message: TClientMessage
+): message is ITextMessage => {
+    return message.type === "text";
+};
+
 export const getRandomId = (): string => {
     return (
         Date.now().toString(36) +
         Math.random().toString(36).substring(2).toString()
     );
-}
+};
 
 export const getFormattedTime = (timestamp: number): string => {
     const date = new Date(timestamp);
