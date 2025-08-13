@@ -38,7 +38,7 @@ const ParticipantsPanel = (): ReactElement => {
                 </CustomButton>
             </div>
             <div className="participants-block">
-                <h3 className="participants-header">Participants Telegram 2</h3>
+                <h3 className="subtitle-text participants-header">Participants Telegram 2</h3>
 
                 <div className="divider"></div>
 

@@ -10,14 +10,33 @@ import "./style.css";
 
 const MessagePage = (): ReactElement => {
     const { messages, messageHandlersConfig } = useChatDataContext();
-    const { sendTextMessage, sendAudioMessage, sendFileMessage } = useWebSocket(
-        messageHandlersConfig
-    );
+    const { sendMessage } = useWebSocket(messageHandlersConfig);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        const scrollToBottom = () => {
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        };
+
+        const container = document.querySelector(".messages-container");
+        if (!container) return;
+
+        const images = container.querySelectorAll("img");
+
+        if (images.length === 0) {
+            scrollToBottom();
+            return;
+        }
+
+        images.forEach((img) => {
+            if (img.complete) {
+                scrollToBottom();
+            } else {
+                img.onload = scrollToBottom;
+                img.onerror = scrollToBottom;
+            }
+        });
     }, [messages]);
 
     return (
@@ -36,12 +55,7 @@ const MessagePage = (): ReactElement => {
 
                 <div className="end-pointer" ref={messagesEndRef} />
             </div>
-            
-            <MessageComposer
-                onTextSend={sendTextMessage}
-                onFileSend={sendFileMessage}
-                onAudioSend={sendAudioMessage}
-            />
+            <MessageComposer onSendMessage={sendMessage} />
         </div>
     );
 };

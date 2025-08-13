@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-.preview-modal-image > img {
+.preview-modal-image>img {
     justify-content: center;
     align-items: center;
     max-width: 100%;

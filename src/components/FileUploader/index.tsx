@@ -1,61 +1,33 @@
 import IconButton from "@components/IconButton";
-import FileManager from "@services/FileManager";
-import ModalWindow from "@components/ModalWindow";
-import ModalWindowContent from "@components/ImageModalWindowContent";
-import { type IEncodedFileData } from "@app-types/file";
 import { useFileUpload } from "@hooks/useFileUpload";
-import { Fragment, type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import { IconIds } from "@utils/constants";
 
 export interface IFileUploaderProps {
-    onFileUpload: (fileData: IEncodedFileData) => void;
+    onFileSelected: (file: File | null) => void;
 }
 
-const FileUploader = ({ onFileUpload }: IFileUploaderProps): ReactElement => {
-    const { file, clear, isFileUpload, setIsFileUpload, handleUploadClick } =
-        useFileUpload({
-            type: "file",
-            accept: ".jpg, .jpeg, .png",
-            multiple: false,
-        });
+const FileUploader = ({ onFileSelected }: IFileUploaderProps): ReactElement => {
+    const { file, clear, handleUploadClick } = useFileUpload({
+        type: "file",
+        accept: ".jpg, .jpeg, .png",
+        multiple: false,
+    });
 
-    const handleSend = async () => {
-        if (!isFileUpload || !file) { return; }
+    useEffect(() => {
+        if (!file) return;
 
-        try {
-            const blob = new Blob([file], { type: file.type });
+        onFileSelected(file);
 
-            const encodedFileData: IEncodedFileData =
-                await FileManager.blobToBase64Data(blob, file.name);
-
-            onFileUpload(encodedFileData);
-        } catch (error) {
-            const currenError = error as Error;
-
-            console.error("Failed encode file: ", currenError);
-        } finally {
-            clear();
-        }
-    };
+        clear();
+    }, [file, onFileSelected, clear]);
 
     return (
-        <Fragment>
-            <IconButton
-                iconSrc={IconIds.PAPERCLIP_ICON}
-                onClick={() => handleUploadClick()}
-                height="24px"
-            />
-
-            {isFileUpload && (
-                <ModalWindow>
-                    <ModalWindowContent
-                        file={file!}
-                        onClose={() => setIsFileUpload(false)}
-                        onSend={handleSend}
-                    />
-                </ModalWindow>
-            )}
-        </Fragment>
+        <IconButton
+            iconSrc={IconIds.PAPERCLIP_ICON}
+            onClick={() => handleUploadClick()}
+            height="24px"
+        />
     );
 };
 

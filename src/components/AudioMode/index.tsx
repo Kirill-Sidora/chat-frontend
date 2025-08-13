@@ -1,17 +1,29 @@
-import AudioInputBox from "@components/AudioInputBox";
-import { type IEncodedFileData } from "@app-types/file";
-import { type ReactElement } from "react";
+import Indication from "@components/Indication";
+import AudioPreview from "@components/AudioPreview";
+import type { ReactElement } from "react";
 
-interface AudioModeProps {
-    onAudioSend: (fileData: IEncodedFileData) => void;
-    onDiscard: () => void;
+interface IAudioModeProps {
+    isRecording: boolean;
+    audioSrc: string | null;
 }
 
 const AudioMode = ({
-    onAudioSend,
-    onDiscard,
-}: AudioModeProps): ReactElement => {
-    return <AudioInputBox onAudioSend={onAudioSend} onDiscard={onDiscard} />;
+    isRecording,
+    audioSrc,
+}: IAudioModeProps): ReactElement => {
+    if (!isRecording && !audioSrc) {
+        return <></>;
+    }
+
+    if (!isRecording) {
+        return <AudioPreview src={audioSrc} />;
+    }
+
+    return (
+        <div className="recording-indicator">
+            <Indication />
+        </div>
+    );
 };
 
 export default AudioMode;

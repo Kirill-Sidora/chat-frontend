@@ -5,14 +5,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 45px;
-  width: 45px;
+  height: var(--control-elements-height, 45px);
+  width: var(--control-elements-height, 45px);
   background-color: var(--chat-header-background, #1c1c1d);
   transition: background-color 0.2s;
 }
 
 .icon-button:hover {
-  background-color: rgb(49, 49, 49);
+  background-color: var(--button-hover-background-color, rgb(49, 49, 49));
   cursor: pointer;
 }
 
