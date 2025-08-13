@@ -78,7 +78,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         return () => {
             socket.close();
         };
-    }, [username, handlersConfig]);
+    }, [username]);
 
     const sendMessage = (
         type: MessagesForServerTypes,
