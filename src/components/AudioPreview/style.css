@@ -1,0 +1,10 @@
+.audio-preview {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.audio-preview audio {
+    height: 40px;
+    width: 100%;
+}

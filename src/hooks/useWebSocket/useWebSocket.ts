@@ -5,6 +5,28 @@ import { useEffect, useState } from "react";
 
 const BACKEND_WEB_SOCKET_URL: string = import.meta.env.VITE_BACKEND_WEB_SOCKET_URL
 
+const messagePayloadExtractors: Partial<
+    Record<MessagesFromServerTypes, (data: any) => any>
+> = {
+    [MessagesFromServerTypes.HISTORY]: (data) => data.messages,
+    [MessagesFromServerTypes.MESSAGE]: (data) => data.message,
+    [MessagesFromServerTypes.USERS]: (data) => data.users,
+    [MessagesFromServerTypes.USER_STATUS_CHANGED]: (data) => ({
+        id: data.id,
+        username: data.username,
+        isOnline: data.isOnline,
+    }),
+    [MessagesFromServerTypes.ERROR]: (data) => data.message,
+};
+
+const messageBodyBuilder: Partial<
+    Record<MessagesForServerTypes, (data: any) => object>
+> = {
+    [MessagesForServerTypes.TEXT_MESSAGE]: (data) => ({ text: data }),
+    [MessagesForServerTypes.FILE_MESSAGE]: (data) => ({ file: data }),
+    [MessagesForServerTypes.AUDIO_MESSAGE]: (data) => ({ file: data }),
+};
+
 export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
 
@@ -32,15 +54,19 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
             console.log("MESSAGE FROM SERVER: ", data);
 
-            const messageType: MessagesFromServerTypes = data.type;
+            const handlerData = handlersConfig.find(
+                (h) => h.type === data.type
+            );
 
-            handlersConfig.map((handlerData: IMessageHandlerData) => {
-                const { type: currentHandlerType, action } = handlerData;
+            const getMessageBody = messagePayloadExtractors[data.type];
 
-                if (currentHandlerType !== messageType) { return; }
+            if (!handlerData || !getMessageBody) {
+                return;
+            }
 
-                action(data);
-            });
+            const payload = getMessageBody(data);
+
+            handlerData.action(payload);
         };
 
         setWebSocket(socket);
@@ -50,44 +76,28 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         };
     }, [username]);
 
-    const sendTextMessage = (messageData: string) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) { return; }
+    const sendMessage = (
+        type: MessagesForServerTypes,
+        data: string | IEncodedFileData
+    ) => {
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
+            return;
+        }
+
+        const buildBody = messageBodyBuilder[type];
+
+        if (!buildBody) {
+            console.error(`No message body builder found for type: ${type}`);
+            return;
+        }
 
         const messageForServer = {
-            type: MessagesForServerTypes.TEXT_MESSAGE,
-            text: messageData,
+            type,
+            ...buildBody(data),
         };
-
-        console.log("MESSAGE FOR SERVER: ", messageForServer);
 
         webSocket.send(JSON.stringify(messageForServer));
     };
 
-    const sendFileMessage = (messageData: IEncodedFileData) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) { return; }
-
-        const messageForServer = {
-            type: MessagesForServerTypes.FILE_MESSAGE,
-            file: messageData,
-        };
-
-        console.log("MESSAGE FOR SERVER: ", messageForServer);
-
-        webSocket.send(JSON.stringify(messageForServer));
-    };
-
-    const sendAudioMessage = (messageData: IEncodedFileData) => {
-        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) { return; }
-
-        const messageForServer = {
-            type: MessagesForServerTypes.AUDIO_MESSAGE,
-            file: messageData,
-        };
-
-        console.log("MESSAGE FOR SERVER: ", messageForServer);
-
-        webSocket.send(JSON.stringify(messageForServer));
-    };
-
-    return { sendTextMessage, sendFileMessage, sendAudioMessage };
+    return { sendMessage };
 };

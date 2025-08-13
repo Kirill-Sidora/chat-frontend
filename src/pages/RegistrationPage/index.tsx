@@ -1,3 +1,4 @@
+import CustomButton from "@components/CustomButton";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { type ReactElement, useState } from "react";
 import { paths } from "@router/routes";
@@ -17,8 +18,10 @@ const RegistrationPage = (): ReactElement => {
 
     return (
         <div className="registration-page">
-            <div className="title-text heading">Welcome!</div>
-            <div className="subtitle-text subtitle">Please enter your name below.</div>
+            <div className="headline-1-text heading">Welcome!</div>
+            <div className="subtitle-text subtitle">
+                Please enter your name below.
+            </div>
 
             <input
                 type="text"
@@ -28,12 +31,12 @@ const RegistrationPage = (): ReactElement => {
                 className="secondary-text input-field"
             />
 
-            <button
+            <CustomButton
                 onClick={() => handleSubmit(nickName, navigate)}
-                className="button-text submit-button"
+                type="button-text submit-button"
             >
                 Sign up
-            </button>
+            </CustomButton>
         </div>
     );
 };
