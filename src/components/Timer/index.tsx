@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactElement } from "react";
+import "./style.css";
 
 const formatDuration = (ms: number): string => {
     const minutes = Math.floor(ms / 60000);
@@ -7,7 +8,7 @@ const formatDuration = (ms: number): string => {
 
     const mm = minutes.toString().padStart(2, "0");
     const ss = seconds.toString().padStart(2, "0");
-    const msStr = tenths.toString(); 
+    const msStr = tenths.toString();
 
     return `${mm}:${ss}:${msStr}`;
 };
@@ -17,13 +18,13 @@ const Timer = (): ReactElement => {
     const durationRef = useRef<number | null>(null);
 
     useEffect(() => {
-            const start = Date.now() - duration;
+        const start = Date.now() - duration;
 
-            durationRef.current = window.setInterval(() => {
-                const elapsed = Date.now() - start;
-                setDuration(elapsed);
-            }, 100);
-            
+        durationRef.current = window.setInterval(() => {
+            const elapsed = Date.now() - start;
+            setDuration(elapsed);
+        }, 100);
+
         return () => {
             if (durationRef.current !== null) {
                 clearInterval(durationRef.current);
@@ -31,7 +32,7 @@ const Timer = (): ReactElement => {
         };
     }, []);
 
-    return <div>{formatDuration(duration)}</div>;
+    return <div className="timer">{formatDuration(duration)}</div>;
 };
 
 export default Timer;

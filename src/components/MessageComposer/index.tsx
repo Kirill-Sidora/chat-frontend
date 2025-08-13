@@ -1,91 +1,60 @@
 import TextMode from "@components/TextMode";
 import AudioMode from "@components/AudioMode";
 import IconButton from "@components/IconButton";
-import { useState, type ReactElement, type KeyboardEvent } from "react";
+import { useMessageComposerHandlers } from "@hooks/useMessageComposerHandlers";
 import { ComposerMode, IconIds } from "@utils/constants";
 import type { IEncodedFileData } from "@app-types/file";
-import { isValidMessage } from "@utils/constants";
+import type { ReactElement } from "react";
 import "./style.css";
-import { MessagesForServerTypes } from "@app-types/serverMessages";
 
 interface IMessageComposerProps {
-    onSendMessage: (type: MessagesForServerTypes, data: string | IEncodedFileData) => void;
+    onSendMessage: (type: string, data: string | IEncodedFileData) => void;
 }
 
 const MessageComposer = ({
     onSendMessage,
 }: IMessageComposerProps): ReactElement => {
-    const [message, setMessage] = useState("");
-    const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
+    const {
+        mode,
+        isRecording,
+        audioSrc,
+        textModeProps,
+        primaryButtonProps,
+        stopRecordingButtonProps,
+        audioActionButtonsProps,
+    } = useMessageComposerHandlers({ onSendMessage });
 
-    const canSendTextMessage = isValidMessage(message);
-
-    const handlePrimaryAction = () => {
-        if (canSendTextMessage) {
-            onSendMessage(MessagesForServerTypes.TEXT_MESSAGE, message);
-            setMessage("");
-            return;
-        }
-
-        setMode(ComposerMode.AUDIO);
+    const leftPaneComponent = {
+        [ComposerMode.TEXT]: <TextMode {...textModeProps} />,
+        [ComposerMode.AUDIO]: (
+            <AudioMode isRecording={isRecording} audioSrc={audioSrc} />
+        ),
     };
 
-    const handleSendMessage = () => {
-        if (canSendTextMessage) {
-            onSendMessage(MessagesForServerTypes.TEXT_MESSAGE, message);
-            setMessage("");
-        }
-    };
-
-    const handleSendFile = (fileData: IEncodedFileData) => {
-        onSendMessage(MessagesForServerTypes.FILE_MESSAGE, fileData);
-    };
-
-    const handleSendAudio = (audioData: IEncodedFileData) => {
-        onSendMessage(MessagesForServerTypes.AUDIO_MESSAGE, audioData);
-
-        setMode(ComposerMode.TEXT);
-    };
-
-    const handleMessageInputKeyDown = (
-        event: KeyboardEvent<HTMLTextAreaElement>
-    ) => {
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault();
-
-            handleSendMessage();
-        }
+    const rightPaneComponent = {
+        [ComposerMode.TEXT]: <IconButton {...primaryButtonProps} />,
+        [ComposerMode.AUDIO]: !isRecording ? (
+            <div className="audio-actions">
+                <IconButton
+                    iconSrc={IconIds.DELETE_BUTTON_ICON}
+                    onClick={audioActionButtonsProps.onDiscard}
+                />
+                <IconButton
+                    iconSrc={IconIds.SENDING_AUDIO_BUTTON_ICON}
+                    onClick={audioActionButtonsProps.onSend}
+                />
+            </div>
+        ) : (
+            <IconButton {...stopRecordingButtonProps} />
+        ),
     };
 
     return (
         <div className="message-composer-container">
-            {mode == ComposerMode.AUDIO && (
-                <AudioMode
-                    onDiscard={() => setMode(ComposerMode.TEXT)}
-                    onAudioSend={handleSendAudio}
-                />
-            )}
-
-            {mode == ComposerMode.TEXT && (
-                <>
-                    <TextMode
-                        message={message}
-                        setMessage={setMessage}
-                        onKeyDown={handleMessageInputKeyDown}
-                        onFileSend={handleSendFile}
-                    />
-
-                    <IconButton
-                        iconSrc={
-                            canSendTextMessage
-                                ? IconIds.SENDING_BUTTON_ICON
-                                : IconIds.MICRO_ICON
-                        }
-                        onClick={handlePrimaryAction}
-                        isActive={canSendTextMessage}
-                    />
-                </>
-            )}
+            <div className="composer-left-pane">{leftPaneComponent[mode]}</div>
+            <div className="composer-right-pane">
+                {rightPaneComponent[mode]}
+            </div>
         </div>
     );
 };
