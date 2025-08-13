@@ -1,4 +1,4 @@
-import type { IDecodedFileData } from "./file";
+import { type IDecodedFileData } from "./file";
 
 export const enum ClientMessagesTypes {
     TEXT = "text",
@@ -11,21 +11,21 @@ export interface IDefaultMessage {
     type: ClientMessagesTypes;
     time: string;
     isMine: boolean;
-};
+}
 
 export interface ITextMessage extends IDefaultMessage {
     type: ClientMessagesTypes.TEXT;
     text: string;
-};
+}
 
 export interface IFileMessage extends IDefaultMessage {
     type: ClientMessagesTypes.FILE;
     fileData: IDecodedFileData;
-};
+}
 
 export interface IAudioMessage extends IDefaultMessage {
     type: ClientMessagesTypes.AUDIO;
     fileData: IDecodedFileData;
-};
+}
 
 export type TClientMessage = ITextMessage | IFileMessage | IAudioMessage;

@@ -1,6 +1,6 @@
-import type { IEncodedFileData } from "@app-types/file";
 import AudioInputBox from "@components/AudioInputBox";
-import type { ReactElement } from "react";
+import { type IEncodedFileData } from "@app-types/file";
+import { type ReactElement } from "react";
 
 interface AudioModeProps {
     onAudioSend: (fileData: IEncodedFileData) => void;

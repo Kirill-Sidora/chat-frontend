@@ -13,20 +13,28 @@
     --chat-header-background: #1c1c1d;
     --chat-message-me: #313131;
     --chat-message-other: #262628;
+    --searched-message-background-color: #272727;
     --image-background-color: #d9d9d9;
+
+    --active-status-indicator: rgb(39, 138, 39);
+    --passive-status-indicator: grey;
 
     --primary-fill-color: #ffffff;
     --elements-fill-color: #efefef;
     --secondary-fill-color: #727173;
     --input-border-color: #3a3a3c;
+    --search-border-color: #444;
     --send-button-color: #d500c3;
     --placeholder-color: #636366;
+    --message-text-color: #888888;
 
     --accent-passive-color: #000e8a;
     --accent-active-color: #2c3e50;
 
     --navbar-height: 75px;
+    --message-card-padding: 8px;
     --product-padding: 10px;
+    --text-padding: 12px;
     --content-padding: 16px;
     --content-radius-primary: 18px;
     --content-radius-secondary: 8px;

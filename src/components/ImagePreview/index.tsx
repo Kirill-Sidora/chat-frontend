@@ -1,10 +1,11 @@
+import { type ReactElement } from 'react'
 import './style.css'
 
 interface IImagePreviewProps {
     file: File
 }
 
-const ImagePreview = ({file}: IImagePreviewProps) => {
+const ImagePreview = ({file}: IImagePreviewProps): ReactElement => {
     return(
         <div>
             <div>Send image</div>

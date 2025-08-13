@@ -1,11 +1,11 @@
 import TextMode from "@components/TextMode";
 import AudioMode from "@components/AudioMode";
 import IconButton from "@components/IconButton";
-import { useState, type ReactElement, type KeyboardEvent } from "react";
+import { useState, type ReactElement, type KeyboardEvent, Fragment } from "react";
 import { ComposerMode, IconIds } from "@utils/constants";
+import { type IEncodedFileData } from "@app-types/file";
 import { isValidMessage } from "@utils/constants";
 import "./style.css";
-import type { IEncodedFileData } from "@app-types/file";
 
 interface IMessageComposerProps {
     onTextSend: (message: string) => void;
@@ -14,23 +14,27 @@ interface IMessageComposerProps {
 }
 
 const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageComposerProps): ReactElement => {
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState<string>("");
     const [mode, setMode] = useState<ComposerMode>(ComposerMode.TEXT);
 
+    const isValid: boolean = isValidMessage(message);
+
     const handleSendMessage = () => {
-        if (isValidMessage(message)) {
-            onTextSend(message);
-            setMessage("");
-        }
+        if (!isValidMessage(message)) { return; }
+
+        onTextSend(message);
+
+        setMessage("");
     };
 
     const handleSendOrRecordChecking = () => {
-        if (isValid) {
-            handleSendMessage();
+        if (!isValid) {
+            setMode(ComposerMode.AUDIO);
+            
             return;
         }
 
-        setMode(ComposerMode.AUDIO);
+        handleSendMessage();
     };
 
     const handleSendFile = (fileData: IEncodedFileData) => {
@@ -46,26 +50,24 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
     const handleMessageInputKeyDown = (
         event: KeyboardEvent<HTMLTextAreaElement>
     ) => {
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault();
+        if (event.key !== "Enter" || event.shiftKey) { return; }
 
-            handleSendMessage();
-        }
+        event.preventDefault();
+
+        handleSendMessage();
     };
-
-    const isValid: boolean = isValidMessage(message);
 
     return (
         <div className="message-composer-container">
-            {mode == ComposerMode.AUDIO && (
+            {mode === ComposerMode.AUDIO && (
                 <AudioMode
                     onDiscard={() => setMode(ComposerMode.TEXT)}
                     onAudioSend={handleSendAudio}
                 />
             )}
 
-            {mode == ComposerMode.TEXT && (
-                <>
+            {mode === ComposerMode.TEXT && (
+                <Fragment>
                     <TextMode
                         message={message}
                         setMessage={setMessage}
@@ -82,7 +84,7 @@ const MessageComposer = ({ onTextSend, onFileSend, onAudioSend }: IMessageCompos
                         onClick={handleSendOrRecordChecking}
                         isActive={isValid}
                     />
-                </>
+                </Fragment>
             )}
         </div>
     );

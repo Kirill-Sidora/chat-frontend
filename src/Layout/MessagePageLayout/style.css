@@ -1,0 +1,19 @@
+.message-page-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.aside-bar-wrapper {
+    flex: 0 27%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.message-page-content {
+    flex: 1;
+    height: 100%;
+}
