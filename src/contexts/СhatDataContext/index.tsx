@@ -1,6 +1,10 @@
 import React from "react";
 import MessageParser from "@services/MessageParser";
-import { MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages, type TWebSocketMessage } from "@app-types/serverMessages";
+import {
+    MessagesFromServerTypes,
+    type IMessageHandlerData,
+    type TWebSocketMessage,
+} from "@app-types/serverMessages";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import { useState, useContext, createContext } from "react";
 import { type TClientMessage } from "@app-types/message";
@@ -22,15 +26,10 @@ export const ChatDataProvider: React.FC<{
 
     const username = localStorage.getItem("nickName");
 
-    const handleNewMessage = (
-        newWebSocketMessageData: Extract<
-            TServerMessages,
-            { type: MessagesFromServerTypes.MESSAGE }
-        >
-    ): void => {
-        if (!username) { return; }
-
-        const newMessageData = newWebSocketMessageData.message;
+    const handleNewMessage = (newMessageData: TWebSocketMessage): void => {
+        if (!username) {
+            return;
+        }
 
         console.log("NEW MESSAGE DATA: ", newMessageData);
 
@@ -42,12 +41,14 @@ export const ChatDataProvider: React.FC<{
         setMessages((prevMessages) => [...prevMessages, parsedMessage]);
     };
 
-    const loadAllUsers = ( allUsers: IUser[] ): void => {
-        setUsers( allUsers );
+    const loadAllUsers = (allUsers: IUser[]): void => {
+        setUsers(allUsers);
     };
 
     const loadMessage = (messageData: TWebSocketMessage): void => {
-        if (!username) { return; }
+        if (!username) {
+            return;
+        }
 
         console.log("NEW MESSAGE DATA: ", messageData);
 
@@ -71,14 +72,12 @@ export const ChatDataProvider: React.FC<{
         });
     };
 
-    const loadMessagesHistory = ( historyData: TWebSocketMessage[]): void => {
+    const loadMessagesHistory = (historyData: TWebSocketMessage[]): void => {
         console.log("HISTORY DATA: ", historyData);
 
-        historyData
-            .reverse()
-            .forEach((historyMessage: any) => {
-                loadMessage(historyMessage);
-            });
+        historyData.reverse().forEach((historyMessage: any) => {
+            loadMessage(historyMessage);
+        });
     };
 
     const messageHandlersConfig: IMessageHandlerData[] = [
@@ -116,12 +115,12 @@ export const ChatDataProvider: React.FC<{
 
 export const useChatDataContext = () => {
     const context = useContext(ChatDataContext);
-    
+
     if (!context) {
         throw new Error(
             "useChatDataContext must be used within ChatDataProvider"
         );
     }
-    
+
     return context;
 };
