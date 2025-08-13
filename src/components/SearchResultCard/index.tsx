@@ -10,6 +10,7 @@ const SearchMessageCard = ({ message }: ISearchMessageCard): ReactElement => {
     const messengeSenderLabel: string = message.isMine
         ? "My message"
         : "Someone else's message";
+
     return (
         <div className="search-message-card">
             <span className="username primary-text">{messengeSenderLabel}</span>
