@@ -10,6 +10,28 @@ import type { IEncodedFileData } from "@app-types/file";
 
 const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
 
+const messagePayloadExtractors: Partial<
+    Record<MessagesFromServerTypes, (data: any) => any>
+> = {
+    [MessagesFromServerTypes.HISTORY]: (data) => data.messages,
+    [MessagesFromServerTypes.MESSAGE]: (data) => data.message,
+    [MessagesFromServerTypes.USERS]: (data) => data.users,
+    [MessagesFromServerTypes.USER_STATUS_CHANGED]: (data) => ({
+        id: data.id,
+        username: data.username,
+        isOnline: data.isOnline,
+    }),
+    [MessagesFromServerTypes.ERROR]: (data) => data.message,
+};
+
+const messageBodyBuilder: Partial<
+    Record<MessagesForServerTypes, (data: any) => object>
+> = {
+    [MessagesForServerTypes.TEXT_MESSAGE]: (data) => ({ text: data }),
+    [MessagesForServerTypes.FILE_MESSAGE]: (data) => ({ file: data }),
+    [MessagesForServerTypes.AUDIO_MESSAGE]: (data) => ({ file: data }),
+};
+
 export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
 
@@ -40,35 +62,15 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
                 (h) => h.type === data.type
             );
 
-            if (!handlerData) return;
+            const getMessageBody = messagePayloadExtractors[data.type];
 
-            if (data.type === MessagesFromServerTypes.HISTORY) {
-                handlerData.action(data.messages);
+            if (!handlerData || !getMessageBody) {
                 return;
             }
 
-            if (data.type === MessagesFromServerTypes.MESSAGE) {
-                handlerData.action(data.message);
-                return;
-            }
+            const payload = getMessageBody(data);
 
-            if (data.type === MessagesFromServerTypes.USERS) {
-                handlerData.action(data.users);
-                return;
-            }
-
-            if (data.type === MessagesFromServerTypes.USER_STATUS_CHANGED) {
-                const statusData = {
-                    id: data.id,
-                    username: data.username,
-                    isOnline: data.isOnline,
-                };
-
-                handlerData.action(statusData);
-                return;
-            }
-
-            handlerData.action(data);
+            handlerData.action(payload);
         };
 
         setWebSocket(socket);
@@ -76,7 +78,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         return () => {
             socket.close();
         };
-    }, [username]);
+    }, [username, handlersConfig]);
 
     const sendMessage = (
         type: MessagesForServerTypes,
@@ -86,19 +88,17 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             return;
         }
 
-        const messageForServer: Record<string, any> = { type };
+        const buildBody = messageBodyBuilder[type];
 
-        if ((type = MessagesForServerTypes.TEXT_MESSAGE)) {
-            messageForServer.text = data;
+        if (!buildBody) {
+            console.error(`No message body builder found for type: ${type}`);
+            return;
         }
 
-        if ((type = MessagesForServerTypes.AUDIO_MESSAGE)) {
-            messageForServer.file = data;
-        }
-
-        if ((type = MessagesForServerTypes.FILE_MESSAGE)) {
-            messageForServer.file = data;
-        }
+        const messageForServer = {
+            type,
+            ...buildBody(data),
+        };
 
         webSocket.send(JSON.stringify(messageForServer));
     };

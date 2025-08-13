@@ -1,8 +1,8 @@
+import CustomButton from "@components/CustomButton";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
 import { type ReactElement, useState } from "react";
 import { paths } from "@router/routes";
 import "./style.css";
-import CustomButton from "@components/CustomButton";
 
 const handleSubmit = (nickName: string, navigate: NavigateFunction) => {
     if (nickName.trim()) {

@@ -1,11 +1,11 @@
 import IconButton from "@components/IconButton";
 import Indication from "@components/Indication";
+import FileManager from "@services/FileManager";
 import useAudioInputBox from "@hooks/useAudioInputBox/useAudioInputBox";
 import { Fragment, useEffect, type ReactElement } from "react";
+import type { IEncodedFileData } from "@app-types/file";
 import { IconIds } from "@utils/constants";
 import "./style.css";
-import FileManager from "@services/FileManager";
-import type { IEncodedFileData } from "@app-types/file";
 
 interface IAudioInputBoxProps {
     onAudioSend: (fileData: IEncodedFileData) => void;
@@ -30,13 +30,14 @@ const AudioInputBox = ({
     const handleSend = async () => {
         if (!blob) {
             return;
-        };
+        }
 
         try {
-            const encodingAudio: IEncodedFileData = await FileManager.blobToBase64Data(blob);
+            const encodingAudio: IEncodedFileData =
+                await FileManager.blobToBase64Data(blob);
 
             onAudioSend(encodingAudio);
-        } catch(error) {
+        } catch (error) {
             const currentError = error as Error;
 
             console.error("Failed encode audio: ", currentError.message);

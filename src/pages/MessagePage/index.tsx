@@ -1,17 +1,15 @@
 import Message from "@components/Message";
 import MessageComposer from "@components/MessageComposer";
 import ParticipantsPanel from "@components/ParticipantsPanel";
-import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
+import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useRef, useEffect, type ReactElement } from "react";
-import "./style.css";
 import type { TClientMessage } from "@app-types/message";
+import "./style.css";
 
 const MessagePage = (): ReactElement => {
     const { messages, messageHandlersConfig } = useChatDataContext();
-    const { sendMessage } = useWebSocket(
-        messageHandlersConfig
-    );
+    const { sendMessage } = useWebSocket(messageHandlersConfig);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
 

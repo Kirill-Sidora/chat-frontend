@@ -1,12 +1,17 @@
+import FileManager from "@services/FileManager";
 import IconButton from "@components/IconButton";
+import ModalWindow from "@components/ModalWindow";
 import MessageInput from "@components/MessageInput";
 import FileUploader from "@components/FileUploader";
-import { type ReactElement, type KeyboardEvent, useState } from "react";
-import { IconIds } from "@utils/constants";
-import type { IEncodedFileData } from "@app-types/file";
-import FileManager from "@services/FileManager";
-import ModalWindow from "@components/ModalWindow";
 import ImageModalWindowContent from "@components/ImageModalWindowContent";
+import {
+    type ReactElement,
+    type KeyboardEvent,
+    useState,
+    Fragment,
+} from "react";
+import type { IEncodedFileData } from "@app-types/file";
+import { IconIds } from "@utils/constants";
 
 interface ITextModeProps {
     message: string;
@@ -22,14 +27,14 @@ const TextMode = ({
     onFileSend,
 }: ITextModeProps): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedFile, setSelectedFile] =useState<File | null>(null);
-    
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
     const handleFileSelected = (file: File | null) => {
         setSelectedFile(file);
 
         setIsModalOpen(true);
     };
-    
+
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setSelectedFile(null);
@@ -54,13 +59,11 @@ const TextMode = ({
         } finally {
             handleCloseModal();
         }
-    } ;
+    };
 
     return (
-        <>
-            <FileUploader 
-                onFileSelected={handleFileSelected}
-            />
+        <Fragment>
+            <FileUploader onFileSelected={handleFileSelected} />
 
             <MessageInput
                 message={message}
@@ -76,14 +79,14 @@ const TextMode = ({
 
             {isModalOpen && (
                 <ModalWindow>
-                    <ImageModalWindowContent 
+                    <ImageModalWindowContent
                         file={selectedFile!}
                         onClose={handleCloseModal}
                         onSend={handleFileSend}
                     />
                 </ModalWindow>
             )}
-        </>
+        </Fragment>
     );
 };
 

@@ -2,13 +2,17 @@ import TextMode from "@components/TextMode";
 import AudioMode from "@components/AudioMode";
 import IconButton from "@components/IconButton";
 import { useMessageComposerHandlers } from "@hooks/useMessageComposerHandlers";
+import type { MessagesForServerTypes } from "@app-types/serverMessages";
 import { ComposerMode, IconIds } from "@utils/constants";
 import type { IEncodedFileData } from "@app-types/file";
 import type { ReactElement } from "react";
 import "./style.css";
 
 interface IMessageComposerProps {
-    onSendMessage: (type: string, data: string | IEncodedFileData) => void;
+    onSendMessage: (
+        type: MessagesForServerTypes,
+        data: string | IEncodedFileData
+    ) => void;
 }
 
 const MessageComposer = ({
@@ -16,36 +20,62 @@ const MessageComposer = ({
 }: IMessageComposerProps): ReactElement => {
     const {
         mode,
+        message,
         isRecording,
         audioSrc,
-        textModeProps,
-        primaryButtonProps,
-        stopRecordingButtonProps,
-        audioActionButtonsProps,
+        canSendTextMessage,
+        setMessage,
+        handlePrimaryAction,
+        handleSendFile,
+        handleSendAudio,
+        handleStopRecording,
+        handleDiscardAudio,
+        handleMessageInputKeyDown,
     } = useMessageComposerHandlers({ onSendMessage });
 
     const leftPaneComponent = {
-        [ComposerMode.TEXT]: <TextMode {...textModeProps} />,
+        [ComposerMode.TEXT]: (
+            <TextMode
+                message={message}
+                setMessage={setMessage}
+                onKeyDown={handleMessageInputKeyDown}
+                onFileSend={handleSendFile}
+            />
+        ),
         [ComposerMode.AUDIO]: (
             <AudioMode isRecording={isRecording} audioSrc={audioSrc} />
         ),
     };
 
     const rightPaneComponent = {
-        [ComposerMode.TEXT]: <IconButton {...primaryButtonProps} />,
-        [ComposerMode.AUDIO]: !isRecording ? (
+        [ComposerMode.TEXT]: (
+            <IconButton
+                iconSrc={
+                    canSendTextMessage
+                        ? IconIds.SENDING_BUTTON_ICON
+                        : IconIds.MICRO_ICON
+                }
+                onClick={handlePrimaryAction}
+                isActive={canSendTextMessage}
+            />
+        ),
+        [ComposerMode.AUDIO]: isRecording ? (
+            <IconButton
+                iconSrc={IconIds.MICRO_ICON_ACTIVE}
+                onClick={handleStopRecording}
+                isActive={true}
+            />
+        ) : (
             <div className="audio-actions">
                 <IconButton
                     iconSrc={IconIds.DELETE_BUTTON_ICON}
-                    onClick={audioActionButtonsProps.onDiscard}
+                    onClick={handleDiscardAudio}
                 />
                 <IconButton
                     iconSrc={IconIds.SENDING_AUDIO_BUTTON_ICON}
-                    onClick={audioActionButtonsProps.onSend}
+                    onClick={handleSendAudio}
                 />
             </div>
-        ) : (
-            <IconButton {...stopRecordingButtonProps} />
         ),
     };
 

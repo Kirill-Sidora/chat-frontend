@@ -19,15 +19,12 @@ const IconButton = ({
     disabled = false,
     isActive = false,
 }: IIconButtonProps): ReactElement => {
-
-    var className: string = `icon-button ${isActive ? "active" : ""} ${disabled ? "disabled" : ""}`;
+    var className: string = `icon-button ${isActive ? "active" : ""} ${
+        disabled ? "disabled" : ""
+    }`;
 
     return (
-        <button
-            className={className}
-            onClick={onClick}
-            disabled={disabled}
-        >
+        <button className={className} onClick={onClick} disabled={disabled}>
             <img
                 src={ICON_SRC_PREFIX + iconSrc + ICON_SRC_SUFFIX}
                 height={height}

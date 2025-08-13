@@ -1,9 +1,9 @@
-import { ComposerMode, IconIds, isValidMessage } from "@utils/constants";
+import FileManager from "@services/FileManager";
 import useAudioInputBox from "@hooks/useAudioInputBox/useAudioInputBox";
 import { MessagesForServerTypes } from "@app-types/serverMessages";
-import { useState, type KeyboardEvent } from "react";
+import { ComposerMode, isValidMessage } from "@utils/constants";
 import type { IEncodedFileData } from "@app-types/file";
-import FileManager from "@services/FileManager";
+import { useState, type KeyboardEvent } from "react";
 
 interface IUseMessageComposerHandlersProps {
     onSendMessage: (
@@ -90,29 +90,16 @@ export const useMessageComposerHandlers = ({
 
     return {
         mode,
+        message,
         isRecording,
         audioSrc,
-        textModeProps: {
-            message,
-            setMessage,
-            onKeyDown: handleMessageInputKeyDown,
-            onFileSend: handleSendFile,
-        },
-        primaryButtonProps: {
-            iconSrc: canSendTextMessage
-                ? IconIds.SENDING_BUTTON_ICON
-                : IconIds.MICRO_ICON,
-            onClick: handlePrimaryAction,
-            isActive: canSendTextMessage,
-        },
-        stopRecordingButtonProps: {
-            iconSrc: IconIds.MICRO_ICON_ACTIVE,
-            onClick: handleStopRecording,
-            isActive: true,
-        },
-        audioActionButtonsProps: {
-            onDiscard: handleDiscardAudio,
-            onSend: handleSendAudio,
-        },
+        canSendTextMessage,
+        setMessage,
+        handlePrimaryAction,
+        handleSendFile,
+        handleSendAudio,
+        handleStopRecording,
+        handleDiscardAudio,
+        handleMessageInputKeyDown,
     };
 };

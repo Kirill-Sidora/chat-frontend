@@ -1,3 +1,4 @@
+import { Fragment, type ReactElement } from "react";
 import {
     ClientMessagesTypes,
     type IAudioMessage,
@@ -5,7 +6,6 @@ import {
     type ITextMessage,
     type TClientMessage,
 } from "@app-types/message";
-import { Fragment, type ReactElement } from "react";
 import "./style.css";
 
 interface IClientMessageProps {
@@ -64,10 +64,8 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
                 message.type
             }`}
         >
-            {!message.isMine && (
-                <div className="sender">{message.sender}</div>
-            )}
-            
+            {!message.isMine && <div className="sender">{message.sender}</div>}
+
             <CurrentMessageElement message={message} />
         </div>
     );

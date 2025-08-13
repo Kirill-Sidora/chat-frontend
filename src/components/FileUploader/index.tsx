@@ -8,27 +8,26 @@ export interface IFileUploaderProps {
 }
 
 const FileUploader = ({ onFileSelected }: IFileUploaderProps): ReactElement => {
-    const { file, clear, handleUploadClick } =
-        useFileUpload({
-            type: "file",
-            accept: ".jpg, .jpeg, .png",
-            multiple: false,
-        });
+    const { file, clear, handleUploadClick } = useFileUpload({
+        type: "file",
+        accept: ".jpg, .jpeg, .png",
+        multiple: false,
+    });
 
     useEffect(() => {
         if (!file) return;
 
         onFileSelected(file);
 
-       clear();
+        clear();
     }, [file, onFileSelected, clear]);
 
     return (
-            <IconButton
-                iconSrc={IconIds.PAPERCLIP_ICON}
-                onClick={() => handleUploadClick()}
-                height="24px"
-            />
+        <IconButton
+            iconSrc={IconIds.PAPERCLIP_ICON}
+            onClick={() => handleUploadClick()}
+            height="24px"
+        />
     );
 };
 
