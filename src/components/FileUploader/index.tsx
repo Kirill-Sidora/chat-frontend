@@ -8,10 +8,10 @@ import { Fragment, type ReactElement } from "react";
 import { IconIds } from "@utils/constants";
 
 export interface IFileUploaderProps {
-    onFileSend: (fileData: IEncodedFileData) => void;
+    onFileUpload: (fileData: IEncodedFileData) => void;
 }
 
-const FileUploader = ({ onFileSend }: IFileUploaderProps): ReactElement => {
+const FileUploader = ({ onFileUpload }: IFileUploaderProps): ReactElement => {
     const { file, clear, isFileUpload, setIsFileUpload, handleUploadClick } =
         useFileUpload({
             type: "file",
@@ -28,7 +28,7 @@ const FileUploader = ({ onFileSend }: IFileUploaderProps): ReactElement => {
             const encodedFileData: IEncodedFileData =
                 await FileManager.blobToBase64Data(blob, file.name);
 
-            onFileSend(encodedFileData);
+            onFileUpload(encodedFileData);
         } catch (error) {
             const currenError = error as Error;
 

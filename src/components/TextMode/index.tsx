@@ -10,18 +10,18 @@ interface TextModeProps {
     message: string;
     setMessage: (msg: string) => void;
     onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
-    onFileSend: (fileData: IEncodedFileData) => void;
+    onFileUpload: (fileData: IEncodedFileData) => void;
 }
 
 const TextMode = ({
     message,
     setMessage,
     onKeyDown,
-    onFileSend,
+    onFileUpload,
 }: TextModeProps): ReactElement => {
     return (
         <Fragment>
-            <FileUploader onFileSend={onFileSend}/>
+            <FileUploader onFileUpload={onFileUpload}/>
 
             <MessageInput
                 message={message}
