@@ -3,7 +3,7 @@ import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
 
-const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
+const BACKEND_WEB_SOCKET_URL: string = import.meta.env.VITE_BACKEND_WEB_SOCKET_URL
 
 export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
