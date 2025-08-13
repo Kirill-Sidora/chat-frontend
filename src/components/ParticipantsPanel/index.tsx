@@ -8,11 +8,13 @@ import "./style.css";
 const ParticipantsPanel = (): ReactElement => {
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [isShowAll, setIsShowAll] = useState<boolean>(false);
+    
     const { users } = useChatDataContext();
 
     const closeButtonText: string = !isOpen ? " ←" : " →";
     const showButtonText: string = !isShowAll ? "Show more" : "Return";
-    const stateOfContainer = isOpen ? "initial" : "moved";
+    const stateOfContainer = !isOpen ? "moved" : "initial";
+    
     const visibleCount: number = 8;
 
     const isShowButton = users.length > visibleCount;
@@ -20,6 +22,7 @@ const ParticipantsPanel = (): ReactElement => {
     const handleToggleShowAll = () => {
         setIsShowAll(!isShowAll);
     };
+    
     const handleToggleVisibility = () => {
         setIsOpen(!isOpen);
     };
@@ -38,10 +41,12 @@ const ParticipantsPanel = (): ReactElement => {
                 <h3 className="participants-header">Participants Telegram 2</h3>
 
                 <div className="divider"></div>
+
                 <ParticipantsList
                     visibleCount={visibleCount}
                     isShowAll={isShowAll}
                 />
+                
                 {isShowButton && (
                     <CustomButton
                         onClick={handleToggleShowAll}

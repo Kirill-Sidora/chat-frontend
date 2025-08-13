@@ -13,7 +13,8 @@ const formatDuration = (ms: number): string => {
 };
 
 const Timer = (): ReactElement => {
-    const [duration, setDuration] = useState(0);
+    const [duration, setDuration] = useState<number>(0);
+    
     const durationRef = useRef<number | null>(null);
 
     useEffect(() => {
@@ -21,6 +22,7 @@ const Timer = (): ReactElement => {
 
             durationRef.current = window.setInterval(() => {
                 const elapsed = Date.now() - start;
+
                 setDuration(elapsed);
             }, 100);
             
