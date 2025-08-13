@@ -41,13 +41,6 @@ const MessagePage = (): ReactElement => {
 
     return (
         <div className="chat-page">
-            <header className="chat-header">
-                <img
-                    src="src/assets/images/user-icon.png"
-                    className="user-icon"
-                />
-            </header>
-
             <MessagePageHeader />
 
             <ParticipantsPanel />
