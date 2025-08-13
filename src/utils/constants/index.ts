@@ -1,3 +1,5 @@
+import { TClientMessage, ITextMessage } from "@app-types/message";
+
 export enum IconIds {
     PAPERCLIP_ICON = "paperclip-icon",
     STICKERS_ICON = "stickers-icon",
@@ -56,6 +58,12 @@ export const introSlidesImagesData: IIntroSlideData[] = [
 
 export const isValidMessage = (message: string): boolean => {
     return /\S/.test(message);
+};
+
+export const isTextMessage = (
+    message: TClientMessage
+): message is ITextMessage => {
+    return message.type === "text";
 };
 
 export const getRandomId = (): string => {

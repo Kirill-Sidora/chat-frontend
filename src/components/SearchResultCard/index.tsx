@@ -7,12 +7,12 @@ interface ISearchMessageCard {
 }
 
 const SearchMessageCard = ({ message }: ISearchMessageCard): ReactElement => {
-    const whoseMessage: string = message.isMine
+    const messengeSenderLabel: string = message.isMine
         ? "My message"
         : "Someone else's message";
     return (
         <div className="search-message-card">
-            <span className="username primary-text">{whoseMessage}</span>
+            <span className="username primary-text">{messengeSenderLabel}</span>
             <div className="message-content primary-text">{message.text}</div>
             <span className="timestamp">{message.time}</span>
         </div>

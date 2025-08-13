@@ -3,6 +3,7 @@ import { useState, type ReactElement, FormEvent, useEffect } from "react";
 import { useChatDataContext } from "@contexts/СhatDataContext";
 import { isValidMessage } from "@utils/constants";
 import { ITextMessage } from "@app-types/message";
+import { isTextMessage } from "@utils/constants";
 import "./style.css";
 
 const MessageSearchBlock = (): ReactElement => {
@@ -23,11 +24,11 @@ const MessageSearchBlock = (): ReactElement => {
             return;
         }
 
-        const results = messages.filter((message) => {
-            if (message.type === "text") {
-                return message.text.toLowerCase().includes(query.toLowerCase());
-            }
-        }) as ITextMessage[];
+        const results: ITextMessage[] = messages
+            .filter(isTextMessage)
+            .filter((msg) =>
+                msg.text.toLowerCase().includes(query.toLowerCase())
+            );
 
         setSearchResults(results);
         setIsSearched(true);
