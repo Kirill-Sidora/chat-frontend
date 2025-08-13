@@ -1,19 +1,22 @@
+import FileManager from "@services/FileManager";
 import { useState } from "react";
 
 interface IUseFileUploadProps {
-    type: string,
-    accept: string,
-    multiple: boolean
+    type: string;
+    accept: string;
+    multiple: boolean;
 }
 
 interface IUseFileUploadReturn {
-    file: File | null,
-    fileSrc: string | null,
-    clear: () => void,
-    isFileUpload: boolean,
-    setIsFileUpload: (value: boolean) => void,
-    handleUploadClick: () => Promise<void>
+    file: File | null;
+    fileSrc: string | null;
+    clear: () => void;
+    isFileUpload: boolean;
+    setIsFileUpload: (value: boolean) => void;
+    handleUploadClick: () => Promise<void>;
 }
+
+const fileManager = new FileManager();
 
 export const useFileUpload = ({
     type,
@@ -24,40 +27,27 @@ export const useFileUpload = ({
     const [fileSrc, setFileSrc] = useState<string | null>(null);
     const [isFileUpload, setIsFileUpload] = useState<boolean>(false);
 
-    const fileInput = document.createElement("input");
-
-    const uploadFiles = (): Promise<File | null> => {
-        return new Promise((resolve) => {
-            fileInput.type = type;
-            fileInput.accept = accept;
-            fileInput.multiple = multiple;
-
-            fileInput.onchange = (event) => {
-                resolve((event.target as HTMLInputElement).files?.[0] || null);
-            };
-
-            fileInput.oncancel = () => resolve(null);
-            fileInput.click();
-        });
-    };
-
     const handleUploadClick = async () => {
-        const file = await uploadFiles();
+        const uploadedFile = await fileManager.uploadFile({ type, accept, multiple });
 
-        if (!file) { return; }
+        if (!uploadedFile) return;
 
-        const fileSrc = URL.createObjectURL(file);
+        const fileSrc = URL.createObjectURL(uploadedFile);
 
-        setFile(file);
+        setFile(uploadedFile);
         setFileSrc(fileSrc);
         setIsFileUpload(true);
     };
 
     const clear = () => {
+        if (fileSrc) {
+            URL.revokeObjectURL(fileSrc);
+        }
+        
         setFile(null);
         setFileSrc(null);
         setIsFileUpload(false);
-    }
+    };
     
     return {
         file,
@@ -66,5 +56,5 @@ export const useFileUpload = ({
         isFileUpload,
         setIsFileUpload,
         handleUploadClick
-    }
-}
+    };
+};

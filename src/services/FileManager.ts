@@ -2,6 +2,12 @@ import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 
 class FileManager {
+    private fileInput: HTMLInputElement;
+
+    constructor() {
+        this.fileInput = document.createElement('input');
+    }
+
     public static async blobToBase64Data(
         blob: Blob,
         name?: string
@@ -34,7 +40,7 @@ class FileManager {
         const match = base64.match(/^data:(.*?);base64,(.*)$/);
         
         if (!match) {
-
+            
         }
         else {
             mimeType = match[1];
@@ -57,6 +63,25 @@ class FileManager {
         });
         
         return URL.createObjectURL(blob);
+    }
+
+    public async uploadFile(options: {
+        type: string;
+        accept: string;
+        multiple: boolean;
+    }): Promise<File | null> {
+        return new Promise((resolve) => {
+            this.fileInput.type = options.type;
+            this.fileInput.accept = options.accept;
+            this.fileInput.multiple = options.multiple;
+
+            this.fileInput.onchange = (event) => {
+                resolve((event.target as HTMLInputElement).files?.[0] || null);
+            };
+
+            this.fileInput.oncancel = () => resolve(null);
+            this.fileInput.click();
+        });
     }
 }
 
