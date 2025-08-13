@@ -1,13 +1,9 @@
 import React from "react";
+import MessageParser from "@services/MessageParser";
+import { MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages, type TWebSocketMessage } from "@app-types/serverMessages";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import { useState, useContext, createContext } from "react";
 import { type TClientMessage } from "@app-types/message";
-import {
-    MessagesFromServerTypes,
-    type IMessageHandlerData,
-    type TWebSocketMessage,
-} from "@app-types/serverMessages";
-import MessageParser from "@services/MessageParser";
 
 interface IChatDataContext {
     messages: TClientMessage[];
@@ -16,7 +12,7 @@ interface IChatDataContext {
     messageHandlersConfig: IMessageHandlerData[];
 }
 
-const ChatDataContext = createContext<IChatDataContext | null>(null);
+export const ChatDataContext = createContext<IChatDataContext | null>(null);
 
 export const ChatDataProvider: React.FC<{
     children: React.ReactNode;
@@ -26,10 +22,17 @@ export const ChatDataProvider: React.FC<{
 
     const username = localStorage.getItem("nickName");
 
-    const handleNewMessage = (newMessageData: TWebSocketMessage): void => {
-        if (!username) {
-            return;
-        }
+    const handleNewMessage = (
+        newWebSocketMessageData: Extract<
+            TServerMessages,
+            { type: MessagesFromServerTypes.MESSAGE }
+        >
+    ): void => {
+        if (!username) { return; }
+
+        const newMessageData = newWebSocketMessageData.message;
+
+        console.log("NEW MESSAGE DATA: ", newMessageData);
 
         const parsedMessage: TClientMessage = MessageParser.parseServerMessage(
             newMessageData,
@@ -44,9 +47,7 @@ export const ChatDataProvider: React.FC<{
     };
 
     const loadMessage = (messageData: TWebSocketMessage): void => {
-         if (!username) {
-            return;
-        };
+        if (!username) { return; }
 
         console.log("NEW MESSAGE DATA: ", messageData);
 
@@ -56,15 +57,16 @@ export const ChatDataProvider: React.FC<{
         );
 
         setMessages((prevMessages) => [...prevMessages, parsedMessage]);
-    }
+    };
 
     const updateUserStatus = (statusData: IUserStatusChanged): void => {
         setUsers((prevUsers) => {
             const updatedUsers = prevUsers.map((user) =>
-                user.id === statusData.id
-                    ? { ...user, isOnline: statusData.isOnline }
-                    : user
+                user.id !== statusData.id
+                    ? user
+                    : { ...user, isOnline: statusData.isOnline }
             );
+
             return updatedUsers;
         });
     };
@@ -114,10 +116,12 @@ export const ChatDataProvider: React.FC<{
 
 export const useChatDataContext = () => {
     const context = useContext(ChatDataContext);
+    
     if (!context) {
         throw new Error(
             "useChatDataContext must be used within ChatDataProvider"
         );
     }
+    
     return context;
 };

@@ -15,7 +15,7 @@ const IntroSlides = (): ReactElement => {
                         src={image.src}
                         height={image.height}
                         z-index={image.zIndex}
-                    ></img>
+                    />
                 </div>
             ))}
         </div>

@@ -1,5 +1,5 @@
-import { ICON_SRC_PREFIX, ICON_SRC_SUFFIX } from "../../utils/constants";
-import type { ReactElement } from "react";
+import { ICON_SRC_PREFIX, ICON_SRC_SUFFIX } from "@utils/constants";
+import { type ReactElement } from "react";
 import "./style.css";
 
 export interface IIconButtonProps {
@@ -19,9 +19,8 @@ const IconButton = ({
     disabled = false,
     isActive = false,
 }: IIconButtonProps): ReactElement => {
-    var className: string = `icon-button ${isActive ? "active" : ""} ${
-        disabled ? "disabled" : ""
-    }`;
+
+    var className: string = `icon-button ${!isActive ? "" : "active"} ${!disabled ? "" : "disabled"}`;
 
     return (
         <button className={className} onClick={onClick} disabled={disabled}>

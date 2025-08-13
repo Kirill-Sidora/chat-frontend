@@ -1,14 +1,9 @@
+import { MessagesForServerTypes, MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages } from "@app-types/serverMessages";
+import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
-import {
-    MessagesForServerTypes,
-    MessagesFromServerTypes,
-    type IMessageHandlerData,
-    type TServerMessages,
-} from "@app-types/serverMessages";
-import type { IEncodedFileData } from "@app-types/file";
 
-const BACKEND_WEB_SOCKET_URL: string = "ws://localhost:3001";
+const BACKEND_WEB_SOCKET_URL: string = import.meta.env.VITE_BACKEND_WEB_SOCKET_URL
 
 const messagePayloadExtractors: Partial<
     Record<MessagesFromServerTypes, (data: any) => any>
@@ -38,7 +33,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const username = localStorage.getItem("nickName");
 
     useEffect(() => {
-        if (!username) return;
+        if (!username) { return; }
 
         const socket = new WebSocket(BACKEND_WEB_SOCKET_URL);
 
@@ -56,6 +51,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
         socket.onmessage = (event) => {
             const data: TServerMessages = JSON.parse(event.data);
+
             console.log("MESSAGE FROM SERVER: ", data);
 
             const handlerData = handlersConfig.find(

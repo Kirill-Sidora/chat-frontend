@@ -1,11 +1,5 @@
+import { ClientMessagesTypes, type IAudioMessage, type IFileMessage, type ITextMessage, type TClientMessage } from "@app-types/message";
 import { Fragment, type ReactElement } from "react";
-import {
-    ClientMessagesTypes,
-    type IAudioMessage,
-    type IFileMessage,
-    type ITextMessage,
-    type TClientMessage,
-} from "@app-types/message";
 import "./style.css";
 
 interface IClientMessageProps {
@@ -60,7 +54,7 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
 
     return (
         <div
-            className={`message ${message.isMine ? "mine" : "other"} ${
+            className={`message ${!message.isMine ? "other" : "mine"} ${
                 message.type
             }`}
         >

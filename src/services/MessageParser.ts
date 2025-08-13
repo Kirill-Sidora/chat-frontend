@@ -1,7 +1,7 @@
-import type { IDefaultMessage, TClientMessage } from "@app-types/message";
-import type { TWebSocketMessage } from "@app-types/serverMessages";
-import { getFormattedTime } from "@utils/constants";
 import FileManager from "./FileManager";
+import { type IDefaultMessage, type TClientMessage } from "@app-types/message";
+import { type TWebSocketMessage } from "@app-types/serverMessages";
+import { getFormattedTime } from "@utils/constants";
 
 class MessageParser {
     public static parseServerMessage = (
@@ -24,13 +24,15 @@ class MessageParser {
             sender: sender,
         };
 
-        if (type === "text") {
+        if (type !== "text") {
+
+        } else {
             return {
                 ...basedMessageData,
                 text: serverMessageData.text,
                 type,
             };
-        };
+        }
 
         console.log("SERVER FILE MESSAGE: ", serverMessageData);
 
@@ -38,7 +40,9 @@ class MessageParser {
 
         const fileSrc: string = FileManager.base64ToObjectUrl(fileData);
 
-        if (mimeType.includes("audio")) {
+        if (!mimeType.includes("audio")) {
+
+        } else {
             console.log("AUDIO FILE SRC: ", fileSrc);
         }
 
