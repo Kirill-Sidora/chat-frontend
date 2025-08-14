@@ -14,8 +14,7 @@ const WelcomeBlock = (): ReactElement => {
                     />
                 </Link>
             </div>
-            
-            <span className="text-style headline-text">Telegram 2</span>
+            <span className="text-style headline-2-text">Telegram 2</span>
         </div>
     );
 };

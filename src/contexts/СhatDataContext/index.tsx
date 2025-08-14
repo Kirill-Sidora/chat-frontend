@@ -13,12 +13,7 @@ import { type TClientMessage } from "@app-types/message";
 interface IChatDataContext {
     messages: TClientMessage[];
     users: IUser[];
-    loadMessagesHistory: (
-        historyData: Extract<
-            TServerMessages,
-            { type: MessagesFromServerTypes.HISTORY }
-        >
-    ) => void;
+    loadMessagesHistory: (historyMessages: TWebSocketMessage[]) => void;
     messageHandlersConfig: IMessageHandlerData[];
 }
 
@@ -32,17 +27,10 @@ export const ChatDataProvider: React.FC<{
 
     const username = localStorage.getItem("nickName");
 
-    const handleNewMessage = (
-        newWebSocketMessageData: Extract<
-            TServerMessages,
-            { type: MessagesFromServerTypes.MESSAGE }
-        >
-    ): void => {
+    const handleNewMessage = (newMessageData: TWebSocketMessage): void => {
         if (!username) {
             return;
         }
-
-        const newMessageData = newWebSocketMessageData.message;
 
         console.log("NEW MESSAGE DATA: ", newMessageData);
 
@@ -54,10 +42,8 @@ export const ChatDataProvider: React.FC<{
         setMessages((prevMessages) => [...prevMessages, parsedMessage]);
     };
 
-    const loadAllUsers = (data: { users: IUser[] }): void => {
-        setUsers(() => {
-            return [...data.users];
-        });
+    const loadAllUsers = (allUsers: IUser[]): void => {
+        setUsers(allUsers);
     };
 
     const loadMessage = (messageData: TWebSocketMessage): void => {
@@ -87,18 +73,11 @@ export const ChatDataProvider: React.FC<{
         });
     };
 
-    const loadMessagesHistory = (
-        historyData: Extract<
-            TServerMessages,
-            { type: MessagesFromServerTypes.HISTORY }
-        >
-    ): void => {
+    const loadMessagesHistory = (historyData: TWebSocketMessage[]): void => {
         console.log("HISTORY DATA: ", historyData);
 
-        const { messages: historyMessages } = historyData;
-
-        historyMessages.reverse().forEach((historyMessage: any) => {
-            loadMessage(historyMessage);
+        historyData.reverse().forEach((historyMessage: any) => {
+            handleNewMessage(historyMessage);
         });
     };
 

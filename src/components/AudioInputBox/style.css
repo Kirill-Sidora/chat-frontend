@@ -3,8 +3,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    width:100%;
-    
+    width: 100%;
 }
 
 .recording {
@@ -13,7 +12,7 @@
     gap: 10px;
     width: 100%;
     justify-content: space-between;
-    color : var(--color-text-primary);
+    color: var(--color-text-primary);
 }
 
 .recorded-last-actions {

@@ -31,10 +31,11 @@ const AudioInputBox = ({
         if (!blob) { return; }
 
         try {
-            const encodingAudio: IEncodedFileData = await FileManager.blobToBase64Data(blob);
+            const encodingAudio: IEncodedFileData =
+                await FileManager.blobToBase64Data(blob);
 
             onAudioSend(encodingAudio);
-        } catch(error) {
+        } catch (error) {
             const currentError = error as Error;
 
             console.error("Failed encode audio: ", currentError.message);
@@ -57,15 +58,6 @@ const AudioInputBox = ({
 
     return (
         <div className="audio-recorder">
-            {!isRecording && !isUploading && (
-                <div className="recording-start">
-                    <IconButton
-                        iconSrc={IconIds.MICRO_ICON}
-                        onClick={startRecording}
-                    />
-                </div>
-            )}
-            
             {isRecording && (
                 <div className="recording">
                     <Indication/>

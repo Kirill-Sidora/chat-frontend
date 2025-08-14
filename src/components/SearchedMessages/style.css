@@ -7,5 +7,5 @@
 .no-results {
     text-align: center;
     padding: 30px 20px;
-    color: var(--chat-header-background);
+    color: var(--elements-fill-color);
 }
