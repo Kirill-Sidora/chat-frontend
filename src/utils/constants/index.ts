@@ -88,3 +88,8 @@ export const getFormattedTime = (timestamp: number): string => {
 
     return `${hours}:${formattedMinutes} ${ampm}`;
 };
+
+export const NEW_MESSAGE = new Audio("src/assets/audio/new-message.mp3");
+export const USER_CONNECTED = new Audio("src/assets/audio/user-connected.mp3");
+export const USER_DISCONNECTED = new Audio("src/assets/audio/user-disconnected.mp3");
+export const CONNECTED_TO_CHAT = new Audio("src/assets/audio/connected-to-chat.mp3");
