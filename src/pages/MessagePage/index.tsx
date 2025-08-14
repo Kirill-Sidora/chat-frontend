@@ -24,7 +24,6 @@ const MessagePage = (): ReactElement => {
         <div className="chat-page">
             <MessagePageHeader />
             <ParticipantsPanel />
-
             <div className="messages-container secondary-text">
                 {messages.map((clientMessageData: TClientMessage) => (
                     <Message

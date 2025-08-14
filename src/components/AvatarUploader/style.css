@@ -1,6 +1,5 @@
 .avatar {
     margin-left: auto;
-    height: var(--control-elements-height, 45px);
 }
 
 .avatar-input {

@@ -1,13 +1,22 @@
 import CustomButton from "@components/CustomButton";
-import { useRef, useState, type ReactElement, type ChangeEvent } from "react";
+import {
+    useRef,
+    useState,
+    useEffect,
+    type ReactElement,
+    type ChangeEvent,
+} from "react";
 import { typesOfButton } from "@utils/constants";
 
 type AvatarState = {
-    file: File | null; // Сам файл
-    previewUrl: string | null; // URL для предпросмотра
+    file: File | null;
+    previewUrl: string | null;
 };
 
 const AvatarUploader = (): ReactElement => {
+    const [currentAvatar, setCurrentAvatar] = useState<string>(
+        "src/assets/images/user-icon.png"
+    );
     const [selectedFile, setSelectedFile] = useState<AvatarState>({
         file: null,
         previewUrl: null,
@@ -26,6 +35,7 @@ const AvatarUploader = (): ReactElement => {
         const selectedFile = files[0];
 
         if (!selectedFile.type.startsWith("image/")) {
+            //TODO Стоит расширить тип, с добавлением jpg, png и т.д.
             alert("Пожалуйста, выберите файл изображения");
             return;
         }
@@ -36,45 +46,72 @@ const AvatarUploader = (): ReactElement => {
             file: selectedFile,
             previewUrl,
         });
+        setIsFileSelected(true);
     };
 
-    const handleUpload = async () => {
-        if (!selectedFile.file) {
+    const handleUpload = (): void => {
+        // if (!selectedFile.file) {
+        //     alert("Файл не выбран");
+        //     return;
+        // }
+
+        // Извлекаем previewUrl в отдельную переменную
+        const previewUrl = selectedFile.previewUrl;
+
+        if (!previewUrl) {
+            // Теперь TypeScript знает тип previewUrl
             alert("Файл не выбран");
             return;
         }
 
-        // Обновляем статус на "загрузка"
-        setSelectedFile((prev) => ({ ...prev, status: "loading" }));
+        const isConfirmed = window.confirm(
+            "Вы уверены, что хотите изменить аватар?"
+        );
+        if (isConfirmed) {
+            // Устанавливаем новый аватар из временного URL
+            setIsFileSelected(false);
+            setCurrentAvatar(previewUrl);
 
-        try {
-            const formData = new FormData();
-            formData.append("avatar", selectedFile.file);
+            // Сбрасываем временное состояние
+            setSelectedFile({
+                file: null,
+                previewUrl: null,
+            });
 
-            // Отправка на сервер
-            const response = await fetch(
-                "http://localhost:3001/upload-avatar",
-                {
-                    method: "POST",
-                    body: formData,
-                    // Заголовки не нужны - браузер сам установит Content-Type
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error(`Ошибка сервера: ${response.status}`);
-            }
-
-            const result = await response.json();
-            console.log("Аватар успешно загружен:", result);
-
-            // Обновляем статус
-            setSelectedFile((prev) => ({ ...prev, status: "success" }));
-        } catch (error) {
-            console.error("Ошибка загрузки:", error);
-            setSelectedFile((prev) => ({ ...prev, status: "error" }));
-            alert("Ошибка при загрузке аватара");
+            alert("Аватар успешно изменен!");
         }
+
+        // Очистка временных ресурсов
+        useEffect(() => {
+            return () => {
+                if (selectedFile.previewUrl) {
+                    URL.revokeObjectURL(selectedFile.previewUrl);
+                }
+            };
+        }, [selectedFile.previewUrl]);
+
+        // try {
+        //     const formData = new FormData();
+        //     formData.append("avatar", selectedFile.file);
+
+        //     const response = await fetch(
+        //         "http://localhost:3001/upload-avatar",
+        //         {
+        //             method: "POST",
+        //             body: formData,
+        //         }
+        //     );
+
+        //     if (!response.ok) {
+        //         throw new Error(`Ошибка сервера: ${response.status}`);
+        //     }
+
+        //     const result = await response.json();
+        //     console.log("Аватар успешно загружен:", result);
+        // } catch (error) {
+        //     console.error("Ошибка загрузки:", error);
+        //     alert("Ошибка при загрузке аватара");
+        // }
     };
 
     return (
@@ -90,14 +127,24 @@ const AvatarUploader = (): ReactElement => {
                 type={typesOfButton.loadAvatarButton}
                 onClick={handleButtonClick}
             >
-                <img src="src/assets/images/user-icon.png" className="avatar" />
+                <img
+                    src={currentAvatar}
+                    className="avatar"
+                    alt="User avatar"
+                    onError={(event) => {
+                        event.currentTarget.src =
+                            "src/assets/images/user-icon.png";
+                    }}
+                />
             </CustomButton>
-            <CustomButton
-                type={typesOfButton.sendDataButton}
-                onClick={handleUpload}
-            >
-                Change
-            </CustomButton>
+            {isFileSelected && (
+                <CustomButton
+                    type={typesOfButton.sendDataButton}
+                    onClick={handleUpload}
+                >
+                    Change
+                </CustomButton>
+            )}
         </div>
     );
 };
