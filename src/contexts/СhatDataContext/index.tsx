@@ -1,15 +1,19 @@
 import React from "react";
 import MessageParser from "@services/MessageParser";
-import { MessagesFromServerTypes, type IMessageHandlerData, type TWebSocketMessage } from "@app-types/serverMessages";
+import { MessagesFromServerTypes, type TWebSocketMessage } from "@app-types/serverMessages";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext, useCallback } from "react";
 import { type TClientMessage } from "@app-types/message";
 
 interface IChatDataContext {
     messages: TClientMessage[];
     users: IUser[];
-    loadMessagesHistory: (historyMessages: TWebSocketMessage[]) => void;
     messageHandlersConfig: IMessageHandlerData[];
+}
+
+interface IMessageHandlerData {
+    type: MessagesFromServerTypes;
+    action: (payload: any) => void;
 }
 
 export const ChatDataContext = createContext<IChatDataContext | null>(null);
@@ -22,10 +26,8 @@ export const ChatDataProvider: React.FC<{
 
     const username = localStorage.getItem("nickName");
 
-    const handleNewMessage = (newMessageData: TWebSocketMessage): void => {
+    const handleNewMessage = useCallback((newMessageData: TWebSocketMessage) => {
         if (!username) { return; }
-
-        console.log("NEW MESSAGE DATA: ", newMessageData);
 
         const parsedMessage: TClientMessage = MessageParser.parseServerMessage(
             newMessageData,
@@ -33,31 +35,31 @@ export const ChatDataProvider: React.FC<{
         );
 
         setMessages((prevMessages) => [...prevMessages, parsedMessage]);
-    };
+    }, [username]);
 
-    const loadAllUsers = (allUsers: IUser[]): void => {
+    const loadAllUsers = useCallback((allUsers: IUser[]): void => {
         setUsers(allUsers);
-    };
+    }, []);
 
-    const updateUserStatus = (statusData: IUserStatusChanged): void => {
-        setUsers((prevUsers) => {
-            const updatedUsers = prevUsers.map((user) =>
+    const updateUserStatus = useCallback((statusData: IUserStatusChanged): void => {
+        setUsers((prevUsers) => 
+            prevUsers.map((user) =>
                 user.id !== statusData.id
                     ? user
                     : { ...user, isOnline: statusData.isOnline }
-            );
+            )
+        );
+    }, []);
 
-            return updatedUsers;
-        });
-    };
+    const loadMessagesHistory = useCallback((historyData: TWebSocketMessage[]): void => {
+        if (!username) { return; }
 
-    const loadMessagesHistory = (historyData: TWebSocketMessage[]): void => {
-        console.log("HISTORY DATA: ", historyData);
-
-        historyData.reverse().forEach((historyMessage: any) => {
-            handleNewMessage(historyMessage);
-        });
-    };
+        const parsedHistory = historyData.map(historyMessage => 
+            MessageParser.parseServerMessage(historyMessage, username)
+        );
+        
+        setMessages(parsedHistory.reverse());
+    }, [username]);
 
     const messageHandlersConfig: IMessageHandlerData[] = [
         {
@@ -69,6 +71,10 @@ export const ChatDataProvider: React.FC<{
             action: handleNewMessage,
         },
         {
+            type: MessagesFromServerTypes.FILE,
+            action: handleNewMessage,
+        },
+        {
             type: MessagesFromServerTypes.USERS,
             action: loadAllUsers,
         },
@@ -76,6 +82,10 @@ export const ChatDataProvider: React.FC<{
             type: MessagesFromServerTypes.USER_STATUS_CHANGED,
             action: updateUserStatus,
         },
+        {
+            type: MessagesFromServerTypes.USER_STATUS,
+            action: loadAllUsers,
+        }
     ];
 
     return (
@@ -83,7 +93,6 @@ export const ChatDataProvider: React.FC<{
             value={{
                 messages,
                 users,
-                loadMessagesHistory,
                 messageHandlersConfig,
             }}
         >

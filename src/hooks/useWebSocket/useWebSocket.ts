@@ -1,9 +1,15 @@
-import { MessagesForServerTypes, MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages } from "@app-types/serverMessages";
+import {
+    MessagesForServerTypes,
+    MessagesFromServerTypes,
+    type IMessageHandlerData,
+    type TServerMessages,
+} from "@app-types/serverMessages";
 import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
 
-const BACKEND_WEB_SOCKET_URL: string = import.meta.env.VITE_BACKEND_WEB_SOCKET_URL
+const BACKEND_WEB_SOCKET_URL: string = import.meta.env
+    .VITE_BACKEND_WEB_SOCKET_URL;
 
 const messagePayloadExtractors: Partial<
     Record<MessagesFromServerTypes, (data: any) => any>
@@ -24,7 +30,6 @@ const messageBodyBuilder: Partial<
 > = {
     [MessagesForServerTypes.TEXT_MESSAGE]: (data) => ({ text: data }),
     [MessagesForServerTypes.FILE_MESSAGE]: (data) => ({ file: data }),
-    [MessagesForServerTypes.AUDIO_MESSAGE]: (data) => ({ file: data }),
 };
 
 export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
@@ -33,7 +38,9 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const username = localStorage.getItem("nickName");
 
     useEffect(() => {
-        if (!username) { return; }
+        if (!username) {
+            return;
+        }
 
         const socket = new WebSocket(BACKEND_WEB_SOCKET_URL);
 
@@ -53,6 +60,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             const data: TServerMessages = JSON.parse(event.data);
 
             console.log("MESSAGE FROM SERVER: ", data);
+            
 
             const handlerData = handlersConfig.find(
                 (h) => h.type === data.type

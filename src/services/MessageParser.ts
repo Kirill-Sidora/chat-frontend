@@ -1,6 +1,6 @@
 import FileManager from "./FileManager";
-import { type IDefaultMessage, type TClientMessage } from "@app-types/message";
-import { type TWebSocketMessage } from "@app-types/serverMessages";
+import { ClientMessagesTypes, type IDefaultMessage, type TClientMessage } from "@app-types/message";
+import { type TWebSocketMessage, IServerFileMessage } from "@app-types/serverMessages";
 import { getFormattedTime } from "@utils/constants";
 
 class MessageParser {
@@ -8,52 +8,47 @@ class MessageParser {
         serverMessageData: TWebSocketMessage,
         username: string
     ): TClientMessage => {
-        console.log("UNPARSED MESSAGE DATA: ", serverMessageData);
-
-        const { sender, timestamp, id, type } = serverMessageData;
+        const { sender, timestamp, id } = serverMessageData;
 
         const formattedTime: string = getFormattedTime(timestamp);
-
-        console.log("USERNAME AND SENDER: ", username, sender);
 
         const basedMessageData: IDefaultMessage = {
             id,
             time: formattedTime,
             isMine: sender === username,
-            type,
+            type: serverMessageData.type,
             sender: sender,
         };
 
-        if (type !== "text") {
-
-        } else {
+        if (serverMessageData.type === ClientMessagesTypes.TEXT) {
             return {
                 ...basedMessageData,
                 text: serverMessageData.text,
-                type,
+                type: ClientMessagesTypes.TEXT,
             };
         }
 
-        console.log("SERVER FILE MESSAGE: ", serverMessageData);
+        const fileMessage = serverMessageData as IServerFileMessage;
+        const fileSrc: string = FileManager.base64ToObjectUrl(fileMessage.fileData, fileMessage.mimeType);
 
-        const { fileData, fileName, fileSize, mimeType } = serverMessageData;
+        const fileData = {
+            src: fileSrc,
+            name: fileMessage.fileName,
+            size: fileMessage.fileSize,
+        };
 
-        const fileSrc: string = FileManager.base64ToObjectUrl(fileData);
-
-        if (!mimeType.includes("audio")) {
-
-        } else {
-            console.log("AUDIO FILE SRC: ", fileSrc);
+        if (fileMessage.mimeType.includes("audio")) {
+            return {
+                ...basedMessageData,
+                fileData,
+                type: ClientMessagesTypes.AUDIO,
+            };
         }
 
         return {
             ...basedMessageData,
-            fileData: {
-                src: fileSrc,
-                name: fileName,
-                size: fileSize,
-            },
-            type,
+            fileData,
+            type: ClientMessagesTypes.FILE,
         };
     };
 }
