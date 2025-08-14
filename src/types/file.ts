@@ -3,7 +3,7 @@ export interface IEncodedFileData {
     name: string;
     type: string;
     size: number;
-};
+}
 
 export interface IDecodedFileData {
     src: string;
