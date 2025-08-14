@@ -34,7 +34,7 @@ class FileManager {
         const match = base64.match(/^data:(.*?);base64,(.*)$/);
         
         if (!match) {
-
+            
         }
         else {
             mimeType = match[1];
@@ -57,6 +57,27 @@ class FileManager {
         });
         
         return URL.createObjectURL(blob);
+    }
+
+    public async uploadFile(options: {
+        type: string;
+        accept: string;
+        multiple: boolean;
+    }): Promise<File | null> {
+        return new Promise((resolve) => {
+            const fileInput = document.createElement('input');
+            
+            fileInput.type = options.type;
+            fileInput.accept = options.accept;
+            fileInput.multiple = options.multiple;
+
+            fileInput.onchange = (event) => {
+                resolve((event.target as HTMLInputElement).files?.[0] || null);
+            };
+
+            fileInput.oncancel = () => resolve(null);
+            fileInput.click();
+        });
     }
 }
 

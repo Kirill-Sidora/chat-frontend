@@ -39,7 +39,7 @@ const MessageComposer = ({
                 message={message}
                 setMessage={setMessage}
                 onKeyDown={handleMessageInputKeyDown}
-                onFileSend={handleSendFile}
+                onFileUpload={handleSendFile}
             />
         ),
         [ComposerMode.AUDIO]: (

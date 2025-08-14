@@ -17,14 +17,14 @@ interface ITextModeProps {
     message: string;
     setMessage: (msg: string) => void;
     onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
-    onFileSend: (fileData: IEncodedFileData) => void;
+    onFileUpload: (fileData: IEncodedFileData) => void;
 }
 
 const TextMode = ({
     message,
     setMessage,
     onKeyDown,
-    onFileSend,
+    onFileUpload,
 }: ITextModeProps): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -51,7 +51,7 @@ const TextMode = ({
             const encodedFileData: IEncodedFileData =
                 await FileManager.blobToBase64Data(blob, selectedFile.name);
 
-            onFileSend(encodedFileData);
+            onFileUpload(encodedFileData);
         } catch (error) {
             const currenError = error as Error;
 
