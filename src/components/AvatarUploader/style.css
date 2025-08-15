@@ -1,7 +1,6 @@
-.avatar {
-    margin-left: auto;
-}
-
-.avatar-input {
-    display: "none";
+.avatar-uploader {
+    position: absolute;
+    top: 15px;
+    right: 17px;
+    z-index: 100;
 }

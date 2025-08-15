@@ -1,6 +1,13 @@
-import { ClientMessagesTypes, type IAudioMessage, type IFileMessage, type ITextMessage, type TClientMessage } from "@app-types/message";
+import {
+    ClientMessagesTypes,
+    type IAudioMessage,
+    type IFileMessage,
+    type ITextMessage,
+    type TClientMessage,
+} from "@app-types/message";
 import { Fragment, type ReactElement } from "react";
 import "./style.css";
+import Avatar from "@components/Avatar";
 
 interface IClientMessageProps {
     message: TClientMessage;
@@ -58,6 +65,7 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
                 message.type
             }`}
         >
+            {/* <Avatar /> */}
             {!message.isMine && <div className="sender">{message.sender}</div>}
 
             <CurrentMessageElement message={message} />

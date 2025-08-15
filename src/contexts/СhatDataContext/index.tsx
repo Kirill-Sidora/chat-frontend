@@ -3,7 +3,6 @@ import MessageParser from "@services/MessageParser";
 import {
     MessagesFromServerTypes,
     type IMessageHandlerData,
-    type TServerMessages,
     type TWebSocketMessage,
 } from "@app-types/serverMessages";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
@@ -44,21 +43,6 @@ export const ChatDataProvider: React.FC<{
 
     const loadAllUsers = (allUsers: IUser[]): void => {
         setUsers(allUsers);
-    };
-
-    const loadMessage = (messageData: TWebSocketMessage): void => {
-        if (!username) {
-            return;
-        }
-
-        console.log("NEW MESSAGE DATA: ", messageData);
-
-        const parsedMessage: TClientMessage = MessageParser.parseServerMessage(
-            messageData,
-            username
-        );
-
-        setMessages((prevMessages) => [...prevMessages, parsedMessage]);
     };
 
     const updateUserStatus = (statusData: IUserStatusChanged): void => {

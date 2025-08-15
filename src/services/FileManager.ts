@@ -8,7 +8,6 @@ class FileManager {
     ): Promise<IEncodedFileData> {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-
             reader.onloadend = () => {
                 const result = reader.result;
 
@@ -32,11 +31,9 @@ class FileManager {
 
     public static base64ToObjectUrl(base64: string, mimeType?: string): string {
         const match = base64.match(/^data:(.*?);base64,(.*)$/);
-        
+
         if (!match) {
-            
-        }
-        else {
+        } else {
             mimeType = match[1];
             base64 = match[2];
         }
@@ -55,7 +52,7 @@ class FileManager {
         const blob = new Blob([byteArray], {
             type: mimeType || "application/octet-stream",
         });
-        
+
         return URL.createObjectURL(blob);
     }
 
@@ -65,8 +62,8 @@ class FileManager {
         multiple: boolean;
     }): Promise<File | null> {
         return new Promise((resolve) => {
-            const fileInput = document.createElement('input');
-            
+            const fileInput = document.createElement("input");
+
             fileInput.type = options.type;
             fileInput.accept = options.accept;
             fileInput.multiple = options.multiple;

@@ -1,0 +1,12 @@
+.avatar {
+    margin-left: auto;
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1, 1);
+}
