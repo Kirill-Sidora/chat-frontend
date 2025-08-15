@@ -16,6 +16,7 @@ const messagePayloadExtractors: Partial<
 > = {
     [MessagesFromServerTypes.HISTORY]: (data) => data.messages,
     [MessagesFromServerTypes.MESSAGE]: (data) => data.message,
+    [MessagesFromServerTypes.FILE]:(data) => data.message,
     [MessagesFromServerTypes.USERS]: (data) => data.users,
     [MessagesFromServerTypes.USER_STATUS_CHANGED]: (data) => ({
         id: data.id,
@@ -61,7 +62,6 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
             console.log("MESSAGE FROM SERVER: ", data);
             
-
             const handlerData = handlersConfig.find(
                 (h) => h.type === data.type
             );
@@ -83,7 +83,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             socket.close();
         };
     }, [username]);
-
+    
     const sendMessage = (
         type: MessagesForServerTypes,
         data: string | IEncodedFileData
@@ -104,8 +104,11 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             ...buildBody(data),
         };
 
+        console.log("MESSAGE FOR SERVER: ", messageForServer);
+
         webSocket.send(JSON.stringify(messageForServer));
     };
+
 
     return { sendMessage };
 };

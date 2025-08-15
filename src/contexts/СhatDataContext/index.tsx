@@ -1,5 +1,5 @@
-import React from "react";
 import MessageParser from "@services/MessageParser";
+import React, { Dispatch, SetStateAction } from "react";
 import { MessagesFromServerTypes, type TWebSocketMessage } from "@app-types/serverMessages";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import { useState, useContext, createContext, useCallback } from "react";
@@ -7,6 +7,7 @@ import { type TClientMessage } from "@app-types/message";
 
 interface IChatDataContext {
     messages: TClientMessage[];
+    setMessages: Dispatch<SetStateAction<TClientMessage[]>>
     users: IUser[];
     messageHandlersConfig: IMessageHandlerData[];
 }
@@ -92,6 +93,7 @@ export const ChatDataProvider: React.FC<{
         <ChatDataContext.Provider
             value={{
                 messages,
+                setMessages,
                 users,
                 messageHandlersConfig,
             }}
