@@ -1,79 +1,54 @@
-import { useState, useEffect, useRef, type ReactElement } from "react";
+import Avatar from "@components/Avatar";
+import FileManager from "@services/FileManager";
+import { useChatDataContext } from "@contexts/СhatDataContext";
+import { useEffect, type ReactElement } from "react";
 import { useFileUpload } from "@hooks/useFileUpload";
 import "./style.css";
-import Avatar from "@components/Avatar";
 
 const AvatarUploader = (): ReactElement => {
-    const defaultAvatar = "src/assets/images/user-icon.png";
+    const { setAvatarUrl } = useChatDataContext();
 
-    const [currentAvatarUrl, setCurrentAvatarUrl] =
-        useState<string>(defaultAvatar);
-
-    const objectUrlRef = useRef<string | null>(null);
-
-    const { file, fileSrc, handleUploadClick } = useFileUpload({
+    const { file, fileSrc, clear, handleUploadClick } = useFileUpload({
         type: "file",
         accept: ".jpg, .jpeg, .png",
         multiple: false,
     });
 
-    //TODO Разобраться как работает данный useEffect
     // Конвертация файла в base64 и сохранение
     useEffect(() => {
         const convertAndSaveAvatar = async () => {
             if (file) {
                 try {
-                    // Создаем временный Object URL для предпросмотра
-                    const tempUrl = URL.createObjectURL(file);
-                    objectUrlRef.current = tempUrl;
-                    setCurrentAvatarUrl(tempUrl);
-
                     // Конвертируем файл в base64
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        const dataUrl = reader.result as string;
+                    const base64Data = await FileManager.blobToBase64Data(file);
+                    const dataUrl = `data:${file.type};base64,${base64Data.data}`;
 
-                        // Сохраняем в localStorage
-                        localStorage.setItem("avatarUrl", dataUrl);
-
-                        // Обновляем URL для отображения
-                        setCurrentAvatarUrl(dataUrl);
-
-                        // Освобождаем временный Object URL
-                        URL.revokeObjectURL(tempUrl);
-                        objectUrlRef.current = null;
-                    };
-                    reader.onerror = () => {
-                        throw new Error("Failed to read file");
-                    };
-                    reader.readAsDataURL(file);
+                    // Обновляем глобальное состояние
+                    setAvatarUrl(dataUrl);
                 } catch (error) {
-                    console.error("Ошибка сохранения аватара:", error);
+                    console.error("Ошибка конвертации аватара:", error);
                 }
             }
         };
 
         convertAndSaveAvatar();
-    }, [file]);
+    }, [file, setAvatarUrl]);
 
     useEffect(() => {
-        if (!fileSrc) return;
-
-        setCurrentAvatarUrl(fileSrc);
-
-        localStorage.setItem("avatar", fileSrc);
-    }, [fileSrc]);
-
-    useEffect(() => {
-        const savedAvatar = localStorage.getItem("avatarUrl");
-        if (savedAvatar) {
-            setCurrentAvatarUrl(savedAvatar);
+        if (fileSrc) {
+            setAvatarUrl(fileSrc);
         }
-    }, []);
+    }, [fileSrc, setAvatarUrl]);
+
+    useEffect(() => {
+        return () => {
+            clear();
+        };
+    }, [clear]);
 
     return (
         <div className="avatar-uploader" onClick={handleUploadClick}>
-            <Avatar url={currentAvatarUrl} />
+            <Avatar />
         </div>
     );
 };

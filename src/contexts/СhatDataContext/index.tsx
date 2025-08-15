@@ -6,7 +6,7 @@ import {
     type TWebSocketMessage,
 } from "@app-types/serverMessages";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
-import { useState, useContext, createContext } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import { type TClientMessage } from "@app-types/message";
 
 interface IChatDataContext {
@@ -14,7 +14,10 @@ interface IChatDataContext {
     users: IUser[];
     loadMessagesHistory: (historyMessages: TWebSocketMessage[]) => void;
     messageHandlersConfig: IMessageHandlerData[];
+    avatarUrl: string;
+    setAvatarUrl: (url: string) => void;
 }
+const defaultAvatar = "src/assets/images/user-icon.png";
 
 export const ChatDataContext = createContext<IChatDataContext | null>(null);
 
@@ -23,8 +26,16 @@ export const ChatDataProvider: React.FC<{
 }> = ({ children }) => {
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
+    const [avatarUrl, setAvatarUrl] = useState<string>(() => {
+        const savedAvatar = localStorage.getItem("avatarUrl");
+        return savedAvatar || defaultAvatar;
+    });
 
     const username = localStorage.getItem("nickName");
+
+    useEffect(() => {
+        localStorage.setItem("avatarUrl", avatarUrl);
+    }, [avatarUrl]);
 
     const handleNewMessage = (newMessageData: TWebSocketMessage): void => {
         if (!username) {
@@ -91,6 +102,8 @@ export const ChatDataProvider: React.FC<{
                 users,
                 loadMessagesHistory,
                 messageHandlersConfig,
+                avatarUrl,
+                setAvatarUrl,
             }}
         >
             {children}

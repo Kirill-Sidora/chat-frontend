@@ -1,12 +1,11 @@
 import { type ReactElement } from "react";
+import { useChatDataContext } from "@contexts/СhatDataContext";
 import "./style.css";
 
-interface IAvatarProps {
-    url: string;
-}
+const Avatar = (): ReactElement => {
+    const { avatarUrl } = useChatDataContext();
 
-const Avatar = ({ url }: IAvatarProps): ReactElement => {
-    return <img src={url} className="avatar" alt="User avatar" />;
+    return <img src={avatarUrl} className="avatar" alt="User avatar" />;
 };
 
 export default Avatar;
