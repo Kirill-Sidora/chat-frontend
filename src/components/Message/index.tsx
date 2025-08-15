@@ -1,3 +1,4 @@
+import Avatar from "@components/Avatar";
 import {
     ClientMessagesTypes,
     type IAudioMessage,
@@ -64,6 +65,7 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
                 message.type
             }`}
         >
+            <Avatar />
             {!message.isMine && <div className="sender">{message.sender}</div>}
 
             <CurrentMessageElement message={message} />

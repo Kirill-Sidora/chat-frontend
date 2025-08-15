@@ -14,16 +14,19 @@ const AvatarUploader = (): ReactElement => {
         multiple: false,
     });
 
-    // Конвертация файла в base64 и сохранение
+    useEffect(() => {
+        if (fileSrc) {
+            setAvatarUrl(fileSrc);
+        }
+    }, [fileSrc, setAvatarUrl]);
+
     useEffect(() => {
         const convertAndSaveAvatar = async () => {
             if (file) {
                 try {
-                    // Конвертируем файл в base64
                     const base64Data = await FileManager.blobToBase64Data(file);
                     const dataUrl = `data:${file.type};base64,${base64Data.data}`;
 
-                    // Обновляем глобальное состояние
                     setAvatarUrl(dataUrl);
                 } catch (error) {
                     console.error("Ошибка конвертации аватара:", error);
@@ -33,12 +36,6 @@ const AvatarUploader = (): ReactElement => {
 
         convertAndSaveAvatar();
     }, [file, setAvatarUrl]);
-
-    useEffect(() => {
-        if (fileSrc) {
-            setAvatarUrl(fileSrc);
-        }
-    }, [fileSrc, setAvatarUrl]);
 
     useEffect(() => {
         return () => {

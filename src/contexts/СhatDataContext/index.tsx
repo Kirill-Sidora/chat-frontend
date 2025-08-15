@@ -27,14 +27,14 @@ export const ChatDataProvider: React.FC<{
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
     const [avatarUrl, setAvatarUrl] = useState<string>(() => {
-        const savedAvatar = localStorage.getItem("avatarUrl");
+        const savedAvatar = localStorage.getItem("avatar");
         return savedAvatar || defaultAvatar;
     });
 
     const username = localStorage.getItem("nickName");
 
     useEffect(() => {
-        localStorage.setItem("avatarUrl", avatarUrl);
+        localStorage.setItem("avatar", avatarUrl);
     }, [avatarUrl]);
 
     const handleNewMessage = (newMessageData: TWebSocketMessage): void => {
