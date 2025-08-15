@@ -62,9 +62,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             
             if(data.type == MessagesFromServerTypes.USER_STATUS_CHANGED && data.isOnline == false && data.username != username) {
                 AudioPlayer.playSound(USER_DISCONNECTED);
-            }
-
-            if(data.type == MessagesFromServerTypes.USER_STATUS_CHANGED && data.isOnline == true && data.username != username) {
+            } else if (data.type == MessagesFromServerTypes.USER_STATUS_CHANGED && data.isOnline == true && data.username != username) {
                 AudioPlayer.playSound(USER_CONNECTED);
             }
 
