@@ -6,6 +6,7 @@
 .search-bar {
     background-color: var(--chat-header-background);
     color: var(--color-text-primary);
+    height: var(--navbar-height, 75px);
     box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
     z-index: 100;
 }
@@ -13,7 +14,7 @@
 .search-placeholder {
     text-align: center;
     padding: 30px 20px;
-    color: var(--chat-header-background);
+    color: var(--elements-fill-color);
 }
 
 .message-search-form {
