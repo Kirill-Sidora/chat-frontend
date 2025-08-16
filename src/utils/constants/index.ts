@@ -12,7 +12,7 @@ export enum IconIds {
 }
 
 export enum ImageIds {
-    DEFAULT_AVATAR_IMAGE = "default-avatar",
+    DEFAULT_AVATAR = "user-icon",
 }
 
 export const typesOfButton = {

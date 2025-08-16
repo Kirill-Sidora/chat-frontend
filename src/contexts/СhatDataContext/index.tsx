@@ -1,6 +1,6 @@
 import MessageParser from "@services/MessageParser";
 import { useState, useContext, createContext, useCallback } from "react";
-import { IMAGE_URL_PREFIX, IMAGE_URL_SUFFIX } from "@utils/constants";
+import { IMAGE_URL_PREFIX, IMAGE_URL_SUFFIX, ImageIds } from "@utils/constants";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import { type TClientMessage } from "@app-types/message";
 import React, { Dispatch, SetStateAction } from "react";
@@ -23,8 +23,6 @@ interface IMessageHandlerData {
     action: (payload: any) => void;
 }
 
-const defaultSrc = "user-icon";
-
 export const ChatDataContext = createContext<IChatDataContext | null>(null);
 
 export const ChatDataProvider: React.FC<{
@@ -32,9 +30,11 @@ export const ChatDataProvider: React.FC<{
 }> = ({ children }) => {
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
-    const [avatarUrl, setAvatarUrl] = useState<string>(
-        IMAGE_URL_PREFIX + defaultSrc + IMAGE_URL_SUFFIX
-    );
+
+    const fullDefaultSrc: string =
+        IMAGE_URL_PREFIX + ImageIds.DEFAULT_AVATAR + IMAGE_URL_SUFFIX;
+
+    const [avatarUrl, setAvatarUrl] = useState<string>(fullDefaultSrc);
 
     const username = localStorage.getItem("nickName");
 
