@@ -10,7 +10,7 @@ export const enum MessagesForServerTypes {
 export const enum MessagesFromServerTypes {
     HISTORY = "history",
     ERROR = "error",
-    MESSAGE = "message",
+    MESSAGE = "msg",
     FILE = "file",
     USERS = "userData",
     USER_STATUS = "userStatus",
@@ -46,20 +46,11 @@ export type TWebSocketMessage = IServerTextMessage | IServerFileMessage;
 export type TServerMessages =
     | { type: MessagesFromServerTypes.HISTORY; messages: TWebSocketMessage[] }
     | { type: MessagesFromServerTypes.ERROR; message: string }
-    | ({
-          type: MessagesFromServerTypes.MESSAGE;
-      } & TWebSocketMessage)
-    | ({
-          type: MessagesFromServerTypes.FILE;
-      } & TWebSocketMessage)
+    // Правильная структура для получения нового сообщения
+    | { type: MessagesFromServerTypes.MESSAGE; message: TWebSocketMessage }
     | { type: MessagesFromServerTypes.USERS; users: IUser[] }
-    | { type: MessagesFromServerTypes.USER_STATUS; users: IUser[] }
     | {
           type: MessagesFromServerTypes.USER_STATUS_CHANGED;
           id: string;
           isOnline: boolean;
-      }
-    | ({ type: MessagesFromServerTypes.USERS } & {
-          id: string;
-          isOnline: boolean;
-      });
+      };

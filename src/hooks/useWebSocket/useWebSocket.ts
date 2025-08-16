@@ -16,7 +16,7 @@ const messagePayloadExtractors: Partial<
 > = {
     [MessagesFromServerTypes.HISTORY]: (data) => data.messages,
     [MessagesFromServerTypes.MESSAGE]: (data) => data.message,
-    [MessagesFromServerTypes.FILE]:(data) => data.message,
+    [MessagesFromServerTypes.FILE]:(data) => data,
     [MessagesFromServerTypes.USERS]: (data) => data.users,
     [MessagesFromServerTypes.USER_STATUS_CHANGED]: (data) => ({
         id: data.id,
@@ -24,6 +24,7 @@ const messagePayloadExtractors: Partial<
         isOnline: data.isOnline,
     }),
     [MessagesFromServerTypes.ERROR]: (data) => data.message,
+    
 };
 
 const messageBodyBuilder: Partial<
