@@ -1,18 +1,13 @@
 import MessageParser from "@services/MessageParser";
+import { useState, useContext, createContext, useCallback } from "react";
+import { IMAGE_URL_PREFIX, IMAGE_URL_SUFFIX } from "@utils/constants";
+import { type IUser, type IUserStatusChanged } from "@app-types/user";
+import { type TClientMessage } from "@app-types/message";
 import React, { Dispatch, SetStateAction } from "react";
 import {
     MessagesFromServerTypes,
     type TWebSocketMessage,
 } from "@app-types/serverMessages";
-import { type IUser, type IUserStatusChanged } from "@app-types/user";
-import {
-    useState,
-    useEffect,
-    useContext,
-    createContext,
-    useCallback,
-} from "react";
-import { type TClientMessage } from "@app-types/message";
 
 interface IChatDataContext {
     messages: TClientMessage[];
@@ -28,7 +23,7 @@ interface IMessageHandlerData {
     action: (payload: any) => void;
 }
 
-const defaultAvatar = "src/assets/images/user-icon.png";
+const defaultSrc = "user-icon";
 
 export const ChatDataContext = createContext<IChatDataContext | null>(null);
 
@@ -37,16 +32,11 @@ export const ChatDataProvider: React.FC<{
 }> = ({ children }) => {
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
-    const [avatarUrl, setAvatarUrl] = useState<string>(() => {
-        const savedAvatar = localStorage.getItem("avatar");
-        return savedAvatar || defaultAvatar;
-    });
+    const [avatarUrl, setAvatarUrl] = useState<string>(
+        IMAGE_URL_PREFIX + defaultSrc + IMAGE_URL_SUFFIX
+    );
 
     const username = localStorage.getItem("nickName");
-
-    useEffect(() => {
-        localStorage.setItem("avatar", avatarUrl);
-    }, [avatarUrl]);
 
     const handleNewMessage = useCallback(
         (newMessageData: TWebSocketMessage) => {

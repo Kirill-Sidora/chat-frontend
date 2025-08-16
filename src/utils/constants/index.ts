@@ -11,6 +11,10 @@ export enum IconIds {
     STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon",
 }
 
+export enum ImageIds {
+    DEFAULT_AVATAR_IMAGE = "default-avatar",
+}
+
 export const typesOfButton = {
     showButton: "show-all-button",
     closeButton: "close-panel",
@@ -20,6 +24,8 @@ export const typesOfButton = {
 
 export const ICON_SRC_PREFIX = "src/assets/icons/";
 export const ICON_SRC_SUFFIX = ".svg";
+export const IMAGE_URL_PREFIX = "src/assets/images/";
+export const IMAGE_URL_SUFFIX = ".png";
 
 export enum ComposerMode {
     TEXT = "text",
