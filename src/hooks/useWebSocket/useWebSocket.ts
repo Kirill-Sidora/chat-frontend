@@ -58,10 +58,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
         socket.onmessage = (event) => {
             const data: TServerMessages = JSON.parse(event.data);
-
-            if(data.type == MessagesFromServerTypes.MESSAGE) {
-                AudioPlayer.playSound(SoundIds.NEW_MESSAGE);
-            };
+            
+            AudioPlayer.triggerNotificationSound(data, username);
 
             const handlerData = handlersConfig.find(
                 (handlerData: IMessageHandlerData) =>

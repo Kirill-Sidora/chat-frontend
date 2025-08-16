@@ -91,8 +91,6 @@ export const getFormattedTime = (timestamp: number): string => {
 
 export enum SoundIds {
     NEW_MESSAGE = "new-message.mp3",
-    USER_CONNECTED = "user-connected.mp3",
-    USER_DISCONNECTED = "user-disconnected.mp3",
     CONNECTED_TO_CHAT = "connected-to-chat.mp3"
 }
 
