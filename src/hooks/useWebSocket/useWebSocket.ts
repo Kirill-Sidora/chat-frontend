@@ -1,15 +1,22 @@
-import { MessagesForServerTypes, MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages } from "@app-types/serverMessages";
 import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
+import {
+    MessagesForServerTypes,
+    MessagesFromServerTypes,
+    type IMessageHandlerData,
+    type TServerMessages,
+} from "@app-types/serverMessages";
 
-const BACKEND_WEB_SOCKET_URL: string = import.meta.env.VITE_BACKEND_WEB_SOCKET_URL
+const BACKEND_WEB_SOCKET_URL: string = import.meta.env
+    .VITE_BACKEND_WEB_SOCKET_URL;
 
 const messagePayloadExtractors: Partial<
     Record<MessagesFromServerTypes, (data: any) => any>
 > = {
     [MessagesFromServerTypes.HISTORY]: (data) => data.messages,
-    [MessagesFromServerTypes.MESSAGE]: (data) => data.message,
+    [MessagesFromServerTypes.MESSAGE]: (data) => data,
+    [MessagesFromServerTypes.FILE]: (data) => data,
     [MessagesFromServerTypes.USERS]: (data) => data.users,
     [MessagesFromServerTypes.USER_STATUS_CHANGED]: (data) => ({
         id: data.id,
@@ -24,7 +31,6 @@ const messageBodyBuilder: Partial<
 > = {
     [MessagesForServerTypes.TEXT_MESSAGE]: (data) => ({ text: data }),
     [MessagesForServerTypes.FILE_MESSAGE]: (data) => ({ file: data }),
-    [MessagesForServerTypes.AUDIO_MESSAGE]: (data) => ({ file: data }),
 };
 
 export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
@@ -33,7 +39,9 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
     const username = localStorage.getItem("nickName");
 
     useEffect(() => {
-        if (!username) { return; }
+        if (!username) {
+            return;
+        }
 
         const socket = new WebSocket(BACKEND_WEB_SOCKET_URL);
 
@@ -55,7 +63,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             console.log("MESSAGE FROM SERVER: ", data);
 
             const handlerData = handlersConfig.find(
-                (h) => h.type === data.type
+                (handlerData: IMessageHandlerData) =>
+                    handlerData.type === data.type
             );
 
             const getMessageBody = messagePayloadExtractors[data.type];
@@ -86,6 +95,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
         const buildBody = messageBodyBuilder[type];
 
+        console.log("BODY FOR SERVER FUNCTION: ", buildBody);
+
         if (!buildBody) {
             console.error(`No message body builder found for type: ${type}`);
             return;
@@ -95,6 +106,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             type,
             ...buildBody(data),
         };
+
+        console.log("MESSAGE FOR SERVER: ", messageForServer);
 
         webSocket.send(JSON.stringify(messageForServer));
     };
