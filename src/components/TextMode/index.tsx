@@ -17,6 +17,8 @@ import type { IEncodedFileData } from "@app-types/file";
 import { EmojiClickData } from "emoji-picker-react";
 import { Categories } from "emoji-picker-react";
 import { IconIds } from "@utils/constants";
+import { Theme } from "emoji-picker-react";
+import './style.css'
 
 interface ITextModeProps {
     message: string;
@@ -92,8 +94,12 @@ const TextMode = ({
             />
 
             {isPickerOpen && (
-                <div style={{ position: "absolute", top: "320px", left: 40}}>
-                    <EmojiPicker onEmojiClick={handleEmojiClick} categories={[{ name: "Emoji", category: Categories.SMILEYS_PEOPLE}]}/>
+                <div className="emoji-picker-container">
+                    <EmojiPicker
+                        onEmojiClick={handleEmojiClick}
+                        categories={[{ name: "Emoji", category: Categories.SMILEYS_PEOPLE }]}
+                        theme={Theme.DARK}
+                    />
                 </div>
             )}
 
