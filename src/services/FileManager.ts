@@ -13,14 +13,15 @@ class FileManager {
 
                 if (typeof result !== "string") {
                     reject(new Error("Failed to read blob as base64"));
-                } else {
-                    resolve({
-                        data: result.split(",")[1],
-                        name: name ?? getRandomId(),
-                        type: blob.type,
-                        size: blob.size,
-                    });
+                    return;
                 }
+
+                resolve({
+                    data: result.split(",")[1],
+                    name: name ?? getRandomId(),
+                    type: blob.type,
+                    size: blob.size,
+                });
             };
 
             reader.onerror = reject;
@@ -30,16 +31,6 @@ class FileManager {
     }
 
     public static base64ToObjectUrl(base64: string, mimeType?: string): string {
-        const match = base64.match(/^data:(.*?);base64,(.*)$/);
-
-        if (!match) {
-        } else {
-            mimeType = match[1];
-            base64 = match[2];
-        }
-
-        base64 = base64.replace(/\s/g, "");
-
         const byteCharacters = atob(base64);
         const byteNumbers = new Array(byteCharacters.length);
 
@@ -50,7 +41,7 @@ class FileManager {
         const byteArray = new Uint8Array(byteNumbers);
 
         const blob = new Blob([byteArray], {
-            type: mimeType || "application/octet-stream",
+            type: mimeType,
         });
 
         return URL.createObjectURL(blob);
@@ -69,7 +60,8 @@ class FileManager {
             fileInput.multiple = options.multiple;
 
             fileInput.onchange = (event) => {
-                resolve((event.target as HTMLInputElement).files?.[0] || null);
+                const files = (event.target as HTMLInputElement).files;
+                resolve(files?.[0] || null);
             };
 
             fileInput.oncancel = () => resolve(null);
