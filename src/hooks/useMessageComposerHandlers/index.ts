@@ -52,7 +52,7 @@ export const useMessageComposerHandlers = ({
         }
         try {
             const audioData = await FileManager.blobToBase64Data(blob);
-            onSendMessage(MessagesForServerTypes.AUDIO_MESSAGE, audioData);
+            onSendMessage(MessagesForServerTypes.FILE_MESSAGE, audioData);
         } catch (error) {
             console.error("Failed to encode audio:", error);
         } finally {

@@ -5,7 +5,9 @@ import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatDataContext } from "@contexts/СhatDataContext";
 import { useRef, useEffect, type ReactElement } from "react";
-import { type TClientMessage } from "@app-types/message";
+import {
+    type TClientMessage,
+} from "@app-types/message";
 import "./style.css";
 
 const MessagePage = (): ReactElement => {
@@ -22,19 +24,37 @@ const MessagePage = (): ReactElement => {
         const container = document.querySelector(".messages-container");
         if (!container) return;
 
-        const images = container.querySelectorAll("img");
+        const images = container.querySelectorAll("img, audio");
 
         if (images.length === 0) {
             scrollToBottom();
             return;
         }
 
-        images.forEach((img) => {
-            if (img.complete) {
+        let loadedCount = 0;
+        const totalMedia = images.length;
+
+        const onMediaLoad = () => {
+            loadedCount++;
+            if (loadedCount === totalMedia) {
                 scrollToBottom();
+            }
+        };
+
+        images.forEach((media) => {
+            if (media instanceof HTMLImageElement && media.complete) {
+                onMediaLoad();
+            } else if (
+                media instanceof HTMLAudioElement &&
+                media.readyState >= 2
+            ) {
+                onMediaLoad();
             } else {
-                img.onload = scrollToBottom;
-                img.onerror = scrollToBottom;
+                media.addEventListener("load", onMediaLoad, { once: true });
+                media.addEventListener("loadeddata", onMediaLoad, {
+                    once: true,
+                });
+                media.addEventListener("error", onMediaLoad, { once: true });
             }
         });
     }, [messages]);
@@ -42,9 +62,8 @@ const MessagePage = (): ReactElement => {
     return (
         <div className="chat-page">
             <MessagePageHeader />
-
             <ParticipantsPanel />
-            
+
             <div className="messages-container secondary-text">
                 {messages.map((clientMessageData: TClientMessage) => (
                     <Message
@@ -52,9 +71,9 @@ const MessagePage = (): ReactElement => {
                         message={clientMessageData}
                     />
                 ))}
-
                 <div className="end-pointer" ref={messagesEndRef} />
             </div>
+
             <MessageComposer onSendMessage={sendMessage} />
         </div>
     );
