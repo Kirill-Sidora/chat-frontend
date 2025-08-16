@@ -24,6 +24,10 @@ const messagePayloadExtractors: Partial<
         isOnline: data.isOnline,
     }),
     [MessagesFromServerTypes.ERROR]: (data) => data.message,
+    [MessagesFromServerTypes.HISTORY_CHUNK]: (data) => ({
+        messages: data.messages,
+        lastLoadedMessageId: data.lastLoadedMessageId,
+    }),
 };
 
 const messageBodyBuilder: Partial<
@@ -31,6 +35,9 @@ const messageBodyBuilder: Partial<
 > = {
     [MessagesForServerTypes.TEXT_MESSAGE]: (data) => ({ text: data }),
     [MessagesForServerTypes.FILE_MESSAGE]: (data) => ({ file: data }),
+    [MessagesForServerTypes.HISTORY]: (lastLoadedMessageId) => ({
+        lastLoadedMessageId,
+    }),
 };
 
 export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
@@ -112,5 +119,20 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         webSocket.send(JSON.stringify(messageForServer));
     };
 
-    return { sendMessage };
+    const historyRequest = (lastLoadedMessageId?: string) => {
+        if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
+            return;
+        }
+
+        const messageForServer = {
+            type: MessagesForServerTypes.HISTORY,
+            lastLoadedMessageId,
+        };
+
+        console.log("SENDING HISTORY REQUEST FOR SERVER:", messageForServer);
+
+        webSocket.send(JSON.stringify(messageForServer));
+    };
+
+    return { sendMessage, historyRequest };
 };

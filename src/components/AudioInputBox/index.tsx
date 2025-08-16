@@ -28,7 +28,9 @@ const AudioInputBox = ({
     } = useAudioInputBox();
 
     const handleSend = async () => {
-        if (!blob) { return; }
+        if (!blob) {
+            return;
+        }
 
         try {
             const encodingAudio: IEncodedFileData =
@@ -45,22 +47,26 @@ const AudioInputBox = ({
     const handleDiscard = () => {
         discardRecording();
 
-        if (!onDiscard) { return; }
-        
+        if (!onDiscard) {
+            return;
+        }
+
         onDiscard();
     };
 
     useEffect(() => {
         startRecording();
 
-        return () => { cleanupRecording() };
+        return () => {
+            cleanupRecording();
+        };
     }, []);
 
     return (
         <div className="audio-recorder">
             {isRecording && (
                 <div className="recording">
-                    <Indication/>
+                    <Indication />
 
                     <IconButton
                         iconSrc={IconIds.MICRO_ICON_ACTIVE}
@@ -73,7 +79,7 @@ const AudioInputBox = ({
             {isUploading && (
                 <Fragment>
                     <audio controls src={audioSrc || undefined} />
-                    
+
                     <div className="recorded-last-actions">
                         <div className="controllers">
                             <IconButton

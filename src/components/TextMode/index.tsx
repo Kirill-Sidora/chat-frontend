@@ -4,14 +4,14 @@ import ModalWindow from "@components/ModalWindow";
 import MessageInput from "@components/MessageInput";
 import FileUploader from "@components/FileUploader";
 import ImageModalWindowContent from "@components/ImageModalWindowContent";
+import type { IEncodedFileData } from "@app-types/file";
+import { IconIds } from "@utils/constants";
 import {
     type ReactElement,
     type KeyboardEvent,
     useState,
     Fragment,
 } from "react";
-import type { IEncodedFileData } from "@app-types/file";
-import { IconIds } from "@utils/constants";
 
 interface ITextModeProps {
     message: string;
