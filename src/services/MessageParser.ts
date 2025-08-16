@@ -8,6 +8,7 @@ class MessageParser {
         serverMessageData: TWebSocketMessage,
         username: string
     ): TClientMessage => {
+
         const { sender, timestamp, id } = serverMessageData;
 
         const formattedTime: string = getFormattedTime(timestamp);

@@ -1,12 +1,12 @@
+import { type IEncodedFileData } from "@app-types/file";
+import { getRandomId } from "@utils/constants";
+import { useEffect, useState } from "react";
 import {
     MessagesForServerTypes,
     MessagesFromServerTypes,
     type IMessageHandlerData,
     type TServerMessages,
 } from "@app-types/serverMessages";
-import { type IEncodedFileData } from "@app-types/file";
-import { getRandomId } from "@utils/constants";
-import { useEffect, useState } from "react";
 
 const BACKEND_WEB_SOCKET_URL: string = import.meta.env
     .VITE_BACKEND_WEB_SOCKET_URL;
@@ -15,8 +15,8 @@ const messagePayloadExtractors: Partial<
     Record<MessagesFromServerTypes, (data: any) => any>
 > = {
     [MessagesFromServerTypes.HISTORY]: (data) => data.messages,
-    [MessagesFromServerTypes.MESSAGE]: (data) => data.message,
-    [MessagesFromServerTypes.FILE]:(data) => data,
+    [MessagesFromServerTypes.MESSAGE]: (data) => data,
+    [MessagesFromServerTypes.FILE]: (data) => data,
     [MessagesFromServerTypes.USERS]: (data) => data.users,
     [MessagesFromServerTypes.USER_STATUS_CHANGED]: (data) => ({
         id: data.id,
@@ -24,7 +24,6 @@ const messagePayloadExtractors: Partial<
         isOnline: data.isOnline,
     }),
     [MessagesFromServerTypes.ERROR]: (data) => data.message,
-    
 };
 
 const messageBodyBuilder: Partial<
@@ -62,9 +61,10 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             const data: TServerMessages = JSON.parse(event.data);
 
             console.log("MESSAGE FROM SERVER: ", data);
-            
+
             const handlerData = handlersConfig.find(
-                (h) => h.type === data.type
+                (handlerData: IMessageHandlerData) =>
+                    handlerData.type === data.type
             );
 
             const getMessageBody = messagePayloadExtractors[data.type];
@@ -84,7 +84,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             socket.close();
         };
     }, [username]);
-    
+
     const sendMessage = (
         type: MessagesForServerTypes,
         data: string | IEncodedFileData
@@ -94,6 +94,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         }
 
         const buildBody = messageBodyBuilder[type];
+
+        console.log("BODY FOR SERVER FUNCTION: ", buildBody);
 
         if (!buildBody) {
             console.error(`No message body builder found for type: ${type}`);
@@ -109,7 +111,6 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
         webSocket.send(JSON.stringify(messageForServer));
     };
-
 
     return { sendMessage };
 };

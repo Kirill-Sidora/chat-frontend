@@ -10,7 +10,7 @@ export const enum MessagesForServerTypes {
 export const enum MessagesFromServerTypes {
     HISTORY = "history",
     ERROR = "error",
-    MESSAGE = "msg",
+    MESSAGE = "text",
     FILE = "file",
     USERS = "userData",
     USER_STATUS = "userStatus",
