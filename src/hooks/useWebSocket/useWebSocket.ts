@@ -1,9 +1,9 @@
 import AudioPlayer from "@services/AudioPlayer";
 import { MessagesForServerTypes, MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages } from "@app-types/serverMessages";
-import { NEW_MESSAGE, CONNECTED_TO_CHAT, USER_CONNECTED, USER_DISCONNECTED } from "@utils/constants"
 import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
+import { SoundIds } from "@utils/constants"
 
 const BACKEND_WEB_SOCKET_URL: string = import.meta.env.VITE_BACKEND_WEB_SOCKET_URL
 
@@ -42,7 +42,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         socket.onopen = () => {
             console.log("Connected to ws");
 
-            AudioPlayer.playSound(CONNECTED_TO_CHAT);
+            AudioPlayer.playSound(SoundIds.CONNECTED_TO_CHAT);
 
             const initialMessageForServer = {
                 type: MessagesForServerTypes.INITIAL,
@@ -56,15 +56,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         socket.onmessage = (event) => {
             const data: TServerMessages = JSON.parse(event.data);
 
-            if(data.type == MessagesFromServerTypes.MESSAGE && data.message.sender != username) {
-                AudioPlayer.playSound(NEW_MESSAGE);
-            }
-            
-            if(data.type == MessagesFromServerTypes.USER_STATUS_CHANGED && data.isOnline == false && data.username != username) {
-                AudioPlayer.playSound(USER_DISCONNECTED);
-            } else if (data.type == MessagesFromServerTypes.USER_STATUS_CHANGED && data.isOnline == true && data.username != username) {
-                AudioPlayer.playSound(USER_CONNECTED);
-            }
+            AudioPlayer.triggerNotificationSound(data, username)
 
             const handlerData = handlersConfig.find(
                 (h) => h.type === data.type

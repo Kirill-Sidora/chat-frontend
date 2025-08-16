@@ -89,7 +89,11 @@ export const getFormattedTime = (timestamp: number): string => {
     return `${hours}:${formattedMinutes} ${ampm}`;
 };
 
-export const NEW_MESSAGE = new Audio("src/assets/audio/new-message.mp3");
-export const USER_CONNECTED = new Audio("src/assets/audio/user-connected.mp3");
-export const USER_DISCONNECTED = new Audio("src/assets/audio/user-disconnected.mp3");
-export const CONNECTED_TO_CHAT = new Audio("src/assets/audio/connected-to-chat.mp3");
+export enum SoundIds {
+    NEW_MESSAGE = "new-message.mp3",
+    USER_CONNECTED = "user-connected.mp3",
+    USER_DISCONNECTED = "user-disconnected.mp3",
+    CONNECTED_TO_CHAT = "connected-to-chat.mp3"
+}
+
+export const SOUND_SRC_PREFIX = "src/assets/audio/";
