@@ -1,5 +1,5 @@
-import { type ReactElement } from "react";
 import { useChatDataContext } from "@contexts/СhatDataContext";
+import { type ReactElement } from "react";
 import "./style.css";
 
 const Avatar = (): ReactElement => {

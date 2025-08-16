@@ -1,10 +1,12 @@
 .avatar {
+    width: 50px;
+    height: 50px;
     margin-left: auto;
     max-width: 50px;
     max-height: 50px;
     border-radius: 50%;
-    cursor: pointer;
     transition: transform 0.3s ease;
+    object-fit: cover;
 }
 
 .avatar:hover {
