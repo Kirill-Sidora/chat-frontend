@@ -46,7 +46,7 @@ export type TWebSocketMessage = IServerTextMessage | IServerFileMessage;
 export type TServerMessages =
     | { type: MessagesFromServerTypes.HISTORY; messages: TWebSocketMessage[] }
     | { type: MessagesFromServerTypes.ERROR; message: string }
-    | { type: MessagesFromServerTypes.MESSAGE; sender: string }
+    | { type: MessagesFromServerTypes.MESSAGE; message: TWebSocketMessage }
     | { type: MessagesFromServerTypes.USERS; users: IUser[] }
     | {
           type: MessagesFromServerTypes.USER_STATUS_CHANGED;

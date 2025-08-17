@@ -11,7 +11,7 @@ class AudioPlayer {
     };
 
     public static triggerNotificationSound = (
-        data: TServerMessages,
+        data: any,
         username: string
     ) => {
         if (data.type === MessagesFromServerTypes.MESSAGE && username !== data.sender)
