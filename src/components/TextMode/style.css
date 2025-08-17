@@ -1,0 +1,15 @@
+.emoji-picker-container {
+  position: absolute;
+  top: 240px;
+  left: 1180px;
+}
+
+.emoji-picker-container .epr-body::-webkit-scrollbar {
+  width: 4px;
+  background-color: transparent;
+}
+
+.emoji-picker-container .epr-body::-webkit-scrollbar-thumb {
+  background-color: var(--emoji-picker-scroll-color, #555);
+  border-radius: 2px;
+}

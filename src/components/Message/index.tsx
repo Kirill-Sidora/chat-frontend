@@ -1,5 +1,19 @@
-import { ClientMessagesTypes, type IAudioMessage, type IFileMessage, type ITextMessage, type TClientMessage } from "@app-types/message";
-import { Fragment, useEffect, useRef, useState, type ReactElement } from "react";
+import Avatar from "@components/Avatar";
+import {
+    Fragment,
+    useEffect,
+    useRef,
+    useState,
+    type ReactElement,
+} from "react";
+import { useChatDataContext } from "@contexts/СhatDataContext";
+import {
+    ClientMessagesTypes,
+    type IAudioMessage,
+    type IFileMessage,
+    type ITextMessage,
+    type TClientMessage,
+} from "@app-types/message";
 import "./style.css";
 
 interface IClientMessageProps {
@@ -20,14 +34,14 @@ interface IAudioMessageProps {
 
 const FileMessage = ({ message }: IFileMessageProps): ReactElement => {
     const handleDownloadFile = () => {
-        const link = document.createElement('a');
+        const link = document.createElement("a");
 
         link.href = message.fileData.src;
 
         link.download = message.fileData.name;
 
         document.body.appendChild(link);
-        
+
         link.click();
 
         document.body.removeChild(link);
@@ -36,9 +50,9 @@ const FileMessage = ({ message }: IFileMessageProps): ReactElement => {
     return (
         <div className="file-message-container" onClick={handleDownloadFile}>
             <div className="file-preview">
-                <img 
-                    src={message.fileData.src} 
-                    alt="message-image" 
+                <img
+                    src={message.fileData.src}
+                    alt="message-image"
                     className="file-image"
                 />
 
@@ -76,20 +90,20 @@ const AudioMessage = ({ message }: IAudioMessageProps): ReactElement => {
             setHasEnded(true);
         };
 
-        audio.addEventListener('play', handlePlay);
-        audio.addEventListener('pause', handlePause);
-        audio.addEventListener('ended', handleEnded);
+        audio.addEventListener("play", handlePlay);
+        audio.addEventListener("pause", handlePause);
+        audio.addEventListener("ended", handleEnded);
 
         return () => {
-            audio.removeEventListener('play', handlePlay);
-            audio.removeEventListener('pause', handlePause);
-            audio.removeEventListener('ended', handleEnded);
+            audio.removeEventListener("play", handlePlay);
+            audio.removeEventListener("pause", handlePause);
+            audio.removeEventListener("ended", handleEnded);
         };
     }, []);
 
     const togglePlayback = () => {
         if (!audioRef.current) return;
-        
+
         if (isPlaying) {
             audioRef.current.pause();
         } else {
@@ -104,32 +118,31 @@ const AudioMessage = ({ message }: IAudioMessageProps): ReactElement => {
 
     const getIconSrc = () => {
         if (hasEnded) return "/src/assets/icons/play-audio-message-icon.svg";
-        return isPlaying 
-            ? "/src/assets/icons/stop-audio-message-icon.svg" 
+        return isPlaying
+            ? "/src/assets/icons/stop-audio-message-icon.svg"
             : "/src/assets/icons/play-audio-message-icon.svg";
     };
 
     return (
-        <div className={`audio-message-container ${message.isMine ? 'mine' : 'other'}`}>
+        <div
+            className={`audio-message-container ${
+                message.isMine ? "mine" : "other"
+            }`}
+        >
             <div className="audio-content">
-                <button 
-                    className="audio-icon-button"
-                    onClick={togglePlayback}
-                >
-                    <img 
-                        src={getIconSrc()} 
-                        alt={isPlaying ? "Stop" : "Play"} 
+                <button className="audio-icon-button" onClick={togglePlayback}>
+                    <img
+                        src={getIconSrc()}
+                        alt={isPlaying ? "Stop" : "Play"}
                         className="audio-icon"
                     />
                 </button>
-                
+
                 <div className="audio-info">
                     <span className="audio-file-size">
                         {formatFileSize(message.fileData.size)}
                     </span>
-                    <span className="audio-time">
-                        {message.time}
-                    </span>
+                    <span className="audio-time">{message.time}</span>
                 </div>
             </div>
 
@@ -160,12 +173,24 @@ const messageElementByType: Record<ClientMessagesTypes, any> = {
 
 const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
     const CurrentMessageElement = messageElementByType[message.type];
+    const { avatarUrl } = useChatDataContext();
+
+    const isDefaultAvatar = avatarUrl.includes("user-icon.png");
 
     return (
-        <div className={`message ${!message.isMine ? "other" : "mine"} ${ message.type }`}>
+        <div
+            className={`message ${!message.isMine ? "other" : "mine"} ${
+                message.type
+            }`}
+        >
             {!message.isMine && <div className="sender">{message.sender}</div>}
 
             <CurrentMessageElement message={message} />
+            {message.isMine && !isDefaultAvatar && (
+                <div className="message-avatar">
+                    <Avatar />
+                </div>
+            )}
         </div>
     );
 };

@@ -1,20 +1,37 @@
+.message-container {
+    display: flex;
+    max-width: 100%;
+    margin-bottom: 16px;
+    align-items: flex-end;
+}
+.message-container.mine {
+    flex-direction: row-reverse;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.message-container.other {
+    flex-direction: row;
+    align-self: flex-start;
+}
+
 .message {
-  max-width: 40ch;
-  padding: 12px 16px;
-  position: relative;
-  white-space: pre-wrap;
-  word-break: break-word;
-  color: var(--color-text-primary, #ffffff);
+    max-width: 40ch;
+    padding: 12px 16px;
+    position: relative;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--color-text-primary, #ffffff);
 }
 
 .message.other.file,
 .message.mine.file,
 .message.other.audio,
 .message.mine.audio {
-  padding: 0;
-  background-color: transparent;
-  background: transparent;
-  box-shadow: none;
+    padding: 0;
+    background-color: transparent;
+    background: transparent;
+    box-shadow: none;
 }
 
 .file-message-container {
@@ -168,33 +185,42 @@
 }
 
 .sender {
-  margin-bottom: 4px;
-  color: var(--color-text-primary, #ffffff);
+    margin-bottom: 4px;
+    color: var(--color-text-primary, #ffffff);
 }
 
 .message-time {
-  color: var(--secondary-components-color, #8e8e93);
-  text-align: right;
-  margin-top: 4px;
+    color: var(--secondary-components-color, #8e8e93);
+    text-align: right;
+    margin-top: 4px;
+}
+.message-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    margin-bottom: 2px;
 }
 
 .message.mine {
-  background: var(--chat-message-me, #313131);
-  align-self: flex-end;
-  border-radius: var(--content-radius-primary, 18px) var(--content-radius-primary, 18px) 0 var(--content-radius-primary, 18px);
+    background: var(--chat-message-me, #313131);
+    border-radius: var(--content-radius-primary, 18px)
+        var(--content-radius-primary, 18px) 0
+        var(--content-radius-primary, 18px);
 }
 
 .message.other {
-  background: var(--chat-message-other, #262628);
-  align-self: flex-start;
-  border-radius: var(--content-radius-primary, 18px) var(--content-radius-primary, 18px) var(--content-radius-primary, 18px) 0;
-  box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
+    background: var(--chat-message-other, #262628);
+    border-radius: var(--content-radius-primary, 18px)
+        var(--content-radius-primary, 18px) var(--content-radius-primary, 18px)
+        0;
+    box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
 }
 
 .file-message {
-  width: 90%;
+    width: 90%;
 }
 
 .file-message img {
-  width: 100%;
+    width: 100%;
 }

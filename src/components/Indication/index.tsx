@@ -6,8 +6,8 @@ const Indication = (): ReactElement => {
     return (
         <div className="indicator">
             <span className="red-dot"></span>
-            
-            <Timer/>
+
+            <Timer />
         </div>
     );
 };

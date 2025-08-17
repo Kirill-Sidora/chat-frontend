@@ -8,13 +8,13 @@ import "./style.css";
 const ParticipantsPanel = (): ReactElement => {
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [isShowAll, setIsShowAll] = useState<boolean>(false);
-    
+
     const { users } = useChatDataContext();
 
     const closeButtonText: string = !isOpen ? " ←" : " →";
     const showButtonText: string = !isShowAll ? "Show more" : "Return";
     const stateOfContainer = !isOpen ? "moved" : "initial";
-    
+
     const visibleCount: number = 8;
 
     const isShowButton = users.length > visibleCount;
@@ -22,7 +22,7 @@ const ParticipantsPanel = (): ReactElement => {
     const handleToggleShowAll = () => {
         setIsShowAll(!isShowAll);
     };
-    
+
     const handleToggleVisibility = () => {
         setIsOpen(!isOpen);
     };
@@ -32,13 +32,15 @@ const ParticipantsPanel = (): ReactElement => {
             <div className="button-container">
                 <CustomButton
                     onClick={handleToggleVisibility}
-                    type={typesOfButton.closePanelButton}
+                    type={typesOfButton.closeButton}
                 >
                     {closeButtonText}
                 </CustomButton>
             </div>
             <div className="participants-block">
-                <h3 className="subtitle-text participants-header">Participants Telegram 2</h3>
+                <h3 className="subtitle-text participants-header">
+                    Participants Telegram 2
+                </h3>
 
                 <div className="divider"></div>
 
@@ -46,7 +48,7 @@ const ParticipantsPanel = (): ReactElement => {
                     visibleCount={visibleCount}
                     isShowAll={isShowAll}
                 />
-                
+
                 {isShowButton && (
                     <CustomButton
                         onClick={handleToggleShowAll}

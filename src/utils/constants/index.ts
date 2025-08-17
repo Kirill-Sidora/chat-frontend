@@ -1,5 +1,7 @@
 import { TClientMessage, ITextMessage } from "@app-types/message";
 
+export const MESSAGE_PACK_SIZE = 50;
+
 export enum IconIds {
     PAPERCLIP_ICON = "paperclip-icon",
     STICKERS_ICON = "stickers-icon",
@@ -13,14 +15,21 @@ export enum IconIds {
     STOP_AUDIO_MESSAGE_ICON = "stop-audio-message-icon"
 }
 
+export enum ImageIds {
+    DEFAULT_AVATAR = "user-icon",
+}
+
 export const typesOfButton = {
     showButton: "show-all-button",
-    closePanelButton: "close-panel",
-    closeAsideButton: "close-aside",
+    closeButton: "close-panel",
+    loadAvatarButton: "load-avatar",
+    sendDataButton: "send-data",
 };
 
 export const ICON_SRC_PREFIX = "src/assets/icons/";
 export const ICON_SRC_SUFFIX = ".svg";
+export const IMAGE_URL_PREFIX = "src/assets/images/";
+export const IMAGE_URL_SUFFIX = ".png";
 
 export enum ComposerMode {
     TEXT = "text",
@@ -90,3 +99,10 @@ export const getFormattedTime = (timestamp: number): string => {
 
     return `${hours}:${formattedMinutes} ${ampm}`;
 };
+
+export enum SoundIds {
+    NEW_MESSAGE = "new-message.mp3",
+    CONNECTED_TO_CHAT = "connected-to-chat.mp3"
+}
+
+export const SOUND_SRC_PREFIX = "src/assets/audio/";
