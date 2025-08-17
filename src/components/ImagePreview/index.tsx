@@ -1,12 +1,12 @@
-import { type ReactElement } from 'react'
-import './style.css'
+import { type ReactElement } from "react";
+import "./style.css";
 
 interface IImagePreviewProps {
     file: File;
 }
 
-const ImagePreview = ({file}: IImagePreviewProps): ReactElement => {
-    return(
+const ImagePreview = ({ file }: IImagePreviewProps): ReactElement => {
+    return (
         <div>
             <div className="title-text">Send image</div>
             <div className="preview-modal-image">

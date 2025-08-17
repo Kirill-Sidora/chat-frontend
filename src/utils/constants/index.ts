@@ -1,5 +1,7 @@
 import { TClientMessage, ITextMessage } from "@app-types/message";
 
+export const MESSAGE_PACK_SIZE = 50;
+
 export enum IconIds {
     PAPERCLIP_ICON = "paperclip-icon",
     STICKERS_ICON = "stickers-icon",

@@ -5,6 +5,7 @@ export const enum MessagesForServerTypes {
     INITIAL = "init",
     TEXT_MESSAGE = "text",
     FILE_MESSAGE = "file",
+    HISTORY = "history",
 }
 
 export const enum MessagesFromServerTypes {
@@ -15,6 +16,7 @@ export const enum MessagesFromServerTypes {
     USERS = "userData",
     USER_STATUS = "userStatus",
     USER_STATUS_CHANGED = "userStatusChanged",
+    HISTORY_CHUNK = "historyChunk",
 }
 
 export interface IBaseMessage {
@@ -52,4 +54,9 @@ export type TServerMessages =
           type: MessagesFromServerTypes.USER_STATUS_CHANGED;
           id: string;
           isOnline: boolean;
+      }
+    | {
+          type: MessagesFromServerTypes.HISTORY_CHUNK;
+          messages: TWebSocketMessage[];
+          lastLoadedMessageId?: string;
       };
