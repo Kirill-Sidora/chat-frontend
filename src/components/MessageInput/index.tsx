@@ -1,9 +1,9 @@
-import { type ChangeEvent, type ReactElement, type KeyboardEvent } from "react";
+import { type ChangeEvent, type ReactElement, type KeyboardEvent, Dispatch, SetStateAction } from "react";
 import "./style.css";
 
 export interface IMessageInputProps {
     message: string;
-    setMessage: (message: string) => void;
+    setMessage: Dispatch<SetStateAction<string>>;
     onKeyDown: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
