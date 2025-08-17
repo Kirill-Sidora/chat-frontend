@@ -19,9 +19,39 @@ interface IAudioMessageProps {
 }
 
 const FileMessage = ({ message }: IFileMessageProps): ReactElement => {
+    const handleDownloadFile = () => {
+        const link = document.createElement('a');
+
+        link.href = message.fileData.src;
+
+        link.download = message.fileData.name;
+
+        document.body.appendChild(link);
+        
+        link.click();
+
+        document.body.removeChild(link);
+    };
+
     return (
-        <div className="file-message">
-            <img src={message.fileData.src} alt="message-image" />
+        <div className="file-message-container" onClick={handleDownloadFile}>
+            <div className="file-preview">
+                <img 
+                    src={message.fileData.src} 
+                    alt="message-image" 
+                    className="file-image"
+                />
+
+                <div className="file-info">
+                    <div className="file-name">{message.fileData.name}</div>
+                    <div className="file-size-time">
+                        <span className="file-size">
+                            {Math.round(message.fileData.size / 1024)} KB
+                        </span>
+                        <span className="file-time">{message.time}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
@@ -53,11 +83,7 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
     const CurrentMessageElement = messageElementByType[message.type];
 
     return (
-        <div
-            className={`message ${!message.isMine ? "other" : "mine"} ${
-                message.type
-            }`}
-        >
+        <div className={`message ${!message.isMine ? "other" : "mine"} ${ message.type }`}>
             {!message.isMine && <div className="sender">{message.sender}</div>}
 
             <CurrentMessageElement message={message} />
