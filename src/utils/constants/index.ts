@@ -11,6 +11,8 @@ export enum IconIds {
     SENDING_AUDIO_BUTTON_ICON = "sending-audio-icon",
     DELETE_BUTTON_ICON = "delete-button-icon",
     STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon",
+    PLAY_AUDIO_MESSAGE_ICON = "play-audio-message-icon",
+    STOP_AUDIO_MESSAGE_ICON = "stop-audio-message-icon"
 }
 
 export enum ImageIds {
