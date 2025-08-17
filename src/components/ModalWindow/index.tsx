@@ -1,16 +1,12 @@
 import { type ReactElement } from "react";
-import "./style.css"
+import "./style.css";
 
 interface IModalWindowProps {
-    children?: React.ReactNode
+    children?: React.ReactNode;
 }
 
-const ModalWindow = ( { children }: IModalWindowProps): ReactElement => {
-    return(
-        <div className="modal-overlay">
-            {children}
-        </div>
-    );
+const ModalWindow = ({ children }: IModalWindowProps): ReactElement => {
+    return <div className="modal-overlay">{children}</div>;
 };
 
 export default ModalWindow;

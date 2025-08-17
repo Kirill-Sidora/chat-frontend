@@ -1,5 +1,7 @@
 import { TClientMessage, ITextMessage } from "@app-types/message";
 
+export const MESSAGE_PACK_SIZE = 50;
+
 export enum IconIds {
     PAPERCLIP_ICON = "paperclip-icon",
     STICKERS_ICON = "stickers-icon",
@@ -95,3 +97,10 @@ export const getFormattedTime = (timestamp: number): string => {
 
     return `${hours}:${formattedMinutes} ${ampm}`;
 };
+
+export enum SoundIds {
+    NEW_MESSAGE = "new-message.mp3",
+    CONNECTED_TO_CHAT = "connected-to-chat.mp3"
+}
+
+export const SOUND_SRC_PREFIX = "src/assets/audio/";

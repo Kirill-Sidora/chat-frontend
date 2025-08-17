@@ -4,28 +4,30 @@ import { type ReactElement, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 
-
-
 const HomePage = (): ReactElement => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const nickNameChecker = () => {
-    const nickName = localStorage.getItem("nickName");
+    const nickNameChecker = () => {
+        const nickName = localStorage.getItem("nickName");
 
-    if (!nickName) { navigate("/registration"); }
+        if (!nickName) {
+            navigate("/registration");
+        }
 
-    return;
-  }
+        return;
+    };
 
-  useEffect(() => {nickNameChecker()}, []);
+    useEffect(() => {
+        nickNameChecker();
+    }, []);
 
-  return (
-    <div className="home-page">
-      <IntroSlides/>
-      
-      <WelcomeBlock/>
-    </div>
-  );
+    return (
+        <div className="home-page">
+            <IntroSlides />
+
+            <WelcomeBlock />
+        </div>
+    );
 };
 
 export default HomePage;

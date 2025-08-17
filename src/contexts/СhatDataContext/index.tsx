@@ -1,9 +1,9 @@
 import MessageParser from "@services/MessageParser";
 import { useState, useContext, createContext, useCallback } from "react";
-import { IMAGE_URL_PREFIX, IMAGE_URL_SUFFIX, ImageIds } from "@utils/constants";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
-import { type TClientMessage } from "@app-types/message";
 import React, { Dispatch, SetStateAction } from "react";
+import { type TClientMessage } from "@app-types/message";
+import { MESSAGE_PACK_SIZE, IMAGE_URL_PREFIX, IMAGE_URL_SUFFIX, ImageIds } from "@utils/constants";
 import {
     MessagesFromServerTypes,
     type TWebSocketMessage,
@@ -16,6 +16,7 @@ interface IChatDataContext {
     messageHandlersConfig: IMessageHandlerData[];
     avatarUrl: string;
     setAvatarUrl: (url: string) => void;
+    hasMoreHistory: boolean;
 }
 
 interface IMessageHandlerData {
@@ -34,6 +35,7 @@ export const ChatDataProvider: React.FC<{
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
     const [avatarUrl, setAvatarUrl] = useState<string>(fullDefaultSrc);
+    const [hasMoreHistory, setHasMoreHistory] = useState<boolean>(true);
 
     const username = localStorage.getItem("nickName");
 
@@ -68,25 +70,31 @@ export const ChatDataProvider: React.FC<{
         []
     );
 
-    const loadMessagesHistory = useCallback(
-        (historyData: TWebSocketMessage[]): void => {
-            if (!username) {
-                return;
+    const handleHistoryChunk = useCallback(
+        (data: { messages: TWebSocketMessage[] }) => {
+            if (!username) return;
+
+            const historyData = data.messages;
+
+            if (historyData.length < MESSAGE_PACK_SIZE) {
+                setHasMoreHistory(false);
             }
 
-            const parsedHistory = historyData.map((historyMessage) =>
-                MessageParser.parseServerMessage(historyMessage, username)
+            const parsedHistory = historyData.map((msg) =>
+                MessageParser.parseServerMessage(msg, username)
             );
 
-            setMessages(parsedHistory.reverse());
+            setMessages((prevMessages) => {
+                return [...parsedHistory, ...prevMessages];
+            });
         },
         [username]
     );
 
     const messageHandlersConfig: IMessageHandlerData[] = [
         {
-            type: MessagesFromServerTypes.HISTORY,
-            action: loadMessagesHistory,
+            type: MessagesFromServerTypes.HISTORY_CHUNK,
+            action: handleHistoryChunk,
         },
         {
             type: MessagesFromServerTypes.MESSAGE,
@@ -119,6 +127,7 @@ export const ChatDataProvider: React.FC<{
                 messageHandlersConfig,
                 avatarUrl,
                 setAvatarUrl,
+                hasMoreHistory,
             }}
         >
             {children}
