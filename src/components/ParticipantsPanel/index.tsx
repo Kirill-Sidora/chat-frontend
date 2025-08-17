@@ -32,7 +32,7 @@ const ParticipantsPanel = (): ReactElement => {
             <div className="button-container">
                 <CustomButton
                     onClick={handleToggleVisibility}
-                    type={typesOfButton.closePanelButton}
+                    type={typesOfButton.closeButton}
                 >
                     {closeButtonText}
                 </CustomButton>

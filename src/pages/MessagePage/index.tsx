@@ -4,7 +4,7 @@ import MessagePageHeader from "@components/MessagePageHeader";
 import ParticipantsPanel from "@components/ParticipantsPanel";
 import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
 import { useChatDataContext } from "@contexts/СhatDataContext";
-import { useEffect, useRef, type ReactElement } from "react";
+import { useRef, useEffect, type ReactElement } from "react";
 import { type TClientMessage } from "@app-types/message";
 import "./style.css";
 

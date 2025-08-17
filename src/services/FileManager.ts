@@ -8,7 +8,6 @@ class FileManager {
     ): Promise<IEncodedFileData> {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-
             reader.onloadend = () => {
                 const result = reader.result;
 
@@ -16,7 +15,7 @@ class FileManager {
                     reject(new Error("Failed to read blob as base64"));
                     return;
                 }
-                
+
                 resolve({
                     data: result.split(",")[1],
                     name: name ?? getRandomId(),
@@ -31,7 +30,7 @@ class FileManager {
         });
     }
 
-    public static base64ToObjectUrl(base64: string, mimeType: string): string {
+    public static base64ToObjectUrl(base64: string, mimeType?: string): string {
         const byteCharacters = atob(base64);
         const byteNumbers = new Array(byteCharacters.length);
 
@@ -44,7 +43,7 @@ class FileManager {
         const blob = new Blob([byteArray], {
             type: mimeType,
         });
-        
+
         return URL.createObjectURL(blob);
     }
 
@@ -54,8 +53,8 @@ class FileManager {
         multiple: boolean;
     }): Promise<File | null> {
         return new Promise((resolve) => {
-            const fileInput = document.createElement('input');
-            
+            const fileInput = document.createElement("input");
+
             fileInput.type = options.type;
             fileInput.accept = options.accept;
             fileInput.multiple = options.multiple;

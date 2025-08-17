@@ -13,14 +13,21 @@ export enum IconIds {
     STOP_AUDIO_BUTTON_ICON = "stop-audio-button-icon",
 }
 
+export enum ImageIds {
+    DEFAULT_AVATAR = "user-icon",
+}
+
 export const typesOfButton = {
     showButton: "show-all-button",
-    closePanelButton: "close-panel",
-    closeAsideButton: "close-aside",
+    closeButton: "close-panel",
+    loadAvatarButton: "load-avatar",
+    sendDataButton: "send-data",
 };
 
 export const ICON_SRC_PREFIX = "src/assets/icons/";
 export const ICON_SRC_SUFFIX = ".svg";
+export const IMAGE_URL_PREFIX = "src/assets/images/";
+export const IMAGE_URL_SUFFIX = ".png";
 
 export enum ComposerMode {
     TEXT = "text",

@@ -3,7 +3,7 @@ import { useState, useContext, createContext, useCallback } from "react";
 import { type IUser, type IUserStatusChanged } from "@app-types/user";
 import React, { Dispatch, SetStateAction } from "react";
 import { type TClientMessage } from "@app-types/message";
-import { MESSAGE_PACK_SIZE } from "@utils/constants";
+import { MESSAGE_PACK_SIZE, IMAGE_URL_PREFIX, IMAGE_URL_SUFFIX, ImageIds } from "@utils/constants";
 import {
     MessagesFromServerTypes,
     type TWebSocketMessage,
@@ -14,6 +14,8 @@ interface IChatDataContext {
     setMessages: Dispatch<SetStateAction<TClientMessage[]>>;
     users: IUser[];
     messageHandlersConfig: IMessageHandlerData[];
+    avatarUrl: string;
+    setAvatarUrl: (url: string) => void;
     hasMoreHistory: boolean;
 }
 
@@ -22,6 +24,9 @@ interface IMessageHandlerData {
     action: (payload: any) => void;
 }
 
+const fullDefaultSrc: string =
+    IMAGE_URL_PREFIX + ImageIds.DEFAULT_AVATAR + IMAGE_URL_SUFFIX;
+
 export const ChatDataContext = createContext<IChatDataContext | null>(null);
 
 export const ChatDataProvider: React.FC<{
@@ -29,6 +34,7 @@ export const ChatDataProvider: React.FC<{
 }> = ({ children }) => {
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
+    const [avatarUrl, setAvatarUrl] = useState<string>(fullDefaultSrc);
     const [hasMoreHistory, setHasMoreHistory] = useState<boolean>(true);
 
     const username = localStorage.getItem("nickName");
@@ -119,6 +125,8 @@ export const ChatDataProvider: React.FC<{
                 setMessages,
                 users,
                 messageHandlersConfig,
+                avatarUrl,
+                setAvatarUrl,
                 hasMoreHistory,
             }}
         >
