@@ -1,5 +1,5 @@
 import { ClientMessagesTypes, type IAudioMessage, type IFileMessage, type ITextMessage, type TClientMessage } from "@app-types/message";
-import { Fragment, type ReactElement } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactElement } from "react";
 import "./style.css";
 
 interface IClientMessageProps {
@@ -57,9 +57,88 @@ const FileMessage = ({ message }: IFileMessageProps): ReactElement => {
 };
 
 const AudioMessage = ({ message }: IAudioMessageProps): ReactElement => {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [hasEnded, setHasEnded] = useState(false);
+    const audioRef = useRef<HTMLAudioElement>(null);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        const handlePlay = () => {
+            setIsPlaying(true);
+            setHasEnded(false);
+        };
+
+        const handlePause = () => setIsPlaying(false);
+        const handleEnded = () => {
+            setIsPlaying(false);
+            setHasEnded(true);
+        };
+
+        audio.addEventListener('play', handlePlay);
+        audio.addEventListener('pause', handlePause);
+        audio.addEventListener('ended', handleEnded);
+
+        return () => {
+            audio.removeEventListener('play', handlePlay);
+            audio.removeEventListener('pause', handlePause);
+            audio.removeEventListener('ended', handleEnded);
+        };
+    }, []);
+
+    const togglePlayback = () => {
+        if (!audioRef.current) return;
+        
+        if (isPlaying) {
+            audioRef.current.pause();
+        } else {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+        }
+    };
+
+    const formatFileSize = (bytes: number) => {
+        return `${Math.round(bytes / 1024)} KB`;
+    };
+
+    const getIconSrc = () => {
+        if (hasEnded) return "/src/assets/icons/play-audio-message-icon.svg";
+        return isPlaying 
+            ? "/src/assets/icons/stop-audio-message-icon.svg" 
+            : "/src/assets/icons/play-audio-message-icon.svg";
+    };
+
     return (
-        <div className="file-message">
-            <audio controls src={message.fileData.src} />
+        <div className={`audio-message-container ${message.isMine ? 'mine' : 'other'}`}>
+            <div className="audio-content">
+                <button 
+                    className="audio-icon-button"
+                    onClick={togglePlayback}
+                >
+                    <img 
+                        src={getIconSrc()} 
+                        alt={isPlaying ? "Stop" : "Play"} 
+                        className="audio-icon"
+                    />
+                </button>
+                
+                <div className="audio-info">
+                    <span className="audio-file-size">
+                        {formatFileSize(message.fileData.size)}
+                    </span>
+                    <span className="audio-time">
+                        {message.time}
+                    </span>
+                </div>
+            </div>
+
+            <audio
+                ref={audioRef}
+                src={message.fileData.src}
+                preload="none"
+                onEnded={() => setHasEnded(true)}
+            />
         </div>
     );
 };
