@@ -1,12 +1,9 @@
+import AudioPlayer from "@services/AudioPlayer";
+import { MessagesForServerTypes, MessagesFromServerTypes, type IMessageHandlerData, type TServerMessages } from "@app-types/serverMessages";
 import { type IEncodedFileData } from "@app-types/file";
 import { getRandomId } from "@utils/constants";
 import { useEffect, useState } from "react";
-import {
-    MessagesForServerTypes,
-    MessagesFromServerTypes,
-    type IMessageHandlerData,
-    type TServerMessages,
-} from "@app-types/serverMessages";
+import { SoundIds } from "@utils/constants"
 
 const BACKEND_WEB_SOCKET_URL: string = import.meta.env
     .VITE_BACKEND_WEB_SOCKET_URL;
@@ -55,6 +52,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
         socket.onopen = () => {
             console.log("Connected to ws");
 
+            AudioPlayer.playSound(SoundIds.CONNECTED_TO_CHAT);
+
             const initialMessageForServer = {
                 type: MessagesForServerTypes.INITIAL,
                 username,
@@ -66,8 +65,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
 
         socket.onmessage = (event) => {
             const data: TServerMessages = JSON.parse(event.data);
-
-            console.log("MESSAGE FROM SERVER: ", data);
+            
+            AudioPlayer.triggerNotificationSound(data, username);
 
             const handlerData = handlersConfig.find(
                 (handlerData: IMessageHandlerData) =>
@@ -75,7 +74,7 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             );
 
             const getMessageBody = messagePayloadExtractors[data.type];
-
+            
             if (!handlerData || !getMessageBody) {
                 return;
             }
@@ -83,6 +82,8 @@ export const useWebSocket = (handlersConfig: IMessageHandlerData[]) => {
             const payload = getMessageBody(data);
 
             handlerData.action(payload);
+
+     
         };
 
         setWebSocket(socket);
