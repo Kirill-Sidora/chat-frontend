@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 const useAudioInputBox = () => {
-    const [messageRecorder, setMessageRecorder] = useState<MediaRecorder | null>(null);
+    const [messageRecorder, setMessageRecorder] =
+        useState<MediaRecorder | null>(null);
     const [isRecording, setIsRecording] = useState<boolean>(false);
     const [blob, setBlob] = useState<Blob | null>(null);
     const [duration, setDuration] = useState<GLfloat>(0);
@@ -9,13 +10,17 @@ const useAudioInputBox = () => {
     const [durationID, setDurationID] = useState<number | null>(null);
 
     const cleanupRecording = () => {
-        if (!messageRecorder) { return; }
+        if (!messageRecorder) {
+            return;
+        }
 
-        messageRecorder.stream.getTracks().forEach(track => track.stop());
+        messageRecorder.stream.getTracks().forEach((track) => track.stop());
 
         messageRecorder.stop();
 
-        if (!durationID) { return; }
+        if (!durationID) {
+            return;
+        }
 
         clearInterval(durationID);
 
@@ -27,7 +32,7 @@ const useAudioInputBox = () => {
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: true,
             });
-            
+
             const recorder = new MediaRecorder(stream);
 
             const chunks: Blob[] = [];
@@ -73,13 +78,15 @@ const useAudioInputBox = () => {
     };
 
     const discardRecording = () => {
-        if (audioSrc) { URL.revokeObjectURL(audioSrc); }
+        if (audioSrc) {
+            URL.revokeObjectURL(audioSrc);
+        }
 
         setBlob(null);
         setDuration(0);
         setAudioSrc(null);
         setIsRecording(false);
-        
+
         console.log("you discarded your record");
     };
 
