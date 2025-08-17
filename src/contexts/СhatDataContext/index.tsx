@@ -23,6 +23,9 @@ interface IMessageHandlerData {
     action: (payload: any) => void;
 }
 
+const fullDefaultSrc: string =
+    IMAGE_URL_PREFIX + ImageIds.DEFAULT_AVATAR + IMAGE_URL_SUFFIX;
+
 export const ChatDataContext = createContext<IChatDataContext | null>(null);
 
 export const ChatDataProvider: React.FC<{
@@ -30,10 +33,6 @@ export const ChatDataProvider: React.FC<{
 }> = ({ children }) => {
     const [messages, setMessages] = useState<TClientMessage[]>([]);
     const [users, setUsers] = useState<IUser[]>([]);
-
-    const fullDefaultSrc: string =
-        IMAGE_URL_PREFIX + ImageIds.DEFAULT_AVATAR + IMAGE_URL_SUFFIX;
-
     const [avatarUrl, setAvatarUrl] = useState<string>(fullDefaultSrc);
 
     const username = localStorage.getItem("nickName");
