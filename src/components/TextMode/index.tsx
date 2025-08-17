@@ -5,6 +5,11 @@ import ModalWindow from "@components/ModalWindow";
 import MessageInput from "@components/MessageInput";
 import FileUploader from "@components/FileUploader";
 import ImageModalWindowContent from "@components/ImageModalWindowContent";
+import type { IEncodedFileData } from "@app-types/file";
+import { EmojiClickData } from "emoji-picker-react";
+import { Categories } from "emoji-picker-react";
+import { Theme } from "emoji-picker-react";
+import { IconIds } from "@utils/constants";
 import {
     type ReactElement,
     type KeyboardEvent,
@@ -13,11 +18,6 @@ import {
     Dispatch,
     SetStateAction,
 } from "react";
-import type { IEncodedFileData } from "@app-types/file";
-import { EmojiClickData } from "emoji-picker-react";
-import { Categories } from "emoji-picker-react";
-import { IconIds } from "@utils/constants";
-import { Theme } from "emoji-picker-react";
 import './style.css'
 
 interface ITextModeProps {

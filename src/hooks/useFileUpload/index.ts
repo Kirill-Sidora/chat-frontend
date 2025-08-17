@@ -21,14 +21,18 @@ const fileManager = new FileManager();
 export const useFileUpload = ({
     type,
     accept,
-    multiple
+    multiple,
 }: IUseFileUploadProps): IUseFileUploadReturn => {
     const [file, setFile] = useState<File | null>(null);
     const [fileSrc, setFileSrc] = useState<string | null>(null);
     const [isFileUpload, setIsFileUpload] = useState<boolean>(false);
 
     const handleUploadClick = async () => {
-        const uploadedFile = await fileManager.uploadFile({ type, accept, multiple });
+        const uploadedFile = await fileManager.uploadFile({
+            type,
+            accept,
+            multiple,
+        });
 
         if (!uploadedFile) return;
 
@@ -43,18 +47,18 @@ export const useFileUpload = ({
         if (fileSrc) {
             URL.revokeObjectURL(fileSrc);
         }
-        
+
         setFile(null);
         setFileSrc(null);
         setIsFileUpload(false);
     };
-    
+
     return {
         file,
         fileSrc,
         clear,
         isFileUpload,
         setIsFileUpload,
-        handleUploadClick
+        handleUploadClick,
     };
 };

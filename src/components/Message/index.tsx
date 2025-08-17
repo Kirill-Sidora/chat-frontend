@@ -1,5 +1,13 @@
-import { ClientMessagesTypes, type IAudioMessage, type IFileMessage, type ITextMessage, type TClientMessage } from "@app-types/message";
+import Avatar from "@components/Avatar";
+import { useChatDataContext } from "@contexts/СhatDataContext";
 import { Fragment, type ReactElement } from "react";
+import {
+    ClientMessagesTypes,
+    type IAudioMessage,
+    type IFileMessage,
+    type ITextMessage,
+    type TClientMessage,
+} from "@app-types/message";
 import "./style.css";
 
 interface IClientMessageProps {
@@ -51,16 +59,30 @@ const messageElementByType: Record<ClientMessagesTypes, any> = {
 
 const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
     const CurrentMessageElement = messageElementByType[message.type];
+    const { avatarUrl } = useChatDataContext();
+
+    const isDefaultAvatar = avatarUrl.includes("user-icon.png");
 
     return (
         <div
-            className={`message ${!message.isMine ? "other" : "mine"} ${
-                message.type
-            }`}
+            className={`message-container ${message.isMine ? "mine" : "other"}`}
         >
-            {!message.isMine && <div className="sender">{message.sender}</div>}
+            <div
+                className={`message ${!message.isMine ? "other" : "mine"} ${
+                    message.type
+                }`}
+            >
+                {!message.isMine && (
+                    <div className="sender">{message.sender}</div>
+                )}
 
-            <CurrentMessageElement message={message} />
+                <CurrentMessageElement message={message} />
+            </div>
+            {message.isMine && !isDefaultAvatar && (
+                <div className="message-avatar">
+                    <Avatar />
+                </div>
+            )}
         </div>
     );
 };
