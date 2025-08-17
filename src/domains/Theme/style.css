@@ -1,0 +1,201 @@
+:root {
+    --color-text-primary: #ffffff;
+    --primary-font-color: #111213;
+    --text-inactive: #d2d2d2;
+    --secondary-components-color: #8e8e93;
+    --additional-text-font-color: #678259;
+    --color-recording: rgb(255, 0, 0);
+
+    --primary-background-color: #f4f4f4;
+    --secondary-background-color: #3b3a3a;
+    --dark-background: #202020;
+    --inactive-background-color: #060606;
+    --home-page-background: linear-gradient(#242424, #3b3a3a);
+    --chat-header-background: #1c1c1d;
+    --chat-message-me: #313131;
+    --chat-message-other: #262628;
+    --searched-message-background-color: #272727;
+    --image-background-color: #d9d9d9;
+    --button-hover-background-color: rgb(49, 49, 49);
+
+    --active-status-indicator: rgb(39, 138, 39);
+    --passive-status-indicator: grey;
+
+    --primary-fill-color: #ffffff;
+    --elements-fill-color: #efefef;
+    --secondary-fill-color: #727173;
+    --input-border-color: #3a3a3c;
+    --search-border-color: #444;
+    --send-button-color: #d500c3;
+    --placeholder-color: #636366;
+    --message-text-color: #888888;
+    --emoji-picker-scroll-color: #555;
+
+    --accent-passive-color: #000e8a;
+    --accent-active-color: #2c3e50;
+    --accent-active-background-color: #3ba55d;
+    --accent-passive-background-color: #747f8d;
+
+    --navbar-height: 75px;
+    --message-card-padding: 8px;
+    --product-padding: 10px;
+    --text-padding: 12px;
+    --content-padding: 16px;
+    --content-radius-primary: 18px;
+    --content-radius-secondary: 8px;
+    --content-width-desktop: 1100px;
+    --control-elements-height: 45px;
+
+    --font-size-body: 17px;
+    --font-size-title: 20px;
+    --font-size-heading-1: 4rem;
+    --font-size-heading-2: 48px;
+    --font-size-caption: 11px;
+    --font-size-input-placeholder: 18px;
+    --font-size-subtitle: 1.2rem;
+
+    --chat-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    --default-shadow-color: rgba(23, 28, 23, 0.58);
+    --default-shadow: 0 0 4px 0 var(--default-shadow-color);
+    --home-intro-slide-shadow: 0 2.02px 6.17px rgb(0, 0, 0, 0.04),
+        0 4.85px 14.83px rgb(0, 0, 0, 0.06),
+        0 9.14px 27.92px rgba(13, 11, 11, 0.07),
+        0 16.31px 49.81px rgb(0, 0, 0, 0.08), 0 30.5px 93.16px rgb(0, 0, 0, 0.1),
+        0 73px 223px rgb(0, 0, 0, 0.14);
+    --accent-active-shadow-color: rgba(59, 165, 93, 0.2);
+    --accent-passive-shadow-color: rgba(116, 127, 141, 0.2);
+    --scrollbar-thumb-border-color: #c0baba;
+
+    --transition-time: 0.3s;
+    --disabled-filter: grayscale(0.3);
+    --elements-hover-rotation: rotate(4deg);
+
+    --color-subtitle: rgba(255, 255, 255, 0.7);
+    --input-border-light: rgba(255, 255, 255, 0.4);
+    --input-text-color: #ffffff;
+    --input-placeholder-color: rgba(255, 255, 255, 0.4);
+    --button-hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    --button-active-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@font-face {
+    font-family: "SF Pro Text";
+    font-weight: 400;
+    src: url("/src/assets/fonts/SFProText/SFProText-Regular.ttf");
+}
+
+@font-face {
+    font-family: "SF Pro Text";
+    font-weight: 500;
+    src: url("/src/assets/fonts/SFProText/SFProText-Medium.ttf");
+}
+
+@font-face {
+    font-family: "SF Pro Text";
+    font-weight: 600;
+    src: url("/src/assets/fonts/SFProText/SFProText-Semibold.ttf");
+}
+
+@font-face {
+    font-family: "SF Pro Text";
+    font-weight: 700;
+    src: url("/src/assets/fonts/SFProText/SFProText-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-weight: 700;
+    src: url("/src/assets/fonts/Inter/Inter-Bold.otf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "SF Pro Text", sans-serif;
+    background: var(--home-page-background, linear-gradient(#242424, #3b3a3a));
+}
+
+a:hover {
+    color: var(--accent-passive-color, #000e8a);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: var(--primary-font-color, #111213);
+}
+
+.headline-1-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: var(--font-size-heading-1, 4rem);
+    line-height: 100%;
+    letter-spacing: -0.33px;
+}
+
+.headline-2-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: var(--font-size-heading-2, 48px);
+    line-height: 100%;
+    letter-spacing: -0.33px;
+}
+
+.title-text {
+    font-family: "SF Pro Text";
+    font-weight: 600;
+    font-size: var(--font-size-title, 20px);
+    line-height: 22px;
+    letter-spacing: -0.4px;
+}
+
+.subtitle-text {
+    font-family: "SF Pro Text";
+    font-weight: 500;
+    font-size: var(--font-size-subtitle, 1.2rem);
+    line-height: 22px;
+    letter-spacing: -0.4px;
+}   
+    
+.primary-text {
+    font-family: "SF Pro Text";
+    font-weight: 500;
+    font-size: var(--font-size-body, 17px);
+    line-height: 22px;
+    letter-spacing: -0.4px;
+}
+
+.secondary-text {
+    font-family: "SF Pro Text";
+    font-weight: 400;
+    font-size: var(--font-size-body, 17px);
+    line-height: 22px;
+    letter-spacing: -0.4px;
+}
+
+.button-text {
+    font-family: "SF Pro Text";
+    font-weight: 600;
+    font-size: var(--font-size-body, 17px);
+    line-height: 22px;
+    letter-spacing: -0.4px;
+}
+
+.meta-text {
+    font-family: "SF Pro Text";
+    font-weight: 400;
+    font-size: var(--font-size-caption, 11px);
+    line-height: 100%;
+    letter-spacing: 0px;
+}

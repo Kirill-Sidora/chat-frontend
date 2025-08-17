@@ -1,0 +1,46 @@
+.audio-recorder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.recording {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+    color: var(--color-text-primary);
+}
+
+.recorded-last-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.controllers {
+    display: flex;
+    gap: 8px;
+    margin-right: auto;
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+.recording-start {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+audio {
+    height: 40px;
+}
+
+p {
+    color: var(--color-text-primary);
+}

@@ -1,94 +1,81 @@
-import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Message from "../../components/Message/index.tsx";
-import MessageInput from "../../components/MessageInput/index.tsx";
-import type { IMessage } from "../../types/message.tsx";
+import Message from "@components/Message";
+import MessageComposer from "@components/MessageComposer";
+import MessagePageHeader from "@components/MessagePageHeader";
+import ParticipantsPanel from "@components/ParticipantsPanel";
+import { useWebSocket } from "@hooks/useWebSocket/useWebSocket";
+import { useChatDataContext } from "@contexts/СhatDataContext";
+import { useRef, useEffect, type ReactElement } from "react";
+import { type TClientMessage } from "@app-types/message";
 import "./style.css";
 
-function getRandomId() {
-  return Date.now().toString(36) + Math.random().toString(36).substring(2).toString();
-}
+const MessagePage = (): ReactElement => {
+    const { messages, messageHandlersConfig, hasMoreHistory } =
+        useChatDataContext();
+    const { sendMessage, historyRequest } = useWebSocket(messageHandlersConfig);
 
-export default function MessagePage() {
-  const [messages, setMessages] = useState<IMessage[]>([]);
-  const [ws, setWs] = useState<WebSocket | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const prevScrollHeightRef = useRef<number | null>(null);
+    const shouldScrollToBottomRef = useRef(true);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
 
-  const username = localStorage.getItem("nickName");
+        if (prevScrollHeightRef.current !== null) {
+            container.scrollTop =
+                container.scrollHeight - prevScrollHeightRef.current;
+            prevScrollHeightRef.current = null;
+        }
 
-  useEffect(() => {
-    const socket = new WebSocket("ws://localhost:3001");
+        if (shouldScrollToBottomRef.current) {
+            container.scrollTop = container.scrollHeight;
+        }
+    }, [messages]);
 
-    socket.onopen = () => { 
-      socket.send(JSON.stringify({ type: "init", username, id: getRandomId()}));
+    const handleScroll = () => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const scrollThreshold = 50;
+        const isAtBottom =
+            container.scrollHeight - container.scrollTop <=
+            container.clientHeight + scrollThreshold;
+
+        shouldScrollToBottomRef.current = isAtBottom;
+
+        if (container.scrollTop === 0 && hasMoreHistory) {
+            const oldestMessage = messages[0];
+            if (oldestMessage) {
+                console.log("LOADING OLDEST MESSAGES");
+
+                prevScrollHeightRef.current = container.scrollHeight;
+                historyRequest(oldestMessage.id);
+            }
+        }
     };
 
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "msg" ) {
-        const newMessage: IMessage = {
-          id: Date.now().toString(),
-          text: data.text,
-          time: new Date().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit"
-          }),
-          isMine: data.username === localStorage.getItem("nickName"),
-          sender: data.username,
-        };
-        if(localStorage.getItem("nickName") !== data.username){
-          setMessages((prev) => [...prev, newMessage]);
-        } 
-      }
-    };
+    useEffect(() => {
+        historyRequest();
+    }, []);
 
-    setWs(socket);
+    return (
+        <div className="chat-page">
+            <MessagePageHeader />
+            <ParticipantsPanel />
 
-    return;
-  }, []);
+            <div
+                className="messages-container secondary-text"
+                ref={containerRef}
+                onScroll={handleScroll}
+            >
+                {messages.map((msg: TClientMessage) => (
+                    <Message key={msg.id} message={msg} />
+                ))}
+            </div>
 
-  const handleSendMessage = (text: string) => {
-    const newMessage: IMessage = {
-      id: Date.now().toString(),
-      text,
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      isMine: true,
-    };
+            <MessageComposer onSendMessage={sendMessage} />
+        </div>
+    );
+};
 
-    setMessages([...messages, newMessage]);
-
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: "msg", text, sender: username }));
-    }
-  };
-
-  // Автопрокрутка при новых сообщениях
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  return (
-    <div className="chat-page">
-      <header className="chat-header">
-        <Link to="/" className="chat-back-button">
-          ← Назад
-        </Link>
-        <div className="chat-title">Мой чат</div>
-      </header>
-
-      <div className="messages-container">
-        {messages.map((msg) => (
-          <Message key={msg.id} message={msg} />
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
-
-      <MessageInput onSend={handleSendMessage} />
-    </div>
-  );
-}
-
+export default MessagePage;

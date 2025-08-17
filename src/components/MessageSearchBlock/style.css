@@ -1,0 +1,43 @@
+.message-search-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar {
+    background-color: var(--chat-header-background);
+    color: var(--color-text-primary);
+    height: var(--navbar-height, 75px);
+    box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
+    z-index: 100;
+}
+
+.search-placeholder {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--elements-fill-color);
+}
+
+.message-search-form {
+    display: flex;
+    padding: var(--content-padding);
+    background-color: var(--chat-header-background);
+}
+
+.message-search-form input {
+    flex: 1;
+    padding: 9px 15px;
+    background-color: var(--inactive-background-color);
+    border: 1px solid var(--search-border-color);
+    border-radius: var(--content-radius-primary);
+    color: var(--input-text-color);
+    transition: border-color 0.3s;
+}
+
+.message-search-form input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-active-color);
+}
+
+.message-search-form input::placeholder {
+    color: var(--message-text-color);
+}

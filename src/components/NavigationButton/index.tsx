@@ -1,12 +1,19 @@
+import { type ReactElement } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-export default function NavigationButton() {
-  return (
-    <div className="center-container">
-      <Link to="/chat" className="center-link">
-        Перейти в чат
-      </Link>
-    </div>
-  );
-}
+const WelcomeBlock = (): ReactElement => {
+    return (
+        <div>
+            <div className="welcome-block">
+                <Link to="/chat" className="center-link">
+                    <img height={150} src="src/assets/icons/logo.svg"></img>
+                </Link>
+            </div>
+
+            <span className="text-style">Telegram 2</span>
+        </div>
+    );
+};
+
+export default WelcomeBlock;

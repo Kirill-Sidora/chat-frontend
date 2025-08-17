@@ -1,26 +1,33 @@
+import IntroSlides from "@components/IntroSlides";
+import WelcomeBlock from "@components/WelcomeBlock";
 import { type ReactElement, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import NavigationButton from "../../components/NavigationButton";
-import './style.css'
+import "./style.css";
 
 const HomePage = (): ReactElement => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const nickName = localStorage.getItem("nickName");
-    if (!nickName) {
-      navigate("/registration");
-    }
-  }, [navigate]);
+    const nickNameChecker = () => {
+        const nickName = localStorage.getItem("nickName");
 
-  return (
-    <div className="home-page">
-      <header className="home-header">
-        <div className="home-title">Добрый чат</div>
-      </header>
-      <NavigationButton />
-    </div>
-  );
+        if (!nickName) {
+            navigate("/registration");
+        }
+
+        return;
+    };
+
+    useEffect(() => {
+        nickNameChecker();
+    }, []);
+
+    return (
+        <div className="home-page">
+            <IntroSlides />
+
+            <WelcomeBlock />
+        </div>
+    );
 };
 
 export default HomePage;

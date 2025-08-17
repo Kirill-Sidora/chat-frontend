@@ -1,76 +1,110 @@
-/* Общие стили для страницы регистрации */
 .registration-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  flex-direction: column;
-  gap: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #ffffff; /* Светлый фон всего чата */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark-background, #202020);
 }
 
-/* Заголовок */
-.title {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
+.heading {
+    color: var(--color-text-primary, #ffffff);
+    animation: scaleFadeIn 0.6s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.2s;
+    transform-origin: center;
+    margin-bottom: 5px;
 }
 
-/* Поле ввода */
+.subtitle {
+    color: var(--color-subtitle, rgba(255, 255, 255, 0.7));
+    animation: fadeSlideIn 0.8s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.4s;
+    margin-bottom: 60px;
+}
+
 .input-field {
-  width: 100%;
-  max-width: 300px;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
+    width: 100%;
+    max-width: 400px;
+    padding: 18px 20px;
+    margin-bottom: 15px;
+    background: var(--dark-background, #202020);
+    border: 1px solid var(--input-border-light, rgba(255, 255, 255, 0.4));
+    border-radius: 5px;
+    color: var(--input-text-color, #ffffff);
+    opacity: 0;
+    animation: fadeInDown 0.6s ease-out forwards;
+    animation-delay: 0.5s;
 }
 
-/* Кнопка отправки (сохраняем цвета из примера) */
+.input-field::placeholder {
+    color: var(--input-placeholder-color, rgba(255, 255, 255, 0.4));
+}
+
 .submit-button {
-  display: inline-block;
-  padding: 15px 30px;
-  font-size: 18px;
-  background-color: #2c3e50;
-  border-radius: 8px;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+    padding: 18px 50px;
+    background-color: var(--secondary-background-color, #3b3a3a);
+    border-radius: var(--content-radius-secondary, 8px);
+    cursor: pointer;
+    border: none;
+    box-shadow: var(--chat-shadow, 0 2px 5px rgba(0, 0, 0, 0.2));
+    color: var(--color-text-primary, #ffffff);
+    transition: all var(--transition-time, 0.3s) ease;
+    opacity: 0;
+    animation: fadeInDown 0.6s ease-out forwards;
+    animation-delay: 0.7s;
 }
 
 .submit-button:hover {
-    color: rgba(149, 149, 149, 0.8);
-    /* Белый с небольшой прозрачностью (темнее) */
-    background-color: #2c3e50;
+    background-color: var(--inactive-background-color, #060606);
+    box-shadow: var(--button-hover-shadow, 0 6px 12px rgba(0, 0, 0, 0.3));
 }
 
-.reg-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-color: #2c3e50;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 100;
+.submit-button:active {
+    transform: scale(0.97);
+    box-shadow: var(--button-active-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-.reg-title {
-  font-size: 25px;
-  flex: 1;
-  text-align: center;
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
