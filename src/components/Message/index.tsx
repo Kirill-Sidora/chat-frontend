@@ -179,13 +179,19 @@ const ClientMessage = ({ message }: IClientMessageProps): ReactElement => {
 
     return (
         <div
-            className={`message ${!message.isMine ? "other" : "mine"} ${
-                message.type
-            }`}
+            className={`message-container ${message.isMine ? "mine" : "other"}`}
         >
-            {!message.isMine && <div className="sender">{message.sender}</div>}
+            <div
+                className={`message ${!message.isMine ? "other" : "mine"} ${
+                    message.type
+                }`}
+            >
+                {!message.isMine && (
+                    <div className="sender">{message.sender}</div>
+                )}
 
-            <CurrentMessageElement message={message} />
+                <CurrentMessageElement message={message} />
+            </div>
             {message.isMine && !isDefaultAvatar && (
                 <div className="message-avatar">
                     <Avatar />
